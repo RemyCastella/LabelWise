@@ -77,3 +77,4 @@ end
 # Custom Added
 
 gem "ostruct"
+gem "faker"
