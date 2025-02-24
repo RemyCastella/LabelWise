@@ -24,7 +24,7 @@ User.create!({
   vegan: true
 })
 
-puts "...created #{User.last.first_name}'s profile"
+puts "...created #{User.first.first_name}'s profile"
 
 puts "Creating 5 vegan food"
 
@@ -78,7 +78,7 @@ puts "...created #{Food.count} foods"
 puts "Creating 5 scans"
 
 Food.all.each do |food|
-  Scan.create!(user: User.last, food: food)
+  Scan.create!(user: User.first, food: food)
 end
 
 puts "...created #{Scan.count} scans"
@@ -87,7 +87,7 @@ puts "Creating 5 portions"
 
 5.times do
   Portion.create!(
-    user: User.last,
+    user: User.first,
     food: Food.all.sample,
     portion_size: rand(1..5)
   )
