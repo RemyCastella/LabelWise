@@ -5,4 +5,5 @@ class Food < ApplicationRecord
 
   # Validations
   validates :name, presence: true
+  acts_as_favoritable
 end
