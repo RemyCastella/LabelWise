@@ -78,3 +78,5 @@ end
 
 gem "ostruct"
 gem "faker"
+gem "dotenv-rails"
+gem "cloudinary"
