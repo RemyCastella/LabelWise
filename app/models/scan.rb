@@ -3,6 +3,7 @@ require "json"
 class Scan < ApplicationRecord
   belongs_to :user
   belongs_to :food
+  before_create :content
 
   has_one_attached :photo
 
@@ -27,7 +28,15 @@ class Scan < ApplicationRecord
       max_tokens: 300
     })
     content = result.dig("choices", 0, "message", "content")
-    return JSON.parse(content)
+    data = JSON.parse(content)
+    previous_food = Food.find_by(name: data["name"])
+    if previous_food.nil?
+      new_food = Food.create(data)
+      self.food = new_food
+    else
+      self.food = previous_food
+    end
+    self.save
   end
 
   private
