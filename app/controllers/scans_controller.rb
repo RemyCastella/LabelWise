@@ -2,8 +2,11 @@ class ScansController < ApplicationController
   def create
     @scan = Scan.new(scan_params)
     @scan.user = current_user
-    @scan.save
-    debugger
+    if @scan.save
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
   end
 
   def scan_params

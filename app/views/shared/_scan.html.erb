@@ -1,7 +1,13 @@
-<div data-controller="camera">
+<%# <div data-controller="camera">
   <video data-camera-target="video" autoplay></video>
   <canvas data-camera-target="canvas" width="300" height="300" style="display:none;"></canvas>
 
   <button data-action="click->camera#capture">Capture</button>
   <button data-camera-target="uploadButton" data-action="click->camera#upload" disabled>Upload</button>
+</div> %>
+<div class="container">
+  <%= simple_form_for(Scan.new) do |f| %>
+    <%= f.input :photo %>
+    <%= f.submit %>
+  <% end %>
 </div>
