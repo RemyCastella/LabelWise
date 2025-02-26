@@ -1,66 +1,93 @@
-<%# USE THESE COMPONENTS IN YOUR PAGES TO MAINTAIN CONSISTENCY %>
-<%# SCROLL BELOW TO UNDERSTAND HOW TO USE IN YOUR VIEWS %>
+<!-- USE TO DESIGN YOUR PAGES-->
 
-<%# ✅ Card Component %>
-<%# Usage: render "shared/ui_components", card: { title: "Card Title", text: "Card content here.", icon: "fas fa-info-circle" } %>
-<% if local_assigns[:card] %>
-  <div class="card shadow-sm mb-3">
-    <div class="card-body text-center">
-      <% if card[:icon] %>
-        <i class="<%= card[:icon] %> fa-2x mb-2 text-primary"></i>
-      <% end %>
-      <h5 class="card-title"><%= card[:title] %></h5>
-      <p class="card-text"><%= card[:text] %></p>
-    </div>
-  </div>
-<% end %>
-
-<%# ✅ Button Component %>
-<%# Usage: render "shared/ui_components", button: { text: "Click Me", path: root_path, style: "btn-primary" } %>
-<% if local_assigns[:button] %>
-  <%= link_to button[:text], button[:path], class: "btn <%= button[:style] || 'btn-secondary' %> btn-lg w-100 my-2" %>
-<% end %>
-
-<%# ✅ Alert Component %>
-<%# Usage: render "shared/ui_components", alert: { type: "success", message: "This is a success alert!" } %>
-<% if local_assigns[:alert] %>
-  <div class="alert alert-<%= alert[:type] || 'info' %> alert-dismissible fade show" role="alert">
-    <%= alert[:message] %>
+<!-- Alert Component -->
+<% if flash[:notice] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 <% end %>
 
-<%# ✅ Modal Component %>
-<%# Usage: render "shared/ui_components", modal: { id: "exampleModal", title: "Example Modal", body: "This is a modal example.", button_text: "Confirm" } %>
-<% if local_assigns[:modal] %>
-  <div class="modal fade" id="<%= modal[:id] %>" tabindex="-1" aria-labelledby="<%= modal[:id] %>Label" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="<%= modal[:id] %>Label"><%= modal[:title] %></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <%= modal[:body] %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary"><%= modal[:button_text] %></button>
-        </div>
-      </div>
-    </div>
+<% if flash[:alert] %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:alert] %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
 <% end %>
 
-<%# VIEWS %>
-<%# <%= render "shared/ui_components", card: { title: "Scan Now", text: "Find out what's in your food.", icon: "fas fa-barcode" } %>
-<%#<%= render "shared/ui_components", button: { text: "Start Scanning", path: scan_path, style: "btn-success" } %>
-<%#<%= render "shared/ui_components", alert: { type: "warning", message: "Scanning not available offline!" } %>
-<%#<%= render "shared/ui_components", modal: { id: "deleteConfirm", title: "Are you sure?", body: "This action cannot be undone.", button_text: "Delete" } %>
-<%#<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirm">
-  Open Modal
-<%#</button>
+<!-- Card Component -->
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title"><%= title %></h5>
+    <p class="card-text"><%= content %></p>
+    <%= link_to "Learn More", link_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<!-- Button Variations -->
+<%= link_to "Primary Button", "#", class: "btn btn-primary" %>
+<%= link_to "Secondary Button", "#", class: "btn btn-secondary" %>
+<%= link_to "Danger Button", "#", class: "btn btn-danger" %>
+
+<!-- Input Field with Label -->
+<div class="form-group">
+  <%= label_tag :email, "Email Address" %>
+  <%= text_field_tag :email, nil, class: "form-control", placeholder: "Enter your email" %>
+</div>
+
+<!-- Checkbox / Toggle -->
+<div class="form-check">
+  <%= check_box_tag :vegetarian, "1", false, class: "form-check-input" %>
+  <%= label_tag :vegetarian, "Vegetarian", class: "form-check-label" %>
+</div>
+
+<!-- Navbar (Fixed Bottom) -->
+<nav class="navbar fixed-bottom navbar-light bg-light border-top">
+  <div class="container d-flex justify-content-around">
+    <%= link_to root_path, class: "nav-link text-center" do %>
+      <i class="fas fa-home fa-lg"></i>
+    <% end %>
+    <%= link_to scan_path, class: "nav-link text-center" do %>
+      <i class="fas fa-camera fa-lg"></i>
+    <% end %>
+    <%= link_to favorites_path, class: "nav-link text-center" do %>
+      <i class="fas fa-star fa-lg"></i>
+    <% end %>
+    <%= link_to profile_path, class: "nav-link text-center" do %>
+      <i class="fas fa-user fa-lg"></i>
+    <% end %>
+  </div>
+</nav>
+
+<!-- Profile Avatar Component -->
+<div class="text-center">
+  <% if current_user.avatar.attached? %>
+    <%= image_tag current_user.avatar, class: "rounded-circle img-thumbnail", width: 100, height: 100 %>
+  <% else %>
+    <i class="fas fa-user-circle fa-5x text-muted"></i>
+  <% end %>
+</div>
+
+<!-- Modal (Popup) -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Food Information</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Nutritional details will be displayed here.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
