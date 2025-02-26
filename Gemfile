@@ -83,5 +83,3 @@ gem 'acts_as_favoritor', github: 'jonhue/acts_as_favoritor'
 
 gem "cloudinary"
 gem "ruby-openai"
-
-gem "tailwindcss-rails", "~> 4.1"
