@@ -34,6 +34,10 @@
     </ul>
   </div>
 
+  <% if @food.high_fat? %>
+    <li>High in fat</li>
+  <% end %>
+
   <%= pie_chart(@nutrition) %>
 
   <%= link_to "see more", food_path(@food) %>
