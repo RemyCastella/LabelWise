@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   resources :users, only: [:update]
   get "favorite/:id", to: "foods#favorite", as: :favorite
   get "unfavorite/:id", to: "foods#unfavorite", as: :unfavorite
+  get "/profile", to: "users#profile", as: :profile
+
 end

@@ -1,0 +1,93 @@
+<div class="container mt-4">
+  <h2 class="text-center">Profile Settings</h2>
+
+  <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, "Full Name", class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :email, "Email Address", class: "form-label" %>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :avatar, "Profile Picture", class: "form-label" %>
+      <%= f.file_field :avatar, class: "form-control" %>
+    </div>
+
+    <h4 class="mt-4">Dietary Preferences</h4>
+
+    <div class="mb-3">
+      <%= f.label :calories, "Calories (kcal)", class: "form-label" %>
+      <%= f.number_field :calories, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :protein, "Protein (g)", class: "form-label" %>
+      <%= f.number_field :protein, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :carbohydrates, "Carbohydrates (g)", class: "form-label" %>
+      <%= f.number_field :carbohydrates, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :fat, "Fat (g)", class: "form-label" %>
+      <%= f.number_field :fat, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :sodium, "Sodium (mg)", class: "form-label" %>
+      <%= f.number_field :sodium, class: "form-control" %>
+    </div>
+
+    <h4 class="mt-4">Dietary Restrictions</h4>
+
+    <div class="form-check">
+      <%= f.check_box :vegetarian, class: "form-check-input" %>
+      <%= f.label :vegetarian, "Vegetarian", class: "form-check-label" %>
+    </div>
+
+    <div class="form-check mb-4">
+      <%= f.check_box :vegan, class: "form-check-input" %>
+      <%= f.label :vegan, "Vegan", class: "form-check-label" %>
+    </div>
+
+    <div class="form-check">
+      <%= f.check_box :keto, class: "form-check-input" %>
+      <%= f.label :keto, "Keto", class: "form-check-label" %>
+    </div>
+
+    <div class="form-check">
+      <%= f.check_box :pork, class: "form-check-input" %>
+      <%= f.label :pork, "Avoid Pork", class: "form-check-label" %>
+    </div>
+
+    <div class="form-check">
+      <%= f.check_box :beef, class: "form-check-input" %>
+      <%= f.label :beef, "Avoid Beef", class: "form-check-label" %>
+    </div>
+
+    <div class="form-check">
+      <%= f.check_box :gluten, class: "form-check-input" %>
+      <%= f.label :gluten, "Gluten-Free", class: "form-check-label" %>
+    </div>
+
+    <div class="form-check">
+      <%= f.check_box :lactose, class: "form-check-input" %>
+      <%= f.label :lactose, "Lactose-Free", class: "form-check-label" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :other_ingredients, "Other Ingredients to Avoid (comma-separated)", class: "form-label" %>
+      <%= f.text_field :other_ingredients, class: "form-control" %>
+    </div>
+
+    <div class="d-grid gap-2 mt-4">
+      <%= f.submit "Update Profile", class: "btn btn-primary w-100" %>
+    </div>
+  <% end %>
+</div>
