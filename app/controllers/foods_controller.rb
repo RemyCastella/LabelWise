@@ -3,6 +3,11 @@ class FoodsController < ApplicationController
     @food = Food.find(params[:id])
     @user = current_user
     @scan = current_user.scans.where(food: @food)
+    @nutrition = {
+      protein: @food.protein,
+      carbohydrates: @food.carbohydrates,
+      fat: @food.fat,
+    }
   end
 
   def favorite

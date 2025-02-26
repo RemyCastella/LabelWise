@@ -3,4 +3,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
-import "@fontawesome/fontawesome-free/css/all.css";
+import "chartkick"
+import "Chart.bundle"
+

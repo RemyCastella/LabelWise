@@ -13,8 +13,10 @@ Rails.application.routes.draw do
   resources :scans, only: [:index, :show, :create]
   resources :foods, only: [:show, :create]
   resources :users, only: [:update]
-  get "favorite/:id", to: "foods#favorite", as: :favorite
-  get "unfavorite/:id", to: "foods#unfavorite", as: :unfavorite
+
+  post "favorite/:id", to: "foods#favorite", as: :favorite
+  delete "unfavorite/:id", to: "foods#unfavorite", as: :unfavorite
+  
   get "/profile", to: "users#profile", as: :profile
 
 end
