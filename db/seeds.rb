@@ -83,6 +83,17 @@ end
 
 puts "...created #{Scan.count} scans"
 
+puts "Attaching photo to first scan"
+
+scan = Scan.first
+scan.photo.attach(
+  io: File.open(Rails.root.join("app/assets/images/nutrilabel3.png")),
+  filename: "nutrilabel3.png",
+  content_type: "image/png"
+)
+
+puts "...attached photo #{scan.photo.key} to first scan"
+
 puts "Creating 5 portions"
 
 5.times do

@@ -24,7 +24,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
+# gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
@@ -78,5 +78,10 @@ end
 
 gem "ostruct"
 gem "faker"
+
 gem 'acts_as_favoritor', github: 'jonhue/acts_as_favoritor'
 gem "chartkick"
+
+gem "dotenv-rails"
+gem "cloudinary"
+gem "ruby-openai"

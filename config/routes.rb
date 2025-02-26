@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
-  resources :scans, only: [:create]
+  get "/dashboard", to: "pages#dashboard", as: :dashboard
+  resources :scans, only: [:index, :show, :create]
   resources :foods, only: [:show, :create]
   resources :users, only: [:update]
   post "favorite/:id", to: "foods#favorite", as: :favorite

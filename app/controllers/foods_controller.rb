@@ -1,5 +1,4 @@
 class FoodsController < ApplicationController
-
   def show
     @food = Food.find(params[:id])
     @user = current_user
@@ -22,5 +21,4 @@ class FoodsController < ApplicationController
     current_user.unfavorite(@food)
     redirect_to food_path(@food)
   end
-
 end
