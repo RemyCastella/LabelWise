@@ -75,24 +75,24 @@ Food.create!({
 
 puts "...created #{Food.count} foods"
 
-puts "Creating 5 scans"
+# puts "Creating 5 scans"
 
-Food.all.each do |food|
-  Scan.create!(user: User.first, food: food)
-end
+# Food.all.each do |food|
+#   Scan.create!(user: User.first, food: food)
+# end
 
-puts "...created #{Scan.count} scans"
+# puts "...created #{Scan.count} scans"
 
-puts "Attaching photo to first scan"
+# puts "Attaching photo to first scan"
 
-scan = Scan.first
-scan.photo.attach(
-  io: File.open(Rails.root.join("app/assets/images/nutrilabel3.png")),
-  filename: "nutrilabel3.png",
-  content_type: "image/png"
-)
+# scan = Scan.first
+# scan.photo.attach(
+#   io: File.open(Rails.root.join("app/assets/images/nutrilabel3.png")),
+#   filename: "nutrilabel3.png",
+#   content_type: "image/png"
+# )
 
-puts "...attached photo #{scan.photo.key} to first scan"
+# puts "...attached photo #{scan.photo.key} to first scan"
 
 puts "Creating 5 portions"
 

@@ -1,1 +1,18 @@
+
+<div class="container p-5">
+  <h1 class="text-center">Macro's</h1>
+
+  <div>
+    <h2>Today's intake</h2>
+    <div class="chart">
+      <%= pie_chart (@total_nutrition), donut: true %>
+      <p>Protein: <%= @total_nutrition[:protein] %>g</p>
+      <p>Fat: <%= @total_nutrition[:fat] %>g</p>
+      <p>Carbohydrates: <%= @total_nutrition[:carbohydrates] %>g</p>
+      <p>Calories: <%= @total_cal %> kcal</p>
+    </div>
+  </div>
+</div>
+
 <%= render "shared/scan" %>
+

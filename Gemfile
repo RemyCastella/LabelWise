@@ -84,3 +84,4 @@ gem "chartkick"
 
 gem "cloudinary"
 gem "ruby-openai"
+gem 'chartkick'
