@@ -1,12 +1,11 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background: white;
+.navbar {
+  height: 60px; /* Adjust if needed */
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+.nav-link {
+  color: #717b83; /* Default Bootstrap gray */
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.nav-link:hover {
+  color: #1e5c04; /* Bootstrap primary blue */
 }

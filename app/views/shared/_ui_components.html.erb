@@ -1,0 +1,66 @@
+<%# USE THESE COMPONENTS IN YOUR PAGES TO MAINTAIN CONSISTENCY %>
+<%# SCROLL BELOW TO UNDERSTAND HOW TO USE IN YOUR VIEWS %>
+
+<%# ✅ Card Component %>
+<%# Usage: render "shared/ui_components", card: { title: "Card Title", text: "Card content here.", icon: "fas fa-info-circle" } %>
+<% if local_assigns[:card] %>
+  <div class="card shadow-sm mb-3">
+    <div class="card-body text-center">
+      <% if card[:icon] %>
+        <i class="<%= card[:icon] %> fa-2x mb-2 text-primary"></i>
+      <% end %>
+      <h5 class="card-title"><%= card[:title] %></h5>
+      <p class="card-text"><%= card[:text] %></p>
+    </div>
+  </div>
+<% end %>
+
+<%# ✅ Button Component %>
+<%# Usage: render "shared/ui_components", button: { text: "Click Me", path: root_path, style: "btn-primary" } %>
+<% if local_assigns[:button] %>
+  <%= link_to button[:text], button[:path], class: "btn <%= button[:style] || 'btn-secondary' %> btn-lg w-100 my-2" %>
+<% end %>
+
+<%# ✅ Alert Component %>
+<%# Usage: render "shared/ui_components", alert: { type: "success", message: "This is a success alert!" } %>
+<% if local_assigns[:alert] %>
+  <div class="alert alert-<%= alert[:type] || 'info' %> alert-dismissible fade show" role="alert">
+    <%= alert[:message] %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+
+<%# ✅ Modal Component %>
+<%# Usage: render "shared/ui_components", modal: { id: "exampleModal", title: "Example Modal", body: "This is a modal example.", button_text: "Confirm" } %>
+<% if local_assigns[:modal] %>
+  <div class="modal fade" id="<%= modal[:id] %>" tabindex="-1" aria-labelledby="<%= modal[:id] %>Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="<%= modal[:id] %>Label"><%= modal[:title] %></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <%= modal[:body] %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"><%= modal[:button_text] %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%# VIEWS %>
+<%# <%= render "shared/ui_components", card: { title: "Scan Now", text: "Find out what's in your food.", icon: "fas fa-barcode" } %>
+<%#<%= render "shared/ui_components", button: { text: "Start Scanning", path: scan_path, style: "btn-success" } %>
+<%#<%= render "shared/ui_components", alert: { type: "warning", message: "Scanning not available offline!" } %>
+<%#<%= render "shared/ui_components", modal: { id: "deleteConfirm", title: "Are you sure?", body: "This action cannot be undone.", button_text: "Delete" } %>
+<%#<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirm">
+  Open Modal
+<%#</button>
