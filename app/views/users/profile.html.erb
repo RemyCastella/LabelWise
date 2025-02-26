@@ -1,0 +1,117 @@
+<div class="container mt-4">
+  <h2 class="text-center fw-bold">Update Your Dietary Preferences</h2>
+  <p class="text-muted text-center">Customize your meal plan based on your dietary needs.</p>
+
+  <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
+
+    <!-- Name Section -->
+    <div class="row mb-3">
+      <div class="col-6">
+        <%= f.label :first_name, "First Name", class: "form-label" %>
+        <%= f.text_field :first_name, class: "form-control", placeholder: "Enter first name" %>
+      </div>
+      <div class="col-6">
+        <%= f.label :last_name, "Last Name", class: "form-label" %>
+        <%= f.text_field :last_name, class: "form-control", placeholder: "Enter last name" %>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+      <%= f.label :email, "Email Address", class: "form-label" %>
+      <%= f.email_field :email, class: "form-control", value: "", placeholder: "Enter your email" %>
+    </div>
+
+    <!-- Dietary Preferences -->
+    <h4 class="mt-4">Dietary Preferences</h4>
+
+    <div class="row">
+      <div class="col-6">
+        <%= f.label :calories, "Calories (kcal)", class: "form-label" %>
+        <%= f.number_field :calories, class: "form-control", placeholder: "e.g. 2000" %>
+      </div>
+      <div class="col-6">
+        <%= f.label :protein, "Protein (g)", class: "form-label" %>
+        <%= f.number_field :protein, class: "form-control", placeholder: "e.g. 50" %>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-6">
+        <%= f.label :carbohydrates, "Carbohydrates (g)", class: "form-label" %>
+        <%= f.number_field :carbohydrates, class: "form-control", placeholder: "e.g. 250" %>
+      </div>
+      <div class="col-6">
+        <%= f.label :fat, "Fat (g)", class: "form-label" %>
+        <%= f.number_field :fat, class: "form-control", placeholder: "e.g. 70" %>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <%= f.label :sodium, "Sodium (mg)", class: "form-label" %>
+      <%= f.number_field :sodium, class: "form-control", placeholder: "e.g. 1500" %>
+    </div>
+
+    <!-- Dietary Restrictions -->
+    <h4 class="mt-4">Dietary Restrictions</h4>
+
+    <div class="d-flex flex-wrap">
+      <div class="form-check me-3">
+        <%= f.check_box :vegetarian, class: "form-check-input" %>
+        <%= f.label :vegetarian, "Vegetarian", class: "form-check-label" %>
+      </div>
+
+      <div class="form-check me-3">
+        <%= f.check_box :vegan, class: "form-check-input" %>
+        <%= f.label :vegan, "Vegan", class: "form-check-label" %>
+      </div>
+
+      <div class="form-check me-3">
+        <%= f.check_box :keto, class: "form-check-input" %>
+        <%= f.label :keto, "Keto", class: "form-check-label" %>
+      </div>
+
+      <div class="form-check me-3">
+        <%= f.check_box :pork, class: "form-check-input" %>
+        <%= f.label :pork, "Avoid Pork", class: "form-check-label" %>
+      </div>
+
+      <div class="form-check me-3">
+        <%= f.check_box :beef, class: "form-check-input" %>
+        <%= f.label :beef, "Avoid Beef", class: "form-check-label" %>
+      </div>
+
+      <div class="form-check me-3">
+        <%= f.check_box :gluten, class: "form-check-input" %>
+        <%= f.label :gluten, "Gluten-Free", class: "form-check-label" %>
+      </div>
+
+      <div class="form-check me-3">
+        <%= f.check_box :lactose, class: "form-check-input" %>
+        <%= f.label :lactose, "Lactose-Free", class: "form-check-label" %>
+      </div>
+    </div>
+
+    <!-- Allergens Selection -->
+    <div class="mt-4">
+      <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
+      <%= f.select :common_allergens,
+            ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
+            {},
+            { multiple: true, class: "form-select" } %>
+      <small class="form-text text-muted">Tap to select multiple items.</small>
+    </div>
+
+    <!-- Other Ingredients -->
+    <div class="mb-3 mt-3">
+      <%= f.label :other_ingredients, "Other Ingredients to Avoid (if not listed above)", class: "form-label" %>
+      <%= f.text_field :other_ingredients, class: "form-control", placeholder: "e.g. Mushrooms, Coconut" %>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-grid gap-2 mt-4">
+      <%= f.submit "Update Profile", class: "btn btn-primary w-100" %>
+    </div>
+
+  <% end %>
+</div>

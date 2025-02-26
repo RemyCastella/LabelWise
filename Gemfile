@@ -80,7 +80,7 @@ gem "ostruct"
 gem "faker"
 
 gem 'acts_as_favoritor', github: 'jonhue/acts_as_favoritor'
+gem "chartkick"
 
-gem "dotenv-rails"
 gem "cloudinary"
 gem "ruby-openai"

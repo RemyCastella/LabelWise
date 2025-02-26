@@ -1,60 +1,93 @@
-<div class= "food-container">
-  <div class=food-label>
-    <%= @scan.photo.attached? ? cl_image_tag(@scan.photo.key) : "" %>
+<div class="food-container">
+  <div class="food-label">
+    <%#= @scan.photo.attached? ? cl_image_tag(@scan.photo.key) : "" %>
   </div>
-
   <div class="food-details">
     <h2><%= @food.name %></h2>
-    <p><%= @food.calories %></p>
-    <p><%= @food.protein %></p>
-    <p><%= @food.carbohydrates %></p>
-    <p><%= @food.fat %></p>
-
-    <h2>Dietary Information</h2>
     <ul>
       <% if @user.vegetarian %>
-        <li>Vegetarian: <%= @food.vegetarian ? "yes" : "no" %></li>
+        <li>Vegetarian:
+          <% if @food.vegetarian %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% else %>
+            <i class="fa-regular fa-thumbs-down"></i>
+          <% end %>
+        </li>
       <% end %>
-
       <% if @user.vegan %>
-        <li>Vegan: <%= @food.vegan ? "yes" : "no" %></li>
+        <li>Vegan:
+          <% if @food.vegan %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% else %>
+            <i class="fa-regular fa-thumbs-down"></i>
+          <% end %>
+        </li>
       <% end %>
-
       <% if @user.keto %>
-        <li>Keto: <%= @food.keto ? "yes" : "no" %></li>
+        <li>Keto:
+          <% if @food.keto %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% else %>
+            <i class="fa-regular fa-thumbs-down"></i>
+          <% end %>
+        </li>
       <% end %>
-
       <% if @user.pork %>
-        <li>Pork-Free: <%= @food.pork ? "yes" : "no" %></li>
+        <li>Pork-Free:
+          <% if @food.pork %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% else %>
+            <i class="fa-regular fa-thumbs-down"></i>
+          <% end %>
+        </li>
       <% end %>
-
       <% if @user.beef %>
-        <li>Beef-Free: <%= @food.beef ? "yes" : "no" %></li>
+        <li>Beef-Free:
+          <% if @food.beef %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% else %>
+            <i class="fa-regular fa-thumbs-down"></i>
+          <% end %>
+        </li>
       <% end %>
-
       <% if @user.gluten %>
-        <li>Gluten-Free: <%= @food.gluten ? "yes" : "no" %></li>
+        <li>Gluten-Free:
+          <% if @food.gluten %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% else %>
+            <i class="fa-regular fa-thumbs-down"></i>
+          <% end %>
+        </li>
       <% end %>
-
       <% if @user.lactose %>
-        <li>Lactose-Free: <%= @food.lactose ? "yes" : "no" %></li>
+        <li>Lactose-Free:
+          <% if @food.lactose %>
+            <i class="fa-regular fa-thumbs-up"></i>
+          <% else %>
+            <i class="fa-regular fa-thumbs-down"></i>
+          <% end %>
+        </li>
+      <% end %>
+      <% if @food.high_fat? %>
+        <li>High in fat <i class="fa-solid fa-exclamation"></i></li>
+      <% end %>
+      <% if @food.high_protein? %>
+        <li>High in protein <i class="fa-solid fa-exclamation"></i></li>
+      <% end %>
+      <% if @food.high_carbohydrates? %>
+        <li>High in carbohydrates <i class="fa-solid fa-exclamation"></i></li>
       <% end %>
     </ul>
-
-  </div>
-
-  <div class="nutrition-chart">
   </div>
 
   <%= link_to "see more", food_path(@food) %>
   <% if current_user.favorited?(@food) %>
-    <%= link_to unfavorite_path(@food) do %>
-    <i class="fa-solid fa-star"></i>
+    <%= form_with url: unfavorite_path(@food), method: "delete" do %>
+      <button><i class="fa-solid fa-star"></i></button>
     <% end %>
   <% else %>
-    <%= link_to favorite_path(@food) do %>
-    <i class="fa-regular fa-star"></i>
+    <%= form_with url: favorite_path(@food) do %>
+      <button><i class="fa-regular fa-star"></i></button>
     <% end %>
   <% end %>
-
 </div>
