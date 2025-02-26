@@ -2,7 +2,7 @@ class FoodsController < ApplicationController
   def show
     @food = Food.find(params[:id])
     @user = current_user
-    @scan = current_user.scans.where(food: @food)
+    @scan = current_user.scans.find_by(food: @food)
   end
 
   def favorite
