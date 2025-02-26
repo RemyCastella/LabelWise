@@ -5,7 +5,6 @@ export default class extends Controller {
 
   connect() {
     this.startCamera();
-    console.log("camera_controller");
   }
 
   startCamera() {
@@ -40,7 +39,7 @@ export default class extends Controller {
     const blob = await file.blob();
 
     const formData = new FormData();
-    formData.append("scan[photo]", blob, "snapshot.jpg");
+    formData.append("scan[photo]", blob, "snapshot.jpeg");
 
     fetch("/scans", {
       method: "POST",

@@ -2,12 +2,13 @@ require "json"
 
 class Scan < ApplicationRecord
   belongs_to :user
-  belongs_to :food
-  before_create :content
+  belongs_to :food, optional: true
+  after_update_commit :set_food
 
   has_one_attached :photo
 
-  def content
+  def set_food
+    return unless food.nil?
     client = OpenAI::Client.new
     result = client.chat(parameters: {
       model: "gpt-4o-mini",
@@ -19,7 +20,7 @@ class Scan < ApplicationRecord
             {
               type: "image_url",
               image_url: {
-                url: photo.url.to_s
+                url: self.photo.url.to_s
               }
             }
           ]
@@ -29,13 +30,8 @@ class Scan < ApplicationRecord
     })
     content = result.dig("choices", 0, "message", "content")
     data = JSON.parse(content)
-    previous_food = Food.find_by(name: data["name"])
-    if previous_food.nil?
-      new_food = Food.create(data)
-      self.food = new_food
-    else
-      self.food = previous_food
-    end
+    food = Food.create(data)
+    self.food = food
     self.save
   end
 
