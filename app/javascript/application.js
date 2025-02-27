@@ -6,6 +6,7 @@ import "bootstrap"
 import "chartkick"
 import "Chart.bundle"
 
+<<<<<<< HEAD
 document.addEventListener("DOMContentLoaded", function () {
   const modal = document.getElementById("food-details-modal");
   const openLink = document.getElementById("see-more-link");
@@ -27,3 +28,5 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 });
+=======
+>>>>>>> f9c34966dc1df83331ef7437eca6a6830a01e984
