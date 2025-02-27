@@ -11,12 +11,13 @@ $body-bg: #f8f9fa;
 $font-size-base: 1rem;
 
 // Colors
-$body-color: #212529;
-$primary: #007bff;
-$success: $green;
-$info: #17a2b8; // Updated for better contrast
-$danger: $red;
-$warning: $orange;
+$body-color: $gray;
+$primary:    #16a34a;
+$success:    $green;
+$info:       #17a2b8;
+$danger:     $red;
+$warning:    $orange;
+
 
 // Buttons & inputs' radius
 $border-radius-sm: .125rem;

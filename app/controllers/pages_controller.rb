@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def dashboard
+    @user = current_user
     @portions = Portion.all
     # @portion = Portion.first
     # @user = current_user

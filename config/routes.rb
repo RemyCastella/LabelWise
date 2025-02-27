@@ -20,8 +20,10 @@ Rails.application.routes.draw do
 
   post "favorite/:id", to: "foods#favorite", as: :favorite
   delete "unfavorite/:id", to: "foods#unfavorite", as: :unfavorite
-  
   get "/profile", to: "users#profile", as: :profile
+<<<<<<< HEAD
+=======
   patch '/profile', to: 'users#update'
 
+>>>>>>> 8208f61ca7e2357bbcf9dd80ecf1b94b0239ba4e
 end

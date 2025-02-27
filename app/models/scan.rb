@@ -33,6 +33,14 @@ class Scan < ApplicationRecord
     food = Food.create(data)
     self.food = food
     self.save
+    broadcast_info
+  end
+
+  def broadcast_info
+    broadcast_replace_to "info_#{id}",
+      partial: "scans/scan",
+      target: "scan_#{id}_food",
+      locals: { food: food, user: user}
   end
 
   private

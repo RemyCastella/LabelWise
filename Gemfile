@@ -85,3 +85,4 @@ gem "chartkick"
 gem "cloudinary"
 gem "ruby-openai"
 gem 'chartkick'
+gem "solid_cable"

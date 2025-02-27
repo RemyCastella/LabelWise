@@ -1,19 +1,19 @@
 class ScansController < ApplicationController
+
+  def index
+    @scans = Scan.where(user: current_user).order(updated_at: :desc)
+    @user = current_user
+  end
+
   def show
     @scan = Scan.find(params[:id])
-
-    if @scan.food
-      redirect_to food_path(@scan.food)
-    else
-      render :loading
-    end
   end
 
   def create
     @scan = Scan.new(scan_params)
     @scan.user = current_user
     if @scan.save
-      redirect_to scan_path(@scan)
+      redirect_to @scan
     else
       redirect_to root_path
     end
