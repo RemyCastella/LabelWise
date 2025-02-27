@@ -6,7 +6,7 @@ export default class extends Controller {
     console.log("camera connected")
   }
 
-  submit() {
+  send() {
     this.element.submit()
   }
 }

@@ -7,7 +7,7 @@ class Food < ApplicationRecord
   validates :name, presence: true
   acts_as_favoritable
 
-  after_create_commit -> { broadcast_replace_to "food_#{id}", target: "food_details", partial: "foods/food", locals: { food: self } }
+  # after_create_commit -> { broadcast_replace_to "food_#{id}", target: "food_details", partial: "foods/food", locals: { food: self } }
 
   def high_fat?
     30 > (fat / (carbohydrates + fat + protein) * 100)

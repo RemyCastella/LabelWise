@@ -8,6 +8,6 @@
 <%= simple_form_for(Scan.new, html: { data: { controller: "camera"} }) do |f| %>
   <label for="scan_photo" class="d-flex align-items-center nav-link">
     <i class="fas fa-camera fa-lg"></i>
-    <%= f.input :photo, label: false, input_html: {class: "d-none", data: { action: "input->camera#submit"} }%>
+    <%= f.input :photo, label: false, input_html: {class: "d-none", data: { action: "input->camera#send"} }%>
   </label>
 <% end %>

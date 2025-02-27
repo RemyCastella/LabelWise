@@ -8,10 +8,6 @@ class FoodsController < ApplicationController
       carbohydrates: @food.carbohydrates,
       fat: @food.fat
     }
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
   end
 
   def favorite
