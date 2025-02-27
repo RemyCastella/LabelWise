@@ -1,7 +1,7 @@
-<div class="container p-5">
-  <h1 class="text-center">Macro's</h1>
-  <div>
-    <h2>Today's intake</h2>
+<div class="container m-2">
+  <h1 class="text-center">Hello, <%= @user.first_name %></h1>
+  <div class="mt-4">
+    <h2 class="fs-5 font-weight-bold">Today</h2>
     <div class="chart">
       <%= pie_chart (@total_nutrition), donut: true %>
       <p>Protein: <%= @total_nutrition[:protein] %>g</p>
