@@ -19,7 +19,7 @@ export default class extends Controller {
 
   showStep(step) {
     this.stepTargets.forEach(target => {
-      target.classlist.toggle('hidden', target.dataset.step != step)
+      target.classList.toggle('hidden', target.dataset.step != step)
     })
   }
 }
