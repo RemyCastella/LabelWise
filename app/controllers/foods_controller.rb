@@ -13,6 +13,7 @@ class FoodsController < ApplicationController
   def favorites
     @favorited_food = current_user.all_favorites.map(&:favoritable)
   end
+
   def favorite
     @food = Food.find(params[:id])
     current_user.favorite(@food) unless current_user.favorited?(@food)
