@@ -12,11 +12,30 @@
                 required: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                 input_html: { autocomplete: "new-password" } %>
-  </div>
+    <%= f.input :first_name,
+                required: true %>
+    <%= f.input :last_name,
+                required: true %>
+    <%= f.input :gender,
+                required: true %>
+    <%= f.input :age,
+                required: true %>
+    <%= f.input :vegetarian %>
+    <%= f.input :vegan %>
+    <%= f.input :keto %>
+    <%= f.input :high_protein %>
+    <%= f.input :pork %>
+    <%= f.input :beef %>
+    <%= f.input :gluten %>
+    <%= f.input :lactose %>
+    <%= f.input :low_sodium %>
+    <%= f.input :low_fat %>
+    <%= f.input :low_carbs %>
 
   <div class="form-actions">
     <%= f.button :submit, "Sign up" %>
   </div>
 <% end %>
+
 
 <%= render "devise/shared/links" %>
