@@ -6,9 +6,12 @@ class FoodsController < ApplicationController
     @nutrition = {
       protein: @food.protein,
       carbohydrates: @food.carbohydrates,
-      fat: @food.fat,
+      fat: @food.fat
     }
-ster
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def favorite

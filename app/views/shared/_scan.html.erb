@@ -5,9 +5,9 @@
   <button data-action="click->camera#capture">Capture</button>
   <button data-camera-target="uploadButton" data-action="click->camera#upload" disabled>Upload</button>
 </div> %>
-<div class="container">
-  <%= simple_form_for(Scan.new) do |f| %>
-    <%= f.input :photo %>
-    <%= f.submit %>
-  <% end %>
-</div>
+<%= simple_form_for(Scan.new, html: { data: { controller: "camera"} }) do |f| %>
+  <label for="scan_photo" class="d-flex align-items-center nav-link">
+    <i class="fas fa-camera fa-lg"></i>
+    <%= f.input :photo, label: false, input_html: {class: "d-none", data: { action: "input->camera#submit"} }%>
+  </label>
+<% end %>
