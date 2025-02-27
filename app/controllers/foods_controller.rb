@@ -8,7 +8,6 @@ class FoodsController < ApplicationController
       carbohydrates: @food.carbohydrates,
       fat: @food.fat
     }
-ster
   end
 
   def favorites
