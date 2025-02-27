@@ -20,7 +20,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :avatar, :password, :password_confirmation,
-      :calories, :protein, :carbohydrates, :fat, :sodium,
-      :vegetarian, :vegan, :keto, :pork, :beef, :gluten, :lactose, :other_ingredients)
+      :vegetarian, :vegan, :keto, :pork, :beef, :gluten, :lactose)
+    # Removed :calories and :protein since they are not in the database
   end
+
 end

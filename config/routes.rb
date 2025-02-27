@@ -22,5 +22,6 @@ Rails.application.routes.draw do
   delete "unfavorite/:id", to: "foods#unfavorite", as: :unfavorite
   
   get "/profile", to: "users#profile", as: :profile
+  patch '/profile', to: 'users#update'
 
 end
