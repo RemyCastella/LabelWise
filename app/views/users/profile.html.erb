@@ -1,6 +1,5 @@
-<div class="container mt-4">
-  <h2 class="text-center fw-bold">Update Your Dietary Preferences</h2>
-  <p class="text-muted text-center">Customize your meal plan based on your dietary needs.</p>
+<div class="container mt-5 position-relative">
+  <h2 class="text-center mb-4">Profile Settings</h2>
 
   <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
 
@@ -53,43 +52,16 @@
     </div>
 
     <!-- Dietary Restrictions -->
-    <h4 class="mt-4">Dietary Restrictions</h4>
+    <h4 class="mt-4">Diet</h4>
 
     <div class="d-flex flex-wrap">
+    <% { vegetarian: "Vegetarian", vegan: "Vegan", keto: "Keto", pork: "Avoid Pork", beef: "Avoid Beef",
+         gluten: "Gluten-Free", lactose: "Lactose-Free", high_protein: "High Protein", low_sodium: "Low Sodium", low_fat: "Low Fat", low_carbs: "Low Carbs" }.each do |key, label| %>
       <div class="form-check me-3">
-        <%= f.check_box :vegetarian, class: "form-check-input" %>
-        <%= f.label :vegetarian, "Vegetarian", class: "form-check-label" %>
+        <%= f.check_box key, { class: "form-check-input" }, "true", "false" %>
+        <%= f.label key, label, class: "form-check-label" %>
       </div>
-
-      <div class="form-check me-3">
-        <%= f.check_box :vegan, class: "form-check-input" %>
-        <%= f.label :vegan, "Vegan", class: "form-check-label" %>
-      </div>
-
-      <div class="form-check me-3">
-        <%= f.check_box :keto, class: "form-check-input" %>
-        <%= f.label :keto, "Keto", class: "form-check-label" %>
-      </div>
-
-      <div class="form-check me-3">
-        <%= f.check_box :pork, class: "form-check-input" %>
-        <%= f.label :pork, "Avoid Pork", class: "form-check-label" %>
-      </div>
-
-      <div class="form-check me-3">
-        <%= f.check_box :beef, class: "form-check-input" %>
-        <%= f.label :beef, "Avoid Beef", class: "form-check-label" %>
-      </div>
-
-      <div class="form-check me-3">
-        <%= f.check_box :gluten, class: "form-check-input" %>
-        <%= f.label :gluten, "Gluten-Free", class: "form-check-label" %>
-      </div>
-
-      <div class="form-check me-3">
-        <%= f.check_box :lactose, class: "form-check-input" %>
-        <%= f.label :lactose, "Lactose-Free", class: "form-check-label" %>
-      </div>
+    <% end %>
     </div>
 
     <!-- Allergens Selection -->
@@ -109,9 +81,15 @@
     </div>
 
     <!-- Submit Button -->
-    <div class="d-grid gap-2 mt-4">
+    <div class="d-grid gap-2 mt-4 mb-3">
       <%= f.submit "Update Profile", class: "btn btn-primary w-100" %>
     </div>
 
   <% end %>
+
+  <!-- Log Out Button - Separated from Form -->
+  <div class="d-grid gap-2 mt-3 mb-5 position-relative">
+    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-danger w-100" %>
+  </div>
+
 </div>

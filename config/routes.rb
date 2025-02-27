@@ -16,5 +16,7 @@ Rails.application.routes.draw do
   get "favorite/:id", to: "foods#favorite", as: :favorite
   get "unfavorite/:id", to: "foods#unfavorite", as: :unfavorite
   get "/profile", to: "users#profile", as: :profile
+  patch '/profile', to: 'users#update'
+
 
 end
