@@ -89,7 +89,10 @@
 
   <!-- Log Out Button - Separated from Form -->
   <div class="d-grid gap-2 mt-3 mb-5 position-relative">
-    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-danger w-100" %>
+    <%= form_with url: destroy_user_session_path, method: :delete, class: "w-100" do %>
+    <button class="btn btn-danger w-100">Sign Out</button>
+    <% end %>
   </div>
+
 
 </div>

@@ -18,5 +18,4 @@ Rails.application.routes.draw do
   get "/profile", to: "users#profile", as: :profile
   patch '/profile', to: 'users#update'
 
-
 end
