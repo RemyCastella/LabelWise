@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   # root "posts#index"
   get "/dashboard", to: "pages#dashboard", as: :dashboard
   resources :scans, only: [:index, :show, :create]
-  resources :foods, only: [:show, :create]
+  resources :foods, only: [:show, :create] do
+    collection do
+      get :favorites
+    end
+  end
   resources :users, only: [:update]
 
   post "favorite/:id", to: "foods#favorite", as: :favorite
