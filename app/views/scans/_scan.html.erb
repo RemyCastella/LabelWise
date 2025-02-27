@@ -11,7 +11,13 @@
       <% end %>
     <% end %>
   </div>
+<<<<<<< HEAD:app/views/scans/_scan.html.erb
   <div class="card-body">
+=======
+  <div class="food-details">
+    <h2><%= @food.name %></h2>
+    <p>Clories: <%= @food.calories %>kcal</p>
+>>>>>>> 8208f61ca7e2357bbcf9dd80ecf1b94b0239ba4e:app/views/foods/show.html.erb
     <ul>
       <% if user.vegetarian %>
         <li>Vegetarian:
@@ -87,5 +93,45 @@
       <% end %>
     </ul>
   </div>
+<<<<<<< HEAD:app/views/scans/_scan.html.erb
+=======
+
+<%= link_to "See More", "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" } %>
+
+
+<div class="modal fade" id="food-details-modal" tabindex="-1" aria-labelledby="foodModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="foodModalLabel"><%= @food.name %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Ingredients:</h6>
+        <p><%= @food.other_ingredients %></p>
+
+        <h6>deatils:</h6>
+        <div id="nutrition-chart">
+          <%= pie_chart(@nutrition, donut: true) %>
+          <p>Protein: <%= @food.protein %>g</p>
+          <p>Carbohydrates: <%= @food.carbohydrates %>g</p>
+          <p>Fat: <%= @food.fat %>g</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if current_user.favorited?(@food) %>
+    <%= form_with url: unfavorite_path(@food), method: "delete" do %>
+      <button><i class="fa-solid fa-star"></i></button>
+    <% end %>
+  <% else %>
+    <%= form_with url: favorite_path(@food) do %>
+      <button><i class="fa-regular fa-star"></i></button>
+    <% end %>
+  <% end %>
+
+>>>>>>> 8208f61ca7e2357bbcf9dd80ecf1b94b0239ba4e:app/views/foods/show.html.erb
 </div>
 <%= link_to "see more", food_path(food) %>

@@ -5,24 +5,35 @@
 // 3. You can override them below!
 
 // General style
-$font-family-sans-serif: $body-font;
-$headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
-$font-size-base:         1rem;
+$body-font: 'Helvetica Neue', Arial, sans-serif;
+$headers-font: 'Poppins', sans-serif;
+$body-bg: #f8f9fa;
+$font-size-base: 1rem;
 
 // Colors
 $body-color: $gray;
 $primary:    #16a34a;
 $success:    $green;
-$info:       $yellow;
+$info:       #17a2b8;
 $danger:     $red;
 $warning:    $orange;
 
+
 // Buttons & inputs' radius
-$border-radius-sm:            .0625rem;
-$border-radius:               .125rem;
-$border-radius-lg:            .25rem;
-$border-radius-xl:            .5rem;
-$border-radius-xxl:           1rem;
+$border-radius-sm: .125rem;
+$border-radius: .25rem;
+$border-radius-lg: .5rem;
+$border-radius-xl: .75rem;
+$border-radius-xxl: 1.5rem;
 
 // Override other variables below!
+// Spacing Variables
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3
+);
