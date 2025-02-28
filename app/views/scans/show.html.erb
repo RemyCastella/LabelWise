@@ -1,7 +1,7 @@
 <div class="container min-vh-100 d-flex flex-column align-items-center">
   <%= cl_image_tag @scan.photo.key, class: "w-50" %>
   <% if @scan.food.present? %>
-    <%= render partial: "scans/scan", locals: { food: @scan.food, user: @scan.user } %>
+    <%= render partial: "scans/scan", locals: { scan: @scan } %>
   <% else %>
     <div class="mt-4" id="scan_<%= @scan.id %>_food">
       <%= turbo_stream_from "info_#{@scan.id}" %>

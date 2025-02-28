@@ -1,88 +1,88 @@
 <div class="card mt-4 food-details w-100">
   <div class="card-header d-flex gap-3">
-    <h2><%= food.name %></h2>
-    <% if user.favorited?(food) %>
-      <%= form_with url: unfavorite_path(food), method: "delete" do %>
+    <h2><%= scan.food.name %></h2>
+    <% if scan.user.favorited?(scan.food) %>
+      <%= form_with url: unfavorite_food_path(scan), method: "delete" do %>
         <button><i class="fa-solid fa-star"></i></button>
       <% end %>
     <% else %>
-      <%= form_with url: favorite_path(food) do %>
+      <%= form_with url: favorite_food_path(scan) do %>
         <button><i class="fa-regular fa-star"></i></button>
       <% end %>
     <% end %>
   </div>
   <div class="card-body">
     <ul>
-      <% if user.vegetarian %>
+      <% if scan.user.vegetarian %>
         <li>Vegetarian:
-          <% if food.vegetarian %>
+          <% if scan.food.vegetarian %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% else %>
             <i class="fa-regular fa-thumbs-down"></i>
           <% end %>
         </li>
       <% end %>
-      <% if user.vegan %>
+      <% if scan.user.vegan %>
         <li>Vegan:
-          <% if food.vegan %>
+          <% if scan.food.vegan %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% else %>
             <i class="fa-regular fa-thumbs-down"></i>
           <% end %>
         </li>
       <% end %>
-      <% if user.keto %>
+      <% if scan.user.keto %>
         <li>Keto:
-          <% if food.keto %>
+          <% if scan.food.keto %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% else %>
             <i class="fa-regular fa-thumbs-down"></i>
           <% end %>
         </li>
       <% end %>
-      <% if user.pork %>
+      <% if scan.user.pork %>
         <li>Pork-Free:
-          <% if food.pork %>
+          <% if scan.food.pork %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% else %>
             <i class="fa-regular fa-thumbs-down"></i>
           <% end %>
         </li>
       <% end %>
-      <% if user.beef %>
+      <% if scan.user.beef %>
         <li>Beef-Free:
-          <% if food.beef %>
+          <% if scan.food.beef %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% else %>
             <i class="fa-regular fa-thumbs-down"></i>
           <% end %>
         </li>
       <% end %>
-      <% if user.gluten %>
+      <% if scan.user.gluten %>
         <li>Gluten-Free:
-          <% if food.gluten %>
+          <% if scan.food.gluten %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% else %>
             <i class="fa-regular fa-thumbs-down"></i>
           <% end %>
         </li>
       <% end %>
-      <% if user.lactose %>
+      <% if scan.user.lactose %>
         <li>Lactose-Free:
-          <% if food.lactose %>
+          <% if scan.food.lactose %>
             <i class="fa-regular fa-thumbs-up"></i>
           <% else %>
             <i class="fa-regular fa-thumbs-down"></i>
           <% end %>
         </li>
       <% end %>
-      <% if food.high_fat? %>
+      <% if scan.food.high_fat? %>
         <li>High in fat <i class="fa-solid fa-exclamation"></i></li>
       <% end %>
-      <% if food.high_protein? %>
+      <% if scan.food.high_protein? %>
         <li>High in protein <i class="fa-solid fa-exclamation"></i></li>
       <% end %>
-      <% if food.high_carbohydrates? %>
+      <% if scan.food.high_carbohydrates? %>
         <li>High in carbohydrates <i class="fa-solid fa-exclamation"></i></li>
       <% end %>
     </ul>
