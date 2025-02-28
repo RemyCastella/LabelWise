@@ -43,7 +43,7 @@
           <p class="fs-4"><%= @total_nutrition[:protein] %>g</p>
         </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= ((@total_nutrition[:protein]/250)*100).round %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
       <div class="macro-group">
@@ -52,7 +52,7 @@
           <p class="fs-4"><%= @total_nutrition[:fat] %>g</p>
         </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= ((@total_nutrition[:fat]/60)*100).round %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
       <div class="macro-group">
@@ -61,7 +61,7 @@
           <p class="fs-4"><%= @total_nutrition[:carbohydrates] %>g</p>
         </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= ((@total_nutrition[:protein]/500)*100).round %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
     </div>
