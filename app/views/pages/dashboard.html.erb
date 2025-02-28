@@ -1,9 +1,42 @@
 <div class="container m-2">
   <h1 class="text-center">Hello, <%= @user.first_name %></h1>
   <div class="mt-4">
-    <h2 class="fs-5 font-weight-bold">Today</h2>
-    <div class="chart">
-      <%= pie_chart (@total_nutrition), donut: true %>
+    <h2 class="fs-5 font-weight-bold text-center">Today</h2>
+    <div class="chart" data-calories="<%= @total_cal %>">
+      <%= pie_chart (@total_nutrition),
+        donut: true,
+        library: {
+          cutout: '75%',
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                font: {
+                  size: 14
+                },
+                color: '#333'
+              }
+            },
+            beforeDraw: lambda do |chart|
+              const ctx = chart.ctx;
+              const width = chart.width;
+              const height = chart.height;
+              const fontSize = height / 10;
+
+              const calories = chart.canvas.parentNode.dataset.calories;
+              const text = 'Calories: ${calories} kcal';
+
+              ctx.restore();
+              ctx.font = "#{fontSize}px Arial";
+              ctx.textBaseline = 'middle';
+              ctx.textAlign = 'center';
+              ctx.fillStyle = '#000';
+
+              ctx.fillText(text, width / 2, height / 2);
+              ctx.save();
+            end
+          }
+        } %>
       <p>Protein: <%= @total_nutrition[:protein] %>g</p>
       <p>Fat: <%= @total_nutrition[:fat] %>g</p>
       <p>Carbohydrates: <%= @total_nutrition[:carbohydrates] %>g</p>
