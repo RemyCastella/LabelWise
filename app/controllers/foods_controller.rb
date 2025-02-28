@@ -15,14 +15,12 @@ class FoodsController < ApplicationController
   end
 
   def favorite
-    @food = Food.find(params[:id])
-    current_user.favorite(@food) unless current_user.favorited?(@food)
-    redirect_to food_path(@food)
+    @scan = Scan.find(params[:id])
+    current_user.favorite(@scan.food) unless current_user.favorited?(@scan.food)
   end
 
   def unfavorite
-    @food = Food.find(params[:id])
-    current_user.unfavorite(@food)
-    redirect_to food_path(@food)
+    @scan = Scan.find(params[:id])
+    current_user.unfavorite(@scan.food)
   end
 end
