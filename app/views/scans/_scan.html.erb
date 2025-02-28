@@ -88,8 +88,10 @@
             <p class="mb-0">Fat: <%= food.fat %>g</p>
           </div>
     </div>
-
-    <%= link_to "See More", "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" }, class: "btn btn-dark" %>
+    <div class="d-flex flex-column gap-2 mt-3">
+      <%= link_to "See More", "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" }, class: "btn btn-dark" %>
+      <%= link_to "Add to portion", new_scan_portion_path(@scan.id), class: "btn btn-dark"%>
+    </div>
     <div class="modal fade" id="food-details-modal" tabindex="-1" aria-labelledby="foodModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
