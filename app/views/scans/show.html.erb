@@ -1,14 +1,22 @@
-<div class="container min-vh-100 d-flex flex-column align-items-center">
-  <%= cl_image_tag @scan.photo.key, class: "w-50" %>
-  <% if @scan.food.present? %>
-    <%= render partial: "scans/scan", locals: { scan: @scan } %>
-  <% else %>
-    <div class="mt-4" id="scan_<%= @scan.id %>_food">
-      <%= turbo_stream_from "info_#{@scan.id}" %>
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+<div class="container min-vh-100 d-flex flex-column align-items-center p-3">
+  <div class="w-100 d-flex justify-content-start mb-3">
+    <%= link_to root_path, class: "text-dark d-flex align-items-center justify-content-center border border-secondary rounded-circle p-2", style: "text-decoration: none; width: 40px; height: 40px;" do %>
+      <i class="fa-solid fa-arrow-left" style="font-size: 1.2rem;"></i>
+    <% end %>
+  </div>
+  <div class="card w-100 shadow-lg p-3" style="border-radius: 20px;">
+    <div class="text-center">
+      <%= cl_image_tag @scan.photo.key, class: "w-50 rounded" %>
     </div>
-  <% end %>
-  <%= link_to "Add to portion", new_scan_portion_path(@scan.id), class: "btn btn-primary"%>
+  </div>
+      <% if @scan.food.present? %>
+        <%= render partial: "scans/scan", locals: { food: @scan.food, user: @scan.user } %>
+      <% else %>
+        <div class="mt-4" id="scan_<%= @scan.id %>_food">
+          <%= turbo_stream_from "info_#{@scan.id}" %>
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      <% end %>
 </div>
