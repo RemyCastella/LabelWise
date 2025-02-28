@@ -7,6 +7,11 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+
+    if params[:user][:common_allergens].present?
+      params[:user][:common_allergens] = params[:user][:common_allergens].reject(&:blank?).join(", ")
+    end
+
     if @user.update(user_params)
       flash[:notice] = "Profile updated successfully!"
       redirect_to profile_path
@@ -19,9 +24,13 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :avatar, :password, :password_confirmation,
-      :vegetarian, :vegan, :keto, :pork, :beef, :gluten, :lactose)
-    # Removed :calories and :protein since they are not in the database
+    params.require(:user).permit(
+      :first_name, :last_name, :email,
+      :calories, :protein, :carbohydrates, :fat, :sodium,
+      :vegetarian, :vegan, :keto, :pork, :beef, :gluten, :lactose,
+      :high_protein, :low_sodium, :low_fat, :low_carbs,
+      { common_allergens: [] },
+      :other_ingredients
+    )
   end
-
 end
