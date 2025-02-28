@@ -66,10 +66,10 @@
 
     <!-- Allergens Selection -->
     <div class="mt-4">
-      <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
+    <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
       <%= f.select :common_allergens,
             ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
-            {},
+            { selected: @user.common_allergens&.split(", ") },
             { multiple: true, class: "form-select" } %>
       <small class="form-text text-muted">Tap to select multiple items.</small>
     </div>
@@ -82,8 +82,11 @@
 
     <!-- Submit Button -->
     <div class="d-grid gap-2 mt-4 mb-3">
-      <%= f.submit "Update Profile", class: "btn btn-primary w-100" %>
-    </div>
+      <%= f.submit "Update Profile",
+        class: "btn btn-primary w-100 d-flex align-items-center justify-content-center",
+        data: { confirm: "Are you sure you want to update your preferences?", disable_with: "Updating..." },
+        onclick: "showLoading(this)" %>
+</div>
 
   <% end %>
 
