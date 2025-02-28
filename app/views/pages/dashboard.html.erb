@@ -40,21 +40,32 @@
         } %>
 
       <div class="macro-group">
-        <p class="fs-4">Protein: <%= @total_nutrition[:protein] %>g</p>
+      <div class='d-flex justify-content-between'>
+        <p class="fs-4">Protein</p>
+        <p class="fs-4"><%= @total_nutrition[:protein] %>g</p>
+      </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
+
       <div class="macro-group">
+      <div class='d-flex justify-content-between'>
+        <p class="fs-4">Fat</p>
         <p class="fs-4">Fat: <%= @total_nutrition[:fat] %>g</p>
+      </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
+
       <div class="macro-group">
-        <p class="fs-4">Carbs: <%= @total_nutrition[:carbohydrates] %>g</p>
+      <div class='d-flex justify-content-between'>
+        <p class="fs-4">Carbs</p>
+        <p class="fs-4"><%= @total_nutrition[:carbohydrates] %>g</p>
+      </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
     </div>
