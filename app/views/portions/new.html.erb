@@ -1,0 +1,36 @@
+<h1>Add to your intake!</h1>
+<% if @scan.food.present? %>
+  <div class="food-details mb-4">
+    <h3><%= @scan.food.name %></h3>
+    <ul>
+      <li>Calories: <%= @scan.food.calories %> kcal</li>
+      <li>Protein: <%= @scan.food.protein %>g</li>
+      <li>Carbs: <%= @scan.food.carbohydrates %>g</li>
+      <li>Fat: <%= @scan.food.fat %>g</li>
+    </ul>
+  </div>
+<% end %>
+<div data-controller="range-input">
+  <%= simple_form_for [@scan, @portion], class: "border" do |f| %>
+    <%= f.label :portion_size, "How much did you have?", class: "fs-3" %>
+    <div class="mt-2 d-flex align-items-center gap-2">
+      <p class="fs-3" data-range-input-target="text"></p>
+      <%= f.input :unit, label: false, collection: ['portion','g', 'ml', 'oz', 'cup', 'tbsp', 'tsp'],
+                  prompt: false,
+                  selected: 'portion',
+                  input_html: { class: "fs-5" } %>
+    </div>
+    <%= f.input :portion_size, as: :range, label: false, input_html: {
+        class: "mt-0 mb-0 fs-2",
+        min: '0',
+        max: '5',
+        step: '0.25',
+        value: "1",
+        data: {
+          range_input_target: "range",
+          action: "input->range-input#updateText"
+        }
+      } %>
+    <%= f.button :submit, 'Save Portion', class: 'btn btn-primary' %>
+  <% end %>
+</div>
