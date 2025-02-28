@@ -14,15 +14,15 @@ Rails.application.routes.draw do
     resources :portions, only: [:new, :create]
   end
   resources :foods, only: [:show, :create] do
+    member do
+      post :favorite
+      delete :unfavorite
+    end
     collection do
       get :favorites
     end
   end
   resources :users, only: [:update]
-
-  post "favorite/:id", to: "foods#favorite", as: :favorite
-  delete "unfavorite/:id", to: "foods#unfavorite", as: :unfavorite
   get "/profile", to: "users#profile", as: :profile
   patch '/profile', to: 'users#update'
-
 end
