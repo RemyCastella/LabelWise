@@ -19,13 +19,13 @@ class UsersController < ApplicationController
   private
 
   def user_params
-   params.require(:user).permit(
-     :first_name, :last_name, :email,
-     :calories, :protein, :carbohydrates, :fat, :sodium,
-     :vegetarian, :vegan, :keto, :pork, :beef, :gluten, :lactose,
-     :high_protein, :low_sodium, :low_fat, :low_carbs,
-     :common_allergens,
-     :other_ingredients
-   )
+    params.require(:user).permit(
+      :first_name, :last_name, :email,
+      :calories, :protein, :carbohydrates, :fat, :sodium,
+      :vegetarian, :vegan, :keto, :pork, :beef, :gluten, :lactose,
+      :high_protein, :low_sodium, :low_fat, :low_carbs,
+      :common_allergens,
+      :other_ingredients
+    )
   end
 end
