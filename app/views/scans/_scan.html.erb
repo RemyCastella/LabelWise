@@ -64,6 +64,43 @@
         <% end %>
       </span>
     <% end %>
+    <% if user.pork %>
+      <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+        <i class="fa-solid fa-piggy-bank me-2" style="color: pink;"></i>
+        Pork
+        <% if food.pork %>
+          <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
+        <% else %>
+          <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
+        <% end %>
+      </span>
+    <% end %>
+
+  <% if user.beef %>
+    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-solid fa-steak me-2" style="color: brown;"></i>
+      Beef
+      <% if food.beef %>
+        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
+      <% else %>
+        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
+      <% end %>
+    </span>
+  <% end %>
+
+  <% if user.lactose %>
+    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-duotone fa-solid fa-cheese-swiss me-2" style="color: yellow;"></i>
+      Lactose-Free
+      <% if food.lactose %>
+        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
+      <% else %>
+        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
+      <% end %>
+    </span>
+  <% end %>
+
+  <% if (user.common_allergens & food.common_allergens).any? %>
   </div>
   <div class="mt-4 w-100">
     <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
