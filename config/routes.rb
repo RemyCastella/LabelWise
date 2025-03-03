@@ -21,15 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :foods, only: [:show, :create] do
-    member do
-      post :favorite
-      delete :unfavorite
-    end
-    collection do
-      get :favorites
-    end
-  end
+  resources :foods, only: [:create]
 
   resources :users, only: [:update]
   get "/profile", to: "users#profile", as: :profile
