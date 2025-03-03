@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   get "/dashboard", to: "pages#dashboard", as: :dashboard
   resources :scans, only: [:index, :show, :create] do
     resources :portions, only: [:new, :create]
-  end
-  resources :foods, only: [:show, :create] do
     member do
       post :favorite
       delete :unfavorite
@@ -22,6 +20,9 @@ Rails.application.routes.draw do
       get :favorites
     end
   end
+
+  resources :foods, only: [:create]
+
   resources :users, only: [:update]
   get "/profile", to: "users#profile", as: :profile
   patch '/profile', to: 'users#update'
