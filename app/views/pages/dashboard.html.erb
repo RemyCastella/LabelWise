@@ -1,7 +1,6 @@
 <div class="container m-2">
   <h1 class="text-center">Hello, <%= @user.first_name %></h1>
   <div class="mt-4">
-
     <h2 class="fs-5 font-weight-bold text-center">Today</h2>
     <div class="chart-container" style="position: relative;">
       <%= pie_chart (@total_nutrition),
@@ -27,7 +26,6 @@
         <%= @user.calories %> kcal
       </div>
     </div>
-
 
     <div class="macro-group">
     <div class='d-flex justify-content-between'>
