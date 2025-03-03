@@ -34,9 +34,9 @@
               }
             }
           %>
-          <div class="chart-text fw-semibold" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
-            <%= @total_cal %> kcal /
-            <%= @user.calories %> kcal
+          <div class="chart-text fw-semibold d-flex flex-column" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
+            <div class="fs-1"><%= @total_cal %> kcal</div>
+            <div class="text-secondary align-self-center">/<%= @user.calories || 2000 %> kcal</div>
           </div>
         </div>
         <div class="macro-group">
