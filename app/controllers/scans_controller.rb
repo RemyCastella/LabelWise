@@ -15,7 +15,7 @@ class ScansController < ApplicationController
     if @scan.save
       redirect_to @scan
     else
-      redirect_to root_path
+      redirect_to root_path, notice: "scan failed"
     end
   end
 
@@ -25,31 +25,36 @@ class ScansController < ApplicationController
 
   def favorite
     @scan = Scan.find(params[:id])
-    current_user.favorite(@scan) unless current_user.favorited?(@scan)
+    already_favorited = current_user.favorited?(@scan)
+    if already_favorited
+      current_user.unfavorite(@scan)
+    else
+      current_user.favorite(@scan)
+    end
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
           "star_#{@scan.id}",
           partial: "scans/star",
-          locals: { scan: @scan }
+          locals: { scan: @scan, favorite: !already_favorited }
         )
       end
     end
   end
 
-  def unfavorite
-    @scan = Scan.find(params[:id])
-    current_user.unfavorite(@scan)
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "star_#{@scan.id}",
-          partial: "scans/star",
-          locals: { scan: @scan }
-        )
-      end
-    end
-  end
+  # def unfavorite
+  #   @scan = Scan.find(params[:id])
+  #   current_user.unfavorite(@scan)
+  #   respond_to do |format|
+  #     format.turbo_stream do
+  #       render turbo_stream: turbo_stream.replace(
+  #         "star_#{@scan.id}",
+  #         partial: "scans/star",
+  #         locals: { scan: @scan, favorite: false}
+  #       )
+  #     end
+  #   end
+  # end
 
   private
 

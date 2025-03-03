@@ -4,7 +4,7 @@
       <%= food.name %>
     </h2>
     <div id="star_<%= scan.id %>">
-      <%= render partial: "scans/star", locals: { scan: scan } %>
+      <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
     </div>
   </div>
   <div class="d-flex justify-content-between align-items-center mt-2">
