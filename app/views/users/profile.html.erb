@@ -1,15 +1,15 @@
-<div class="container mt-5 position-relative">
+<div class="container mt-5">
   <h2 class="text-center mb-4">Profile Settings</h2>
 
   <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
 
     <!-- Name Section -->
     <div class="row mb-3">
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.label :first_name, "First Name", class: "form-label" %>
         <%= f.text_field :first_name, class: "form-control", placeholder: "Enter first name" %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.label :last_name, "Last Name", class: "form-label" %>
         <%= f.text_field :last_name, class: "form-control", placeholder: "Enter last name" %>
       </div>
@@ -18,86 +18,75 @@
     <!-- Email -->
     <div class="mb-3">
       <%= f.label :email, "Email Address", class: "form-label" %>
-      <%= f.email_field :email, class: "form-control", value: "", placeholder: "Enter your email" %>
+      <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
     </div>
 
     <!-- Dietary Preferences -->
     <h4 class="mt-4">Dietary Preferences</h4>
-
-    <div class="row">
-      <div class="col-6">
-        <%= f.label :calories, "Calories (kcal)", class: "form-label" %>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <%= f.label :calories, "Daily Calorie Limit (kcal)", class: "form-label" %>
         <%= f.number_field :calories, class: "form-control", placeholder: "e.g. 2000" %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.label :protein, "Protein (g)", class: "form-label" %>
         <%= f.number_field :protein, class: "form-control", placeholder: "e.g. 50" %>
       </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.label :carbohydrates, "Carbohydrates (g)", class: "form-label" %>
         <%= f.number_field :carbohydrates, class: "form-control", placeholder: "e.g. 250" %>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <%= f.label :fat, "Fat (g)", class: "form-label" %>
         <%= f.number_field :fat, class: "form-control", placeholder: "e.g. 70" %>
       </div>
-    </div>
-
-    <div class="mt-3">
-      <%= f.label :sodium, "Sodium (mg)", class: "form-label" %>
-      <%= f.number_field :sodium, class: "form-control", placeholder: "e.g. 1500" %>
+      <div class="col-md-6">
+        <%= f.label :sodium, "Sodium (mg)", class: "form-label" %>
+        <%= f.number_field :sodium, class: "form-control", placeholder: "e.g. 1500" %>
+      </div>
     </div>
 
     <!-- Dietary Restrictions -->
-    <h4 class="mt-4">Diet</h4>
-
+    <h4 class="mt-4">Dietary Restrictions</h4>
     <div class="d-flex flex-wrap">
-    <% { vegetarian: "Vegetarian", vegan: "Vegan", keto: "Keto", pork: "Avoid Pork", beef: "Avoid Beef",
-         gluten: "Gluten-Free", lactose: "Lactose-Free", high_protein: "High Protein", low_sodium: "Low Sodium", low_fat: "Low Fat", low_carbs: "Low Carbs" }.each do |key, label| %>
-      <div class="form-check me-3">
-        <%= f.check_box key, { class: "form-check-input" }, "true", "false" %>
-        <%= f.label key, label, class: "form-check-label" %>
-      </div>
-    <% end %>
+      <% { vegetarian: "Vegetarian", vegan: "Vegan", keto: "Keto", pork: "Avoid Pork", beef: "Avoid Beef",
+           gluten: "Gluten-Free", lactose: "Lactose-Free", high_protein: "High Protein", low_sodium: "Low Sodium", low_fat: "Low Fat", low_carbs: "Low Carbs" }.each do |key, label| %>
+        <div class="form-check me-3">
+          <%= f.check_box key, { class: "form-check-input" }, "true", "false" %>
+          <%= f.label key, label, class: "form-check-label" %>
+        </div>
+      <% end %>
     </div>
 
-    <!-- Allergens Selection -->
-    <!-- Allergens Selection -->
+    <!-- Allergens Selection with Tom Select -->
     <div class="mt-4">
       <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
-      <%= f.select :common_allergens,
-            ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
+      <%= f.select :common_allergens, ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
             { selected: @user.common_allergens&.split(", ") },
             { multiple: true, class: "form-select", id: "common-allergens-select" } %>
-      <small class="form-text text-muted">Tap to select multiple items.</small>
+      <small class="form-text text-muted">Select allergens you want to avoid.</small>
     </div>
 
 
     <!-- Other Ingredients -->
     <div class="mb-3 mt-3">
-      <%= f.label :other_ingredients, "Other Ingredients to Avoid (if not listed above)", class: "form-label" %>
+      <%= f.label :other_ingredients, "Other Ingredients to Avoid", class: "form-label" %>
       <%= f.text_field :other_ingredients, class: "form-control", placeholder: "e.g. Mushrooms, Coconut" %>
     </div>
-
     <!-- Submit Button -->
-    <div class="d-grid gap-2 mt-4 mb-3">
+    <div class="d-flex justify-content-center mt-4 mb-3">
       <%= f.submit "Update Profile",
-        class: "btn btn-primary w-100 d-flex align-items-center justify-content-center",
+        class: "btn btn-dark w-30 d-flex align-items-center justify-content-center",
         data: { confirm: "Are you sure you want to update your preferences?", disable_with: "Updating..." },
         onclick: "showLoading(this)" %>
-</div>
-
+    </div>
   <% end %>
 
-  <!-- Log Out Button - Separated from Form -->
-  <div class="d-grid gap-2 mt-3 mb-5 position-relative">
-    <%= form_with url: destroy_user_session_path, method: :delete, class: "w-100" do %>
-    <button class="btn btn-danger w-100">Sign Out</button>
-    <% end %>
-  </div>
-
+    <!-- Log Out Button - Centered -->
+    <div class="d-flex justify-content-center mt-3 mb-5">
+      <%= form_with url: destroy_user_session_path, method: :delete do %>
+        <button class="btn btn-white w-30 logout-btn">Sign Out</button>
+      <% end %>
+    </div>
 
 </div>
