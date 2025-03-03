@@ -1,10 +1,3 @@
-<%# <div data-controller="camera">
-  <video data-camera-target="video" autoplay></video>
-  <canvas data-camera-target="canvas" width="300" height="300" style="display:none;"></canvas>
-
-  <button data-action="click->camera#capture">Capture</button>
-  <button data-camera-target="uploadButton" data-action="click->camera#upload" disabled>Upload</button>
-</div> %>
 <%= simple_form_for(Scan.new, html: { data: { controller: "camera"} }) do |f| %>
   <label for="scan_photo" class="d-flex align-items-center nav-link">
     <i class="fas fa-camera fa-lg"></i>
