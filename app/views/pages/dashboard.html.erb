@@ -1,59 +1,94 @@
 <div class="container m-2">
-  <h1 class="text-center">Hello, <%= @user.first_name %></h1>
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-semibold">Hello <%= @user.first_name %>!</a>
+      <img src="https://www.vhv.rs/dpng/d/415-4153789_saitama-face-png-one-punch-man-face-png.png" alt="User Avatar" class="avatar">
+    </div>
+  </nav>
+  <h1 class="text-center">Your stats</h1>
   <div class="mt-4">
-    <h2 class="fs-5 font-weight-bold text-center">Today</h2>
-    <div class="chart-container" style="position: relative;">
-      <%= pie_chart (@total_nutrition),
-        donut: true,
-        library: {
-          cutout: '75%',
-          plugins: {
-            legend: {
-              display: false,
-              position: 'right',
-              labels: {
-                font: {
-                  size: 14
-                },
-                color: '#333'
+
+    <div>
+      <div class="btn-group d-flex justify-content-center" data-controller="tab-switch" role="group" aria-label="Basic radio toggle button group">
+      <%= link_to "Today", root_path(tab: "today"), class: "#{"active" if @tab == "today" || @tab.nil? } btn btn-outline-primary", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+      <%= link_to "Yesterday", root_path(tab: "yesterday"), class: "#{"active" if @tab == "yesterday"} btn btn-outline-primary" , data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+      <%= link_to "This week", root_path(tab: "this_week"), class: "#{"active" if @tab == "this_week"} btn btn-outline-primary", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+      </div>
+
+      <div id="section1" data-tab-switcher-target="section">
+        <!-- Your stats content here -->
+        <div class="chart-container pt-3" style="position: relative;">
+          <%= pie_chart (@total_nutrition),
+            donut: true,
+            library: {
+              cutout: '85%',
+              plugins: {
+                legend: {
+                  display: false,
+                  position: 'right',
+                  labels: {
+                    font: {
+                      size: 14
+                    },
+                    color: '#333'
+                  }
+                }
               }
             }
-          }
-        }
-      %>
-      <div class="chart-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
-        <%= @total_cal %> kcal /
-        <%= @user.calories %> kcal
-      </div>
-    </div>
+          %>
+          <div class="chart-text fw-semibold" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
+            <%= @total_cal %> kcal /
+            <%= @user.calories %> kcal
+          </div>
+        </div>
 
-    <div class="macro-group">
-    <div class='d-flex justify-content-between'>
-      <p class="fs-4">Protein</p>
-      <p class="fs-4"><%= @total_nutrition[:protein] %>g / <%= @user.protein %>g</p>
-    </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-    </div>
+        <div class="macro-group">
+        <div class='d-flex justify-content-between'>
+          <p class="fs-6 fw-semibold">Protein</p>
+          <p class="fs-6"><%= @total_nutrition[:protein] %>g / <%= @user.protein %>g</p>
+        </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="<%= @user.protein %>"></div>
+          </div>
+        </div>
 
-    <div class="macro-group">
-    <div class='d-flex justify-content-between'>
-      <p class="fs-4">Fat</p>
-      <p class="fs-4"><%= @total_nutrition[:fat] %>g / <%= @user.fat %>g</p>
-    </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-    </div>
+        <div class="macro-group">
+        <div class='d-flex justify-content-between'>
+          <p class="fs-6 fw-semibold">Fat</p>
+          <p class="fs-6"><%= @total_nutrition[:fat] %>g / <%= @user.fat %>g</p>
+        </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="<%= @user.fat %>"></div>
+          </div>
+        </div>
 
-    <div class="macro-group">
-    <div class='d-flex justify-content-between'>
-      <p class="fs-4">Carbs</p>
-      <p class="fs-4"><%= @total_nutrition[:carbohydrates] %>g / <%= @user.carbohydrates %>g</p>
-    </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="macro-group">
+        <div class='d-flex justify-content-between'>
+          <p class="fs-6 fw-semibold">Carbs</p>
+          <p class="fs-6"><%= @total_nutrition[:carbohydrates] %>g / <%= @user.carbohydrates %>g</p>
+        </div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="<%= @user.carbohydrates %>"></div>
+          </div>
+        </div>
+
+        <div class="card-product mt-3">
+          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
+          <div class="card-product-infos">
+            <h2>Product name</h2>
+            <p>Product description with <strong>relevant info</strong> only.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="section2" data-tab-switcher-target="section" hidden>
+        <h2>Other Information</h2>
+        <p>Details about something else here.</p>
+      </div>
+
+      <div id="section3" data-tab-switcher-target="section" hidden>
+        <h2>Another Tab Content</h2>
+        <p>More content for this tab.</p>
       </div>
     </div>
 
