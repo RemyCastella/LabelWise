@@ -1,6 +1,9 @@
-<% @favorited_scans.each do |scan| %>
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path(scan.photo.key) %>)">
-    <%= scan.food.name %>
-    <%= link_to "", scan_path(scan)%>
-  </div>
-<% end %>
+<div class="map-container">Map goes here</div>
+<div class="cards-container">
+  <% @favorited_scans.each do |scan| %>
+    <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path(scan.photo.key) %>)">
+      <%= scan.food.name %>
+      <%= link_to "", scan_path(scan)%>
+    </div>
+  <% end %>
+</div>
