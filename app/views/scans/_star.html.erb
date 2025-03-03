@@ -1,0 +1,9 @@
+<% if scan.user.favorited?(scan) %>
+  <%= form_with url: unfavorite_scan_path(scan), method: "delete" do %>
+    <button style="background: none; border: none;"><i class="fa-solid fa-star" style="color: gold; font-size: 1.5rem;"></i></button>
+  <% end %>
+<% else %>
+  <%= form_with url: favorite_scan_path(scan) do %>
+    <button style="background: none; border: none;"><i class="fa-regular fa-star" style="color: gray; font-size: 1.5rem;"></i></button>
+  <% end %>
+<% end %>
