@@ -19,6 +19,22 @@ class ScansController < ApplicationController
     end
   end
 
+  def favorites
+    @favorited_scans = current_user.all_favorites.map(&:favoritable)
+  end
+
+  def favorite
+    @scan = Scan.find(params[:id])
+    current_user.favorite(@scan) unless current_user.favorited?(@scan)
+  end
+
+  def unfavorite
+    @scan = Scan.find(params[:id])
+    current_user.unfavorite(@scan)
+  end
+
+  private
+
   def scan_params
     params.require(:scan).permit(:photo)
   end
