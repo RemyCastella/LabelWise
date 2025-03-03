@@ -66,13 +66,14 @@
 
     <!-- Allergens Selection -->
     <div class="mt-4">
-    <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
+      <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
       <%= f.select :common_allergens,
             ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
             { selected: @user.common_allergens&.split(", ") },
-            { multiple: true, class: "form-select" } %>
+            { multiple: true, class: "form-select", id: "common-allergens-select" } %>
       <small class="form-text text-muted">Tap to select multiple items.</small>
     </div>
+
 
     <!-- Other Ingredients -->
     <div class="mb-3 mt-3">

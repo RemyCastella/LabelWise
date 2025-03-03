@@ -103,43 +103,41 @@
   <% if (user.common_allergens & food.common_allergens).any? %>
   </div>
   <div class="mt-4 w-100">
-          <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
-            <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
-              <i class="fa-solid fa-dumbbell" style="color: green;"></i>
-            </div>
-            <p class="mb-0">Protein: <%= food.protein %>g</p>
-          </div>
-          <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
-            <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
-              <i class="fa-solid fa-wheat-awn" style="color: orange;"></i>
-            </div>
-            <p class="mb-0">Carbs: <%= food.carbohydrates %>g</p>
-          </div>
-          <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
-            <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
-              <i class="fa-solid fa-bacon" style="color: purple;"></i>
-            </div>
-            <p class="mb-0">Fat: <%= food.fat %>g</p>
-          </div>
+    <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
+      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
+        <i class="fa-solid fa-dumbbell" style="color: green;"></i>
+      </div>
+      <p class="mb-0">Protein: <%= food.protein %>g</p>
     </div>
-
-   <div class="d-flex flex-column gap-2 mt-3">
+    <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
+      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
+        <i class="fa-solid fa-wheat-awn" style="color: orange;"></i>
+      </div>
+      <p class="mb-0">Carbs: <%= food.carbohydrates %>g</p>
+    </div>
+    <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
+      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
+        <i class="fa-solid fa-bacon" style="color: purple;"></i>
+      </div>
+      <p class="mb-0">Fat: <%= food.fat %>g</p>
+    </div>
+  </div>
+  <div class="d-flex flex-column gap-2 mt-3">
     <%= link_to "See More", "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" }, class: "btn btn-dark" %>
-    <%= link_to "Add to portion", new_scan_portion_path(@scan.id), class: "btn btn-dark" %>
-   </div>
-
-    <div class="modal fade" id="food-details-modal" tabindex="-1" aria-labelledby="foodModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="foodModalLabel"><%= food.name %></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <h6>Ingredients:</h6>
-            <p><%= food.other_ingredients %></p>
-          </div>
+    <%= link_to "Add to intake", new_scan_portion_path(scan), class: "btn btn-dark"%>
+  </div>
+  <div class="modal fade" id="food-details-modal" tabindex="-1" aria-labelledby="foodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="foodModalLabel"><%= food.name %></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h6>Ingredients:</h6>
+          <p><%= food.other_ingredients %></p>
         </div>
       </div>
     </div>
+  </div>
 </div>

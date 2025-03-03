@@ -1,7 +1,6 @@
 <div class="container m-2">
   <h1 class="text-center">Hello, <%= @user.first_name %></h1>
   <div class="mt-4">
-
     <h2 class="fs-5 font-weight-bold text-center">Today</h2>
     <div class="chart" data-calories="<%= @total_cal %>">
       <%= pie_chart (@total_nutrition),
@@ -38,34 +37,31 @@
             end
           }
         } %>
-
       <div class="macro-group">
-      <div class='d-flex justify-content-between'>
-        <p class="fs-4">Protein</p>
-        <p class="fs-4"><%= @total_nutrition[:protein] %>g</p>
-      </div>
+        <div class='d-flex justify-content-between'>
+          <p class="fs-4">Protein</p>
+          <p class="fs-4"><%= @total_nutrition[:protein] %>g</p>
+        </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= ((@total_nutrition[:protein]/250)*100).round %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
-
       <div class="macro-group">
-      <div class='d-flex justify-content-between'>
-        <p class="fs-4">Fat</p>
-        <p class="fs-4">Fat: <%= @total_nutrition[:fat] %>g</p>
-      </div>
+        <div class='d-flex justify-content-between'>
+          <p class="fs-4">Fat</p>
+          <p class="fs-4"><%= @total_nutrition[:fat] %>g</p>
+        </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= ((@total_nutrition[:fat]/60)*100).round %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
-
       <div class="macro-group">
-      <div class='d-flex justify-content-between'>
-        <p class="fs-4">Carbs</p>
-        <p class="fs-4"><%= @total_nutrition[:carbohydrates] %>g</p>
-      </div>
+        <div class='d-flex justify-content-between'>
+          <p class="fs-4">Carbs</p>
+          <p class="fs-4"><%= @total_nutrition[:carbohydrates] %>g</p>
+        </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= ((@total_nutrition[:protein]/500)*100).round %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
     </div>
