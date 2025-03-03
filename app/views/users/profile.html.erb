@@ -66,7 +66,7 @@
 
     <!-- Allergens Selection -->
     <div class="mt-4">
-      <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
+      <%= f.label :common_allergens, "Common Allergens", class: "form-label" %>
       <%= f.select :common_allergens,
             ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
             { selected: @user.common_allergens&.split(", ") },
