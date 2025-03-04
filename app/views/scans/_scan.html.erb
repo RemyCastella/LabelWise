@@ -1,89 +1,83 @@
 <div class="position-relative mt-4 food-details w-100 p-3">
-  <div class="d-flex flex-column gap-2 mt-3">
-    <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" },
-          class: "btn btn-dark d-flex align-items-center justify-content-center rounded-circle position-absolute",
-          style: "width: 40px; height: 40px; top: -10px; right: -10px;" do %>
-      <i class="fa-solid fa-info" style="color: white;"></i>
-    <% end %>
-      <%= food.name %>
-    </h2>
-    <div id="star_<%= scan.id %>">
-      <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
+  <!-- Info Icon -->
+  <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" },
+        class: "btn btn-dark d-flex align-items-center justify-content-center rounded-circle position-absolute",
+        style: "width: 36px; height: 36px; top: 5px; right: 5px;" do %>
+    <i class="fa-solid fa-info text-white"></i>
+  <% end %>
+
+  <!-- Food Name -->
+  <h2 class="fw-bold mb-0"><%= food.name %></h2>
+
+  <!-- Star Button (Now Under See More Icon) -->
+  <div class="mt-1" id="star_<%= scan.id %>">
+    <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
+  </div>
+
+  <!-- Energy & Dietary Labels -->
+  <div class="mt-2">
+    <p class="fw-bold mb-1">Energy: <span class="text-muted"><%= food.calories %> Kcal</span></p>
+
+    <!-- Dietary Badges -->
+    <div class="d-flex flex-wrap gap-2">
+      <% if user.vegetarian %>
+        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+          <i class="fa-solid fa-seedling me-2 text-success"></i> Vegetarian
+          <i class="fa-regular <%= food.vegetarian ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
+        </span>
+      <% end %>
+      <% if user.vegan %>
+        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+          <i class="fa-solid fa-leaf me-2 text-success"></i> Vegan
+          <i class="fa-regular <%= food.vegan ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
+        </span>
+      <% end %>
+      <% if user.keto %>
+        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+          <i class="fa-solid fa-bacon me-2 text-purple"></i> Keto
+          <i class="fa-regular <%= food.keto ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
+        </span>
+      <% end %>
+      <% if user.gluten %>
+        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+          <i class="fa-solid fa-bread-slice me-2 text-warning"></i> Gluten-Free
+          <i class="fa-regular <%= food.gluten ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
+        </span>
+      <% end %>
     </div>
   </div>
-  <div class="d-flex justify-content-between align-items-center mt-2">
-    <p class="text-muted" style="font-size: 1rem;">Nutrition Values</p>
-    <p class="fw-bold" style="font-size: 1rem;"><%= food.calories %> Kcal</p>
-  </div>
-  <div class="d-flex flex-wrap gap-2 mt-3">
-    <% if user.vegetarian %>
-      <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-        <i class="fa-solid fa-seedling me-2" style="color: green;"></i>
-        Vegetarian
-        <% if food.vegetarian %>
-          <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-        <% else %>
-          <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-        <% end %>
-      </span>
-    <% end %>
-    <% if user.vegan %>
-      <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-        <i class="fa-solid fa-leaf me-2" style="color: green;"></i>
-        Vegan
-        <% if food.vegan %>
-          <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-        <% else %>
-          <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-        <% end %>
-      </span>
-    <% end %>
-    <% if user.keto %>
-      <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-        <i class="fa-solid fa-bacon me-2" style="color: purple;"></i>
-        Keto
-        <% if food.keto %>
-          <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-        <% else %>
-          <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-        <% end %>
-      </span>
-    <% end %>
-    <% if user.gluten %>
-      <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-        <i class="fa-solid fa-bread-slice me-2" style="color: orange;"></i>
-        Gluten-Free
-        <% if food.gluten %>
-          <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-        <% else %>
-          <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-        <% end %>
-      </span>
-    <% end %>
-  </div>
-  <div class="mt-4 w-100">
-    <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
-      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
-        <i class="fa-solid fa-dumbbell" style="color: green;"></i>
+
+  <!-- Macronutrients -->
+  <div class="mt-3 w-100">
+    <div class="d-flex align-items-center mb-2 p-2 border rounded" style="background-color: #F8F8F8;">
+      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2"
+           style="width: 36px; height: 36px; background-color: white; border: 1px solid #ddd;">
+        <i class="fa-solid fa-dumbbell text-success"></i>
       </div>
-      <p class="mb-0">Protein: <%= food.protein %>g</p>
+      <p class="mb-0">Protein: <strong><%= food.protein %>g</strong></p>
     </div>
-    <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
-      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
-        <i class="fa-solid fa-wheat-awn" style="color: orange;"></i>
+    <div class="d-flex align-items-center mb-2 p-2 border rounded" style="background-color: #F8F8F8;">
+      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2"
+           style="width: 36px; height: 36px; background-color: white; border: 1px solid #ddd;">
+        <i class="fa-solid fa-wheat-awn text-warning"></i>
       </div>
-      <p class="mb-0">Carbs: <%= food.carbohydrates %>g</p>
+      <p class="mb-0">Carbs: <strong><%= food.carbohydrates %>g</strong></p>
     </div>
-    <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
-      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2" style="width: 40px; height: 40px; background-color: white; border: 1px solid #ddd;">
-        <i class="fa-solid fa-bacon" style="color: purple;"></i>
+    <div class="d-flex align-items-center mb-2 p-2 border rounded" style="background-color: #F8F8F8;">
+      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2"
+           style="width: 36px; height: 36px; background-color: white; border: 1px solid #ddd;">
+        <i class="fa-solid fa-bacon text-danger"></i>
       </div>
-      <p class="mb-0">Fat: <%= food.fat %>g</p>
+      <p class="mb-0">Fat: <strong><%= food.fat %>g</strong></p>
     </div>
   </div>
-  <div class="d-flex flex-column gap-2 mt-3">
-    <%= link_to "Add to intake", new_scan_portion_path(scan), class: "btn btn-dark"%>
+
+  <!-- Add to Intake Button (Centered) -->
+  <div class="mt-3 text-center">
+    <%= link_to "Add to intake", new_scan_portion_path(scan), class: "btn btn-dark btn-sm px-3 py-2", style: "margin-bottom: 70px;" %>
   </div>
+
+  <!-- Food Details Modal -->
   <div class="modal fade" id="food-details-modal" tabindex="-1" aria-labelledby="foodModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
