@@ -1,4 +1,5 @@
 require "json"
+require "open-uri"
 
 class Scan < ApplicationRecord
   belongs_to :user
@@ -38,8 +39,11 @@ class Scan < ApplicationRecord
   end
 
   def set_location
-    public = "development/#{photo.key}"
-    response = Cloudinary::Api.resource(public, exif: true)
+    file_path = URI.open(photo.url)
+    exif = Exiftool.new(file_path.path)
+    lat = exif[:gps_latitude]
+    lng = exif[:gps_longitude]
+    debugger
   end
 
   def broadcast_info
