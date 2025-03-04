@@ -1,6 +1,0 @@
-<%= simple_form_for(Scan.new, html: {data: {controller: "camera", "camera-nyan-path-value" => asset_path("nyan.gif"), turbo: false }}) do |f| %>
-  <label for="scan_photo" class="d-flex align-items-center nav-link">
-    <i class="fas fa-camera fa-lg"></i>
-    <%= f.input :photo, label: false, input_html: {class: "d-none", data: { action: "input->camera#send"} }%>
-  </label>
-<% end %>

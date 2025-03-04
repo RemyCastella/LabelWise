@@ -1,5 +1,5 @@
-<div class="container mt-5">
-  <h2 class="text-center mb-4">Profile Settings</h2>
+<div class="container mt-4">
+  <h2 class="text-center mb-4 fw-bold">Profile Settings</h2>
 
   <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
     <div class="accordion" id="profileSettingsAccordion">
@@ -8,23 +8,24 @@
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfo">
-            Personal Information
+            <strong>Personal Information</strong>
           </button>
         </h2>
         <div id="personalInfo" class="accordion-collapse collapse show" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
+            <div class="text-center mb-3">            </div>
             <div class="row mb-3">
               <div class="col-md-6">
-                <%= f.label :first_name, "First Name", class: "form-label" %>
+                <%= f.label :first_name, "First Name", class: "form-label fw-bold" %>
                 <%= f.text_field :first_name, class: "form-control", placeholder: "Enter first name" %>
               </div>
               <div class="col-md-6">
-                <%= f.label :last_name, "Last Name", class: "form-label" %>
+                <%= f.label :last_name, "Last Name", class: "form-label fw-bold" %>
                 <%= f.text_field :last_name, class: "form-control", placeholder: "Enter last name" %>
               </div>
             </div>
             <div class="mb-3">
-              <%= f.label :email, "Email Address", class: "form-label" %>
+              <%= f.label :email, "Email Address", class: "form-label fw-bold" %>
               <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
             </div>
           </div>
@@ -35,66 +36,62 @@
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dietaryPreferences">
-            Dietary Preferences
+            <strong>Dietary Preferences</strong>
           </button>
         </h2>
         <div id="dietaryPreferences" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
             <div class="row g-3">
-              <div class="col-md-6">
-                <%= f.label :calories, "Daily Calorie Limit (kcal)", class: "form-label" %>
-                <input type="range" min="1000" max="4000" step="50" class="form-range" id="calories" name="user[calories]">
-              </div>
-              <div class="col-md-6">
-                <%= f.label :protein, "Protein (g)", class: "form-label" %>
-                <input type="range" min="10" max="300" step="5" class="form-range" id="protein" name="user[protein]">
-              </div>
-              <div class="col-md-6">
-                <%= f.label :carbohydrates, "Carbohydrates (g)", class: "form-label" %>
-                <input type="range" min="50" max="500" step="10" class="form-range" id="carbohydrates" name="user[carbohydrates]">
-              </div>
-              <div class="col-md-6">
-                <%= f.label :fat, "Fat (g)", class: "form-label" %>
-                <input type="range" min="10" max="150" step="5" class="form-range" id="fat" name="user[fat]">
-              </div>
-              <div class="col-md-6">
-                <%= f.label :sodium, "Sodium (mg)", class: "form-label" %>
-                <input type="range" min="500" max="5000" step="100" class="form-range" id="sodium" name="user[sodium]">
-              </div>
+              <% [
+                { name: :calories, label: "Daily Calorie Limit (kcal)", min: 1000, max: 4000, step: 50 },
+                { name: :protein, label: "Protein (g)", min: 10, max: 300, step: 5 },
+                { name: :carbohydrates, label: "Carbohydrates (g)", min: 50, max: 500, step: 10 },
+                { name: :fat, label: "Fat (g)", min: 10, max: 150, step: 5 },
+                { name: :sodium, label: "Sodium (mg)", min: 500, max: 5000, step: 100 }
+              ].each do |item| %>
+                <div class="col-12">
+                  <%= f.label item[:name], item[:label], class: "form-label fw-bold" %>
+                  <div class="d-flex justify-content-between text-muted">
+                    <small><%= item[:min] %></small>
+                    <small><%= item[:max] %></small>
+                  </div>
+                  <input type="range" id="<%= item[:name] %>" name="user[<%= item[:name] %>]" min="<%= item[:min] %>" max="<%= item[:max] %>" step="<%= item[:step] %>" class="form-range" oninput="document.getElementById('<%= item[:name] %>-value').innerText = this.value">
+                  <p class="text-center mt-1 fw-bold" id="<%= item[:name] %>-value">-</p>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Allergens Selection with Other Allergens Input -->
+      <!-- Allergens Selection -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergensSelection">
-            Allergens & Restrictions
+            <strong>Allergens & Restrictions</strong>
           </button>
         </h2>
         <div id="allergensSelection" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
-            <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label" %>
+            <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %>
             <%= f.select :common_allergens, ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], { selected: @user.common_allergens&.split(", ") }, { multiple: true, class: "form-select" } %>
-
-            <%= f.label :other_allergens, "Other Allergens", class: "form-label mt-3" %>
+            <%= f.label :other_allergens, "Other Allergens", class: "form-label fw-bold mt-3" %>
             <%= f.text_field :other_allergens, class: "form-control", placeholder: "Enter other allergens" %>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Submit Button (Moved Below Form) -->
+    <!-- Submit Button -->
     <div class="text-center mt-4">
-      <%= f.submit "Update Preferences", class: "btn btn-dark w-50" %>
+      <%= f.submit "Update Preferences", class: "btn btn-dark w-30" %>
     </div>
   <% end %>
 
-  <!-- Log Out Button - Centered -->
-  <div class="d-flex justify-content-center mt-3 mb-5">
+  <!-- Log Out Button -->
+  <div class="d-flex justify-content-center mt-2 mb-5">
     <%= form_with url: destroy_user_session_path, method: :delete do %>
-      <button class="btn btn-white w-30 logout-btn">Sign Out</button>
+      <button class="btn btn-white w-100 logout-btn">Sign Out</button>
     <% end %>
   </div>
 </div>
