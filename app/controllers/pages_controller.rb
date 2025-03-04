@@ -5,6 +5,8 @@ class PagesController < ApplicationController
     @portions = Portion.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day, user: @user)
     if @tab == "yesterday"
       @portions = Portion.where(created_at: Date.yesterday.beginning_of_day..Date.yesterday.end_of_day, user: @user)
+    elsif @tab == "this_week"
+      @portions = Portion.where(created_at: Date.today.beginning_of_week..Date.today.end_of_day, user: @user)
     end
     @total_nutrition = { protein: 0, fat: 0, carbohydrates: 0 }
     @total_cal = 0
@@ -14,6 +16,28 @@ class PagesController < ApplicationController
       @total_nutrition[:fat] += @food.fat * portion.portion_size
       @total_nutrition[:carbohydrates] += @food.carbohydrates * portion.portion_size
       @total_cal += @food.calories * portion.portion_size
+    end
+    return unless @tab == "this_week"
+
+    @week_days = (Date.today.beginning_of_week..Date.today.end_of_week).to_a
+    @daily_nutrition = {
+      protein: [],
+      fat: [],
+      carbohydrates: [],
+      calories: []
+    }
+
+    @week_days.each do |day|
+      daily_data = @portions.where(created_at: day.beginning_of_day..day.end_of_day)
+      protein_total = daily_data.sum { |portion| portion.food.protein * portion.portion_size }
+      fat_total = daily_data.sum { |portion| portion.food.fat * portion.portion_size }
+      carbs_total = daily_data.sum { |portion| portion.food.carbohydrates * portion.portion_size }
+      calories_total = daily_data.sum { |portion| portion.food.calories * portion.portion_size }
+
+      @daily_nutrition[:protein] << [day.strftime("%b %d"), protein_total]
+      @daily_nutrition[:fat] << [day.strftime("%b %d"), fat_total]
+      @daily_nutrition[:carbohydrates] << [day.strftime("%b %d"), carbs_total]
+      @daily_nutrition[:calories] << [day.strftime("%b %d"), calories_total]
     end
   end
 end
