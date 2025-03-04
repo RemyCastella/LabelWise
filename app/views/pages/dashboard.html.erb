@@ -35,6 +35,7 @@
             <div class="text-secondary align-self-center">/<%= @user.calories || 2000 %> kcal</div>
           </div>
         </div>
+
         <div class="macro-group">
           <div class='d-flex justify-content-between'>
             <p class="fs-6 fw-semibold">Protein</p>
@@ -44,6 +45,7 @@
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="<%= @user.protein %>"></div>
           </div>
         </div>
+
         <div class="macro-group">
           <div class='d-flex justify-content-between'>
             <p class="fs-6 fw-semibold">Fat</p>
@@ -53,6 +55,7 @@
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="<%= @user.fat %>"></div>
           </div>
         </div>
+
         <div class="macro-group">
           <div class='d-flex justify-content-between'>
             <p class="fs-6 fw-semibold">Carbs</p>
@@ -62,22 +65,29 @@
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="<%= @user.carbohydrates %>"></div>
           </div>
         </div>
-        <div class="card-product mt-3">
-          <img src="https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/skateboard.jpg" />
-          <div class="card-product-infos">
-            <h2>Product name</h2>
-            <p>Product description with <strong>relevant info</strong> only.</p>
+
+        <!-- User Scans Section -->
+        <% @user.scans.each do |scan| %>
+          <div class="card-product mt-3">
+            <%= cl_image_tag scan.photo.key, alt: "Food Image" %>
+            <div class="card-product-infos">
+              <h2><%= scan.food.name %></h2>
+            </div>
           </div>
-        </div>
+        <% end %>
+
       </div>
+
       <div id="section2" data-tab-switcher-target="section" hidden>
         <h2>Other Information</h2>
         <p>Details about something else here.</p>
       </div>
+
       <div id="section3" data-tab-switcher-target="section" hidden>
         <h2>Another Tab Content</h2>
         <p>More content for this tab.</p>
       </div>
+
     </div>
   </div>
 </div>
