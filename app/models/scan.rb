@@ -3,12 +3,13 @@ require "json"
 class Scan < ApplicationRecord
   belongs_to :user
   belongs_to :food, optional: true
-  after_update_commit :set_food
+  after_update_commit :set_location, :set_food
 
   has_one_attached :photo
 
   def set_food
     return unless food.nil?
+
     client = OpenAI::Client.new
     result = client.chat(parameters: {
       model: "gpt-4o-mini",
@@ -34,6 +35,11 @@ class Scan < ApplicationRecord
     self.food = food
     self.save
     broadcast_info
+  end
+
+  def set_location
+    public = "development/#{photo.key}"
+    response = Cloudinary::Api.resource(public, exif: true)
   end
 
   def broadcast_info
