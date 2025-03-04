@@ -12,7 +12,11 @@
 @import "pages/index";
 
 .logo {
-  width: 72px;  /* Adjust size */
+  width: 72px;
   height: auto;
   display: block;
+}
+
+body {
+  padding-bottom: 80px;
 }

@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def profile
     @user = current_user
   end
+
   def update
     @user = current_user
+
     if params[:user][:common_allergens].present?
       params[:user][:common_allergens] = params[:user][:common_allergens].reject(&:blank?)
     end
@@ -22,6 +25,7 @@ class UsersController < ApplicationController
       render :profile, status: :unprocessable_entity
     end
   end
+
   private
 
   def user_params
@@ -30,9 +34,8 @@ class UsersController < ApplicationController
       :calories, :protein, :carbohydrates, :fat, :sodium,
       :vegetarian, :vegan, :keto, :pork, :beef, :gluten, :lactose,
       :high_protein, :low_sodium, :low_fat, :low_carbs,
-      other_ingredients: [],
-      common_allergens: []
-
+      common_allergens: [],
+      other_ingredients: []
     )
   end
 end

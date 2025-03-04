@@ -13,7 +13,7 @@
         </h2>
         <div id="personalInfo" class="accordion-collapse collapse show" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
-            <div class="text-center mb-3">            </div>
+            <div class="text-center mb-3"></div>
             <div class="row mb-3">
               <div class="col-md-6">
                 <%= f.label :first_name, "First Name", class: "form-label fw-bold" %>
@@ -60,6 +60,19 @@
                 </div>
               <% end %>
             </div>
+
+            <!-- Dietary Restrictions -->
+            <h4 class="mt-4">Dietary Restrictions</h4>
+            <div class="d-flex flex-wrap">
+              <% { vegetarian: "Vegetarian", vegan: "Vegan", keto: "Keto", pork: "Avoid Pork", beef: "Avoid Beef",
+                   gluten: "Gluten-Free", lactose: "Lactose-Free", high_protein: "High Protein", low_sodium: "Low Sodium", low_fat: "Low Fat", low_carbs: "Low Carbs" }.each do |key, label| %>
+                <div class="form-check me-3">
+                  <%= f.check_box key, class: "form-check-input", id: key %>
+                  <%= f.label key, label, class: "form-check-label" %>
+                </div>
+              <% end %>
+            </div>
+
           </div>
         </div>
       </div>
@@ -73,11 +86,9 @@
         </h2>
         <div id="allergensSelection" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
-            <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %>
-            <%= f.select :common_allergens, ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], { selected: @user.common_allergens&.split(", ") }, { multiple: true, class: "form-select" } %>
+            <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %><%= f.select :common_allergens, ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], {}, { multiple: true, class: "form-select", name: "user[common_allergens][]" } %>            <%= f.label :other_allergens, "Other Allergens", class: "form-label fw-bold mt-3" %>
+            <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
 
-            <%= f.label :other_allergens, "Other Allergens", class: "form-label fw-bold mt-3" %>
-            <%= f.text_field :other_allergens, class: "form-control", placeholder: "Enter other allergens" %>
           </div>
         </div>
       </div>
