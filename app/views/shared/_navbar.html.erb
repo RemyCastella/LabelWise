@@ -1,3 +1,4 @@
+<% unless current_page?(new_user_session_path) || current_page?(user_registration_path) %>
 <nav class="navbar fixed-bottom bg-white border-top shadow-lg py-2">
   <div class="container d-flex justify-content-between align-items-center px-4">
 
@@ -24,3 +25,4 @@
 
   </div>
 </nav>
+<% end %>
