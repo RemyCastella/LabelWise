@@ -88,6 +88,7 @@
           <div class="accordion-body">
             <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %><%= f.select :common_allergens, ["Peanuts", "Tree Nuts", "Dairy", "Eggs", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], {}, { multiple: true, class: "form-select", name: "user[common_allergens][]" } %>            <%= f.label :other_allergens, "Other Allergens", class: "form-label fw-bold mt-3" %>
             <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
+
           </div>
         </div>
       </div>

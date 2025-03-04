@@ -9,9 +9,8 @@ class UsersController < ApplicationController
     @user = current_user
 
     if params[:user][:common_allergens].present?
-      params[:user][:common_allergens] = params[:user][:common_allergens].reject(&:blank?).join(", ")
+      params[:user][:common_allergens] = params[:user][:common_allergens].reject(&:blank?)
     end
-
     if params[:user][:other_ingredients].present?
       params[:user][:other_ingredients] = params[:user][:other_ingredients].split(", ")
     else
