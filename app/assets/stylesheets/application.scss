@@ -10,3 +10,9 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.logo {
+  width: 72px;  /* Adjust size */
+  height: auto;
+  display: block;
+}
