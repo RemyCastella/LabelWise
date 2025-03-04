@@ -144,6 +144,10 @@ GEM
     erubi (1.13.1)
     event_stream_parser (1.0.0)
     execjs (2.10.0)
+    exiftool (1.2.6)
+      json
+    exiftool_vendored (13.22.0)
+      exiftool (>= 0.7.0)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     faraday (2.12.2)
@@ -170,7 +174,7 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    importmap-rails (2.1.0)
+    importmap-rails (1.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
@@ -363,9 +367,10 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
+  exiftool_vendored
   faker
   font-awesome-sass (~> 6.1)
-  importmap-rails
+  importmap-rails (~> 1.2.3)
   ostruct
   pg (~> 1.1)
   puma (>= 5.0)
