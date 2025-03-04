@@ -1,14 +1,16 @@
 require "json"
+require "open-uri"
 
 class Scan < ApplicationRecord
   belongs_to :user
   belongs_to :food, optional: true
-  after_update_commit :set_food
+  after_update_commit :set_location, :set_food
 
   has_one_attached :photo
 
   def set_food
     return unless food.nil?
+
     client = OpenAI::Client.new
     result = client.chat(parameters: {
       model: "gpt-4o-mini",
@@ -34,6 +36,15 @@ class Scan < ApplicationRecord
     self.food = food
     self.save
     broadcast_info
+  end
+
+  def set_location
+    file_path = URI.open(photo.url)
+    exif = Exiftool.new(file_path.path)
+    lat = exif[:gps_latitude]
+    lng = exif[:gps_longitude]
+    self.lat = lat
+    self.lng = lng
   end
 
   def broadcast_info
