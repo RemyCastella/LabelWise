@@ -1,14 +1,26 @@
-<nav class="navbar fixed-bottom navbar-light bg-light border-top">
-  <div class="container d-flex align-items-center justify-content-around">
-    <%= link_to root_path, class: "nav-link text-center" do %>
-      <i class="fas fa-home fa-lg"></i>
+<nav class="navbar fixed-bottom bg-white border-top shadow-lg py-2">
+  <div class="container d-flex justify-content-between align-items-center px-4">
+
+    <!-- Home Button -->
+    <%= link_to root_path, class: "nav-link text-center flex-grow-1" do %>
+      <i class="fas fa-home fa-2x text-dark"></i>
     <% end %>
-    <%= render "shared/create_scan"%>
-    <%= link_to favorites_scans_path, class: "nav-link text-center" do %>
-      <i class="fas fa-star fa-lg"></i>
+
+    <!-- Camera Button -->
+    <%= simple_form_for(Scan.new, html: { data: { controller: "camera", "camera-nyan-path-value" => asset_path("nyan.gif"), turbo: false } }) do |f| %>
+      <label for="scan_photo" class="nav-link d-flex align-items-center justify-content-center flex-grow-1">
+        <div class="camera-btn d-flex align-items-center justify-content-center rounded-circle bg-success text-white shadow-lg"
+             style="width: 60px; height: 60px;">
+          <i class="fas fa-camera fa-lg"></i>
+        </div>
+        <%= f.input :photo, label: false, input_html: { class: "d-none", data: { action: "input->camera#send"} } %>
+      </label>
     <% end %>
-    <%= link_to profile_path, class: "nav-link text-center" do %>
-      <i class="fas fa-user fa-lg"></i>
+
+    <!-- Favorites (Heart Icon) -->
+    <%= link_to favorites_scans_path, class: "nav-link text-center flex-grow-1" do %>
+      <i class="fas fa-heart fa-2x text-dark"></i>
     <% end %>
+
   </div>
 </nav>
