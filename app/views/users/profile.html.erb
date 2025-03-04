@@ -55,8 +55,8 @@
                     <small><%= item[:min] %></small>
                     <small><%= item[:max] %></small>
                   </div>
-                  <input type="range" id="<%= item[:name] %>" name="user[<%= item[:name] %>]" min="<%= item[:min] %>" max="<%= item[:max] %>" step="<%= item[:step] %>" class="form-range" oninput="document.getElementById('<%= item[:name] %>-value').innerText = this.value">
-                  <p class="text-center mt-1 fw-bold" id="<%= item[:name] %>-value">-</p>
+                  <input type="range" id="<%= item[:name] %>" name="user[<%= item[:name] %>]" min="<%= item[:min] %>" max="<%= item[:max] %>" step="<%= item[:step] %>" class="form-range" value="<%= @user[item[:name]] || item[:min] %>" oninput="document.getElementById('<%= item[:name] %>-value').innerText = this.value">
+                  <p class="text-center mt-1 fw-bold" id="<%= item[:name] %>-value"><%= @user[item[:name]] || '-' %></p>
                 </div>
               <% end %>
             </div>
