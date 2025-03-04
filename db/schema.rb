@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_27_015717) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_04_014926) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,9 +74,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_015717) do
     t.boolean "beef", default: false
     t.boolean "gluten", default: false
     t.boolean "lactose", default: false
-    t.string "other_ingredients"
+    t.string "other_ingredients", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "common_allergens", default: [], array: true
   end
 
   create_table "portions", force: :cascade do |t|
@@ -130,6 +131,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_015717) do
     t.boolean "low_sodium", default: false
     t.boolean "low_fat", default: false
     t.boolean "low_carbs", default: false
+    t.integer "calories"
+    t.integer "protein"
+    t.integer "carbohydrates"
+    t.integer "fat"
+    t.integer "sodium"
+    t.string "common_allergens", array: true
+    t.string "other_ingredients", array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
