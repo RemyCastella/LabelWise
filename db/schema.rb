@@ -259,8 +259,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_050024) do
     t.integer "carbohydrates"
     t.integer "fat"
     t.integer "sodium"
-    t.string "common_allergens", array: true
+    t.text "common_allergens"
     t.string "other_ingredients", array: true
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
