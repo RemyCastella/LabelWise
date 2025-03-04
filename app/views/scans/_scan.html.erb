@@ -44,10 +44,62 @@
           <i class="fa-regular <%= food.gluten ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
         </span>
       <% end %>
+
+      <% if user.pork %>
+    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-solid fa-piggy-bank me-2" style="color: pink;"></i>
+      Pork
+      <% if food.pork %>
+        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
+      <% else %>
+        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
+      <% end %>
+    </span>
+  <% end %>
+  <% if user.beef %>
+    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-solid fa-steak me-2" style="color: brown;"></i>
+      Beef
+      <% if food.beef %>
+        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
+      <% else %>
+        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
+      <% end %>
+    </span>
+  <% end %>
+  <% if user.lactose %>
+    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-duotone fa-solid fa-cheese-swiss me-2" style="color: yellow;"></i>
+      Lactose-Free
+      <% if food.lactose %>
+        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
+      <% else %>
+        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
+      <% end %>
+    </span>
+  <% end %>
+  <% if user.common_allergens.present? || user.other_ingredients.present? %>
+  <% user_allergens = (user.common_allergens + user.other_ingredients).map(&:downcase) %>
+  <% food_ingredients = food.other_ingredients.map(&:downcase) %>
+
+  <% matching_allergens = user_allergens.select { |allergen| food_ingredients.any? { |ingredient| ingredient.include?(allergen) } } %>
+
+  <% if matching_allergens.any? %>
+    <span class="badge bg-danger text-white border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-solid fa-triangle-exclamation me-2" style="color: white;"></i>
+      Contains Allergens: <strong class="ms-1"><%= matching_allergens.map(&:capitalize).join(", ") %></strong>
+    </span>
+  <% else %>
+    <span class="badge bg-success text-white border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-solid fa-circle-check me-2" style="color: white;"></i>
+      No Allergens Detected
+    </span>
+  <% end %>
+  <% end %>
     </div>
   </div>
 
-  <!-- Macronutrients -->
+
   <div class="mt-3 w-100">
     <div class="d-flex align-items-center mb-2 p-2 border rounded" style="background-color: #F8F8F8;">
       <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2"
@@ -73,11 +125,11 @@
     </div>
     <p class="mb-0">Carbs: <%= food.carbohydrates %>g</p>
   </div>
-  <!-- Add to Intake Button (Centered) -->
+
   <div class="mt-3 text-center">
     <%= link_to "Add to intake", new_scan_portion_path(scan), class: "btn btn-dark btn-sm px-3 py-2", style: "margin-bottom: 70px;" %>
   </div>
-  <!-- Food Details Modal -->
+
   <div class="modal fade" id="food-details-modal" tabindex="-1" aria-labelledby="foodModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
