@@ -60,43 +60,28 @@
         <% end %>
       </span>
     <% end %>
-    <% if user.pork %>
-      <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-        <i class="fa-solid fa-piggy-bank me-2" style="color: pink;"></i>
-        Pork
-        <% if food.pork %>
-          <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
+
+      <% raise %>
+      <% user_allergens = (user.common_allergens.presence || "").split(",").map(&:strip).map(&:downcase) +
+                    (user.other_ingredients.presence || "").split(",").map(&:strip).map(&:downcase) %>
+
+      <% food_ingredients = (food.other_ingredients.presence || "").split(",").map(&:strip).map(&:downcase) %>
+
+      <% matching_allergens = user_allergens & food_ingredients %>
+
+
+        <% if matching_allergens.any? %>
+          <span class="badge bg-danger text-white border rounded-pill p-2 d-flex align-items-center">
+            <i class="fa-solid fa-triangle-exclamation me-2" style="color: white;"></i>
+            Contains Allergens: <strong class="ms-1"><%= matching_allergens.join(", ") %></strong>
+          </span>
         <% else %>
-          <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
+          <span class="badge bg-success text-white border rounded-pill p-2 d-flex align-items-center">
+            <i class="fa-solid fa-circle-check me-2" style="color: white;"></i>
+            No Allergens Detected
+          </span>
         <% end %>
-      </span>
-    <% end %>
 
-  <% if user.beef %>
-    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-      <i class="fa-solid fa-steak me-2" style="color: brown;"></i>
-      Beef
-      <% if food.beef %>
-        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-      <% else %>
-        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-      <% end %>
-    </span>
-  <% end %>
-
-  <% if user.lactose %>
-    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-      <i class="fa-duotone fa-solid fa-cheese-swiss me-2" style="color: yellow;"></i>
-      Lactose-Free
-      <% if food.lactose %>
-        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-      <% else %>
-        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-      <% end %>
-    </span>
-  <% end %>
-
-  <% if (user.common_allergens & food.common_allergens).any? %>
   </div>
   <div class="mt-4 w-100">
     <div class="d-flex align-items-center mb-3 p-2 border rounded" style="background-color: #F8F8F8;">
