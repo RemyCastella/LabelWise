@@ -43,7 +43,8 @@ class Scan < ApplicationRecord
     exif = Exiftool.new(file_path.path)
     lat = exif[:gps_latitude]
     lng = exif[:gps_longitude]
-    debugger
+    self.lat = lat
+    self.lng = lng
   end
 
   def broadcast_info
