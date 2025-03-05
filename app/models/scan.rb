@@ -45,6 +45,7 @@ class Scan < ApplicationRecord
     lng = exif[:gps_longitude]
     self.lat = lat
     self.lng = lng
+    self.save
   end
 
   def broadcast_info
