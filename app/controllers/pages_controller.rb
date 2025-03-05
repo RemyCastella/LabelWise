@@ -17,6 +17,7 @@ class PagesController < ApplicationController
       @total_nutrition[:carbohydrates] += @food.carbohydrates * portion.portion_size * 4
       @total_cal += @food.calories * portion.portion_size
       @total_nutrition[:calories] -= @total_cal
+      @total_nutrition[:calories] = 0 if (@total_nutrition[:calories]).negative?
     end
     return unless @tab == "this_week"
 
