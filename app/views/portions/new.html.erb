@@ -12,14 +12,10 @@
 <% end %>
 <div data-controller="range-input">
   <%= simple_form_for [@scan, @portion], class: "border" do |f| %>
-    <%= f.label :portion_size, "How much did you have?", class: "fs-3" %>
-    <div class="mt-2 d-flex align-items-center gap-2">
+    <%= f.label :portion_size, "How many servings did you eat?", class: "fs-3" %>
+   <div class="mt-2 d-flex align-items-center gap-2">
       <p class="fs-3" data-range-input-target="text"></p>
-      <%= f.input :unit, label: false, collection: ['portion','g', 'ml', 'oz', 'cup', 'tbsp', 'tsp'],
-                  prompt: false,
-                  selected: 'portion',
-                  input_html: { class: "fs-5" } %>
-    </div>
+   </div>
     <%= f.input :portion_size, as: :range, label: false, input_html: {
         class: "mt-0 mb-0 fs-2",
         min: '0',

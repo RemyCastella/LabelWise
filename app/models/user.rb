@@ -8,4 +8,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  def food_restrictions
+    restrictions = []
+    restrictions + common_allergens if common_allergens.present?
+    restrictions + other_ingredients if other_ingredients.present?
+    restrictions
+  end
 end
