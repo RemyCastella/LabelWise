@@ -1,75 +1,161 @@
 <!-- Container for Stats Section -->
 <div class="container d-flex flex-column align-items-center">
-  <h1 class="text-center">Your stats</h1>
 
-  <!-- Tab Buttons (Mobile Friendly) -->
-  <div class="mt-3 w-100">
-    <div class="btn-group d-flex flex-wrap w-100" data-controller="tab-switch" role="group">
-      <%= link_to "Today", root_path(tab: "today"), class: "btn btn-outline-primary flex-fill text-center #{'active' if @tab == 'today' || @tab.nil?}", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
-      <%= link_to "Yesterday", root_path(tab: "yesterday"), class: "btn btn-outline-primary flex-fill text-center #{'active' if @tab == 'yesterday'}", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
-      <%= link_to "This week", root_path(tab: "this_week"), class: "btn btn-outline-primary flex-fill text-center #{'active' if @tab == 'this_week'}", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
-    </div>
-  </div>
-
-  <!-- Stats Content Section -->
-  <div id="section1" data-tab-switcher-target="section">
-    <div class="position-relative pt-4 d-flex justify-content-center" style="max-width: 100%; height: auto;">
-      <%= pie_chart(@total_nutrition, donut: true, colors: ['#17a2b8', '#5055aa', '#c46210'], library: { cutout: '85%' }) %>
-      <div class="chart-text fw-semibold text-center position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px;">
-        <div class="fs-1"><%= @total_cal %> kcal</div>
-        <div class="text-secondary">/<%= @user.calories || 2000 %> kcal</div>
+  <div class="mt-2">
+    <div class=" px-3" >
+      <div class="btn-group d-flex justify-content-center " data-controller="tab-switch" role="group" aria-label="Basic radio toggle button group">
+        <%= link_to "Today", root_path(tab: "today"), class: "#{"active" if @tab == "today" || @tab.nil? } btn btn-outline-primary w-100", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+        <%= link_to "Yesterday", root_path(tab: "yesterday"), class: "#{"active" if @tab == "yesterday"} btn btn-outline-primary w-100" , data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+        <%= link_to "This week", root_path(tab: "this_week"), class: "#{"active" if @tab == "this_week"} btn btn-outline-primary w-100", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
       </div>
-    </div>
+      <div id="section1" data-tab-switcher-target="section">
+        <div class="chart-container pt-3" style="position: relative; overflow:auto;">
+          <% if @tab == "this_week" %>
+            <%= column_chart [
+                { name: 'Calories', data: @daily_nutrition[:calories] },
+                # { name: 'Protein', data: @daily_nutrition[:protein] },
+                # { name: 'Fat', data: @daily_nutrition[:fat] },
+                # { name: 'Carbohydrates', data: @daily_nutrition[:carbohydrates] },
 
-    <!-- Macro Nutrient Progress Bars -->
-    <% { protein: "bg-info", fat: "bg-danger", carbohydrates: "bg-warning" }.each do |macro, color| %>
-      <div class="macro-group w-100 px-2">
-        <div class="d-flex justify-content-between">
-          <p class="fs-6 fw-semibold"><%= macro.capitalize %></p>
-          <p class="fs-6"><%= @total_nutrition[macro] %>g / <%= @user[macro] %>g</p>
-        </div>
-        <div class="progress w-100">
-          <div class="progress-bar progress-bar-striped progress-bar-animated <%= color %>" role="progressbar"
-               style="width: <%= [(@total_nutrition[macro].to_f / @user[macro].to_f) * 100, 100].min %>%;"
-               aria-valuenow="<%= @total_nutrition[macro] %>" aria-valuemin="0" aria-valuemax="<%= @user[macro] %>">
+              ],
+              labels: @week_days.map { |day| day.strftime("%b %d") },
+              stacked: true,
+              colors: [ '#059033', '#17a2b8', '#5055aa', '#c46210'],
+              chart_type: "column",
+              title: "Calories",
+              legend: {
+                display: false
+              },
+              library: {
+                scales: {
+                  x: {
+                    ticks: {
+                      autoSkip: true,
+                      maxRotation: 45,
+                      minRotation: 45
+                    }
+                  },
+                  y: {
+                    # beginAtZero: true,
+                    max: @user.calories,
+                    ticks: {
+                      stepSize: @user.calories / 100,
+                      precision: 0,
+                      count: 6
+                    }
+                  }
+                }
+              }
+            %>
+            <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Protein</p>
+              <p class="fs-6"><%= @total_nutrition[:protein] %>g / <%= @user.protein * 7 %>g</p>
+            </div>
+            <div class="progress w-100">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="<%= @user.protein * 7%>"></div>
+            </div>
           </div>
-        </div>
-      </div>
-    <% end %>
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Fat</p>
+              <p class="fs-6"><%= @total_nutrition[:fat] %>g / <%= @user.fat * 7 %>g</p>
+            </div>
+            <div class="progress w-100">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="<%= @user.fat * 7%>"></div>
+            </div>
+          </div>
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Carbs</p>
+              <p class="fs-6"><%= @total_nutrition[:carbohydrates] %>g / <%= @user.carbohydrates * 7 %>g</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                   role="progressbar"
+                   style="width: <%= @total_nutrition[:carbohydrates] %>%"
+                   aria-valuenow="<%= (@total_nutrition[:carbohydrates] / (@user.carbohydrates * 7)) * 100 %>"
+                   aria-valuemin="0"
+                   aria-valuemax="<%= @user.carbohydrates * 7 %>"></div>
+            </div>
+          </div>
 
-    <!-- User Scans Section (Mobile Optimized) -->
-    <div class="container mt-4">
-      <div class="row justify-content-center">
-        <% @user.scans.uniq(&:food_id).each do |scan| %>
-          <div class="col-12 col-md-10 col-lg-8 mb-3">
-            <div class="card shadow-lg border-0 rounded-4 d-flex flex-row align-items-center p-2"
-                 style="display: flex; flex-wrap: nowrap; align-items: center; height: 90px;">
+          <% else %>
+            <%= pie_chart (@total_nutrition),
+              donut: true,
+              colors: ['#17a2b8', '#5055aa', '#c46210'],
+              library: {
+                cutout: '85%',
+                segmentShowStroke: false,
+                plugins: {
+                  legend: {
+                    display: false,
+                    position: 'right',
+                    labels: {
+                      font: {
+                        size: 14
+                      },
+                      color: '#333'
+                    }
+                  }
+                }
+              }
+            %>
+            <div class="chart-text fw-semibold d-flex flex-column" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
+              <div class="fs-1"><%= @total_cal %> kcal</div>
+              <div class="text-secondary align-self-center">/<%= @user.calories || 0 %> kcal</div>
+            </div>
+          </div>
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Protein</p>
+              <p class="fs-6"><%= @total_nutrition[:protein] %>g / <%= @user.protein %>g</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: <%= @total_nutrition[:protein] %>%" aria-valuenow="<%= @total_nutrition[:protein] %>" aria-valuemin="0" aria-valuemax="<%= @user.protein %>"></div>
+            </div>
+          </div>
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Fat</p>
+              <p class="fs-6"><%= @total_nutrition[:fat] %>g / <%= @user.fat %>g</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: <%= @total_nutrition[:fat] %>%" aria-valuenow="<%= @total_nutrition[:fat] %>" aria-valuemin="0" aria-valuemax="<%= @user.fat %>"></div>
+            </div>
+          </div>
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Carbs</p>
+              <p class="fs-6"><%= @total_nutrition[:carbohydrates] %>g / <%= @user.carbohydrates %>g</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: <%= @total_nutrition[:carbohydrates] %>%" aria-valuenow="<%= @total_nutrition[:carbohydrates] %>" aria-valuemin="0" aria-valuemax="<%= @user.carbohydrates %>"></div>
+            </div>
+          </div>
+        <% end %>
+          <% @user.scans.uniq(&:food_id).each do |scan| %>
+            <div class="card shadow-lg border-0 rounded-4 d-flex flex-row align-items-center p-2 mb-3">
 
-              <!-- Image Section -->
-              <div class="position-relative" style="flex: 0 0 70px;">
+              <div class="position-relative" style="flex: 0 0 120px;">
                 <%= cl_image_tag scan.photo.key,
                   alt: "Food Image",
                   class: "rounded-4",
-                  style: "width: 70px; height: 70px; object-fit: cover;" %>
+                  style: "width: 120px; height: 120px; object-fit: cover;" %>
               </div>
 
-              <!-- Text Section -->
-              <div class="card-body d-flex flex-column justify-content-center ms-2"
-                   style="flex: 1; min-width: 0; padding: 6px;">
+              <div class="card-body d-flex flex-column justify-content-center ms-3">
                 <h6 class="fw-bold mb-1 text-truncate"><%= scan.food.name %></h6>
                 <p class="text-muted small mb-1">🔥 <strong><%= scan.food.calories %></strong> kcal</p>
                 <p class="text-muted small">🥩 <%= scan.food.protein %>g | 🍞 <%= scan.food.carbohydrates %>g | 🥑 <%= scan.food.fat %>g</p>
               </div>
 
-              <!-- Button Section -->
-              <div class="ms-auto me-3" style="flex-shrink: 0;">
-                <a href="scan.food" class="btn btn-outline-primary btn-sm rounded-pill fw-bold">
+              <div class="ms-auto me-3">
+                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill fw-bold">
                   View
                 </a>
               </div>
-
             </div>
-          </div>
         <% end %>
       </div>
     </div>
