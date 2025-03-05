@@ -26,12 +26,12 @@
       <div class="macro-group w-100 px-2">
         <div class="d-flex justify-content-between">
           <p class="fs-6 fw-semibold"><%= macro.capitalize %></p>
-          <p class="fs-6"><%= @total_nutrition[macro] %>g / <%= @user[macro] %>g</p>
+          <p class="fs-6"><%#= @total_nutrition[macro] %>g / <%#= @user[macro] %>g</p>
         </div>
         <div class="progress w-100">
           <div class="progress-bar progress-bar-striped progress-bar-animated <%= color %>" role="progressbar"
-               style="width: <%= [(@total_nutrition[macro].to_f / @user[macro].to_f) * 100, 100].min %>%;"
-               aria-valuenow="<%= @total_nutrition[macro] %>" aria-valuemin="0" aria-valuemax="<%= @user[macro] %>">
+               style="width: <%#= [(@total_nutrition[macro].to_f / @user[macro].to_f) * 100, 100].min %>%;"
+               aria-valuenow="<%#= @total_nutrition[macro] %>" aria-valuemin="0" aria-valuemax="<%#= @user[macro] %>">
           </div>
         </div>
       </div>

@@ -4,43 +4,30 @@
   <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
     <div class="accordion" id="profileSettingsAccordion">
 
-      <!-- Personal Information -->
+      <!-- Dietary Preferences -->
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfo">
-            <strong>Personal Information</strong>
-          </button>
-        </h2>
-        <div id="personalInfo" class="accordion-collapse collapse show" data-bs-parent="#profileSettingsAccordion">
-          <div class="accordion-body">
-            <div class="text-center mb-3"></div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <%= f.label :first_name, "First Name", class: "form-label fw-bold" %>
-                <%= f.text_field :first_name, class: "form-control", placeholder: "Enter first name" %>
-              </div>
-              <div class="col-md-6">
-                <%= f.label :last_name, "Last Name", class: "form-label fw-bold" %>
-                <%= f.text_field :last_name, class: "form-control", placeholder: "Enter last name" %>
-              </div>
-            </div>
-            <div class="mb-3">
-              <%= f.label :email, "Email Address", class: "form-label fw-bold" %>
-              <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Dietary Preferences with Sliders -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dietaryPreferences">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dietaryPreferences">
             <strong>Dietary Preferences</strong>
           </button>
         </h2>
-        <div id="dietaryPreferences" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
+        <div id="dietaryPreferences" class="accordion-collapse collapse show" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
+
+            <!-- Dietary Restrictions (Moved Before Calorie Limits) -->
+            <h4 class="fw-bold">Dietary Restrictions</h4>
+            <div class="d-flex flex-wrap mb-4">
+              <% { vegetarian: "Vegetarian", vegan: "Vegan", keto: "Keto", pork: "Avoid Pork", beef: "Avoid Beef",
+                   gluten: "Gluten-Free", lactose: "Lactose-Free", high_protein: "High Protein", low_sodium: "Low Sodium", low_fat: "Low Fat", low_carbs: "Low Carbs" }.each do |key, label| %>
+                <div class="form-check me-3">
+                  <%= f.check_box key, class: "form-check-input", id: key %>
+                  <%= f.label key, label, class: "form-check-label" %>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Daily Calorie Limits (Now Below Dietary Restrictions) -->
+            <h4 class="fw-bold">Daily Intake Limits</h4>
             <div class="row g-3">
               <% [
                 { name: :calories, label: "Daily Calorie Limit (kcal)", min: 1000, max: 4000, step: 50 },
@@ -60,24 +47,11 @@
                 </div>
               <% end %>
             </div>
-
-            <!-- Dietary Restrictions -->
-            <h4 class="mt-4">Dietary Restrictions</h4>
-            <div class="d-flex flex-wrap">
-              <% { vegetarian: "Vegetarian", vegan: "Vegan", keto: "Keto", pork: "Avoid Pork", beef: "Avoid Beef",
-                   gluten: "Gluten-Free", lactose: "Lactose-Free", high_protein: "High Protein", low_sodium: "Low Sodium", low_fat: "Low Fat", low_carbs: "Low Carbs" }.each do |key, label| %>
-                <div class="form-check me-3">
-                  <%= f.check_box key, class: "form-check-input", id: key %>
-                  <%= f.label key, label, class: "form-check-label" %>
-                </div>
-              <% end %>
-            </div>
-
           </div>
         </div>
       </div>
 
-      <!-- Allergens Selection -->
+      <!-- Allergens & Restrictions -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergensSelection">
@@ -86,9 +60,39 @@
         </h2>
         <div id="allergensSelection" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
-            <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %><%= f.select :common_allergens, ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], {}, { multiple: true, class: "form-select", name: "user[common_allergens][]" } %>            <%= f.label :other_allergens, "Other Allergens", class: "form-label fw-bold mt-3" %>
-            <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
+            <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %>
+            <%= f.select :common_allergens, ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], {}, { multiple: true, class: "form-select", name: "user[common_allergens][]" } %>
 
+            <%= f.label :other_allergens, "Other Allergens", class: "form-label fw-bold mt-3" %>
+            <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Information (Now Last Section) -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfo">
+            <strong>Personal Information</strong>
+          </button>
+        </h2>
+        <div id="personalInfo" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
+          <div class="accordion-body">
+            <div class="text-center mb-3"></div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <%= f.label :first_name, "First Name", class: "form-label fw-bold" %>
+                <%= f.text_field :first_name, class: "form-control", placeholder: "Enter first name" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.label :last_name, "Last Name", class: "form-label fw-bold" %>
+                <%= f.text_field :last_name, class: "form-control", placeholder: "Enter last name" %>
+              </div>
+            </div>
+            <div class="mb-3">
+              <%= f.label :email, "Email Address", class: "form-label fw-bold" %>
+              <%= f.email_field :email, class: "form-control", placeholder: "Enter your email" %>
+            </div>
           </div>
         </div>
       </div>
