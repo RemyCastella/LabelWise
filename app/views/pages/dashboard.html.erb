@@ -1,4 +1,6 @@
+<!-- Container for Stats Section -->
 <div class="container d-flex flex-column align-items-center">
+
   <div class="mt-2">
     <div class=" px-3" >
       <div class="btn-group d-flex justify-content-center " data-controller="tab-switch" role="group" aria-label="Basic radio toggle button group">
@@ -134,20 +136,20 @@
         <% end %>
           <% @user.scans.uniq(&:food_id).each do |scan| %>
             <div class="card shadow-lg border-0 rounded-4 d-flex flex-row align-items-center p-2 mb-3">
-              <!-- Image Section -->
+
               <div class="position-relative" style="flex: 0 0 120px;">
                 <%= cl_image_tag scan.photo.key,
                   alt: "Food Image",
                   class: "rounded-4",
                   style: "width: 120px; height: 120px; object-fit: cover;" %>
               </div>
-              <!-- Text Section -->
+
               <div class="card-body d-flex flex-column justify-content-center ms-3">
                 <h6 class="fw-bold mb-1 text-truncate"><%= scan.food.name %></h6>
                 <p class="text-muted small mb-1">🔥 <strong><%= scan.food.calories %></strong> kcal</p>
                 <p class="text-muted small">🥩 <%= scan.food.protein %>g | 🍞 <%= scan.food.carbohydrates %>g | 🥑 <%= scan.food.fat %>g</p>
               </div>
-              <!-- Button -->
+
               <div class="ms-auto me-3">
                 <a href="#" class="btn btn-outline-primary btn-sm rounded-pill fw-bold">
                   View

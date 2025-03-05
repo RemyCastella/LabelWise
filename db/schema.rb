@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_28_031330) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_04_062859) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,9 +75,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_28_031330) do
     t.boolean "beef", default: false
     t.boolean "gluten", default: false
     t.boolean "lactose", default: false
-    t.string "other_ingredients"
+    t.string "other_ingredients", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "common_allergens", default: [], array: true
   end
 
   create_table "portions", force: :cascade do |t|
@@ -94,6 +96,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_28_031330) do
     t.bigint "food_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "lat"
+    t.float "lng"
     t.index ["food_id"], name: "index_scans_on_food_id"
     t.index ["user_id"], name: "index_scans_on_user_id"
   end
@@ -135,8 +139,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_28_031330) do
     t.integer "carbohydrates"
     t.integer "fat"
     t.integer "sodium"
-    t.text "common_allergens"
-    t.text "other_ingredients"
+    t.string "common_allergens", array: true
+    t.string "other_ingredients", array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

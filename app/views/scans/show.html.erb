@@ -4,9 +4,9 @@
       <i class="fa-solid fa-arrow-left" style="font-size: 1.2rem;"></i>
     <% end %>
   </div>
-  <div class="card w-100 shadow-lg p-3" style="border-radius: 20px;">
-    <div class="text-center">
-      <%= cl_image_tag @scan.photo.key, class: "w-50 rounded" %>
+  <div class="card shadow-lg p-3"style="border-radius: 20px; display: inline-block; min-width: 300px; min-height: 300px; max-width: 100%; text-align: center;">
+    <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+      <%= cl_image_tag @scan.photo.key, class: "w-100 h-100 rounded", style: "object-fit: contain;"  %>
     </div>
   </div>
   <% if @scan.food.present? %>
