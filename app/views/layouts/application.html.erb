@@ -40,9 +40,7 @@
 
       <div class="profile-avatar">
         <%= link_to profile_path do %>
-          <img src="https://www.vhv.rs/dpng/d/415-4153789_saitama-face-png-one-punch-man-face-png.png"
-               alt="User Avatar"
-               class="avatar">
+          <%= image_tag "Foto_Self_Disney.jpg", alt: "User Avatar", class: "avatar" %>
         <% end %>
       </div>
     </header>
@@ -50,7 +48,7 @@
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
 
-    <div class = "p-2">
+    <div class="p-2">
       <%= yield %>
     </div>
   </body>
