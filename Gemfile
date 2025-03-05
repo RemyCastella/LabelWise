@@ -85,4 +85,5 @@ gem "cloudinary"
 gem "ruby-openai"
 gem "solid_cable"
 gem "chartkick"
+gem "groupdate"
 gem 'exiftool_vendored'
