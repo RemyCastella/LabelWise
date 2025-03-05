@@ -8,14 +8,15 @@ class PagesController < ApplicationController
     elsif @tab == "this_week"
       @portions = Portion.where(created_at: Date.today.beginning_of_week..Date.today.end_of_day, user: @user)
     end
-    @total_nutrition = { protein: 0, fat: 0, carbohydrates: 0 }
+    @total_nutrition = { protein: 0, fat: 0, carbohydrates: 0, calories: @user.calories }
     @total_cal = 0
     @portions.each do |portion|
       @food = Food.find(portion.food_id)
-      @total_nutrition[:protein] += @food.protein * portion.portion_size
-      @total_nutrition[:fat] += @food.fat * portion.portion_size
-      @total_nutrition[:carbohydrates] += @food.carbohydrates * portion.portion_size
+      @total_nutrition[:protein] += @food.protein * portion.portion_size * 4
+      @total_nutrition[:fat] += @food.fat * portion.portion_size * 9
+      @total_nutrition[:carbohydrates] += @food.carbohydrates * portion.portion_size * 4
       @total_cal += @food.calories * portion.portion_size
+      @total_nutrition[:calories] -= @total_cal
     end
     return unless @tab == "this_week"
 
