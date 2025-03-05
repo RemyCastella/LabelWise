@@ -1,7 +1,7 @@
 <div class="container d-flex flex-column align-items-center pt-2 pb-0 px-3 " style="margin-top: -25px";>
 <%if @scan.food.present?
 
-  user_allergens = @scan.user.present? ? (@scan.user.common_allergens + @scan.user.other_ingredients).map(&:downcase) : []
+  user_allergens = @scan.user.present? ? (@scan.user.common_allergens + @scan.food.other_ingredients).map(&:downcase) : []
   food_ingredients = @scan.food.other_ingredients.map(&:downcase) if @scan.food.present?
   matching_allergens = user_allergens.any? && food_ingredients ? user_allergens.select { |allergen| food_ingredients.any? { |ingredient| ingredient.include?(allergen) } } : []
   diet_requirements_met = true
