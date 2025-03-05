@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_04_062859) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_05_053745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -254,10 +254,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_062859) do
     t.boolean "low_sodium", default: false
     t.boolean "low_fat", default: false
     t.boolean "low_carbs", default: false
-    t.integer "calories"
-    t.integer "protein"
-    t.integer "carbohydrates"
-    t.integer "fat"
+    t.integer "calories", default: 2000
+    t.integer "protein", default: 100
+    t.integer "carbohydrates", default: 250
+    t.integer "fat", default: 60
     t.integer "sodium"
     t.string "common_allergens", array: true
     t.string "other_ingredients", array: true
