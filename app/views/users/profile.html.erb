@@ -7,14 +7,12 @@
       <!-- Dietary Preferences -->
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dietaryPreferences">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dietaryPreferences">
             <strong>Dietary Preferences</strong>
           </button>
         </h2>
-        <div id="dietaryPreferences" class="accordion-collapse collapse show" data-bs-parent="#profileSettingsAccordion">
+        <div id="dietaryPreferences" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
-
-            <!-- Dietary Restrictions (Moved Before Calorie Limits) -->
             <h4 class="fw-bold">Dietary Restrictions</h4>
             <div class="d-flex flex-wrap mb-4">
               <% { vegetarian: "Vegetarian", vegan: "Vegan", keto: "Keto", pork: "Avoid Pork", beef: "Avoid Beef",
@@ -26,30 +24,94 @@
               <% end %>
             </div>
 
-            <!-- Daily Calorie Limits (Now Below Dietary Restrictions) -->
             <h4 class="fw-bold">Daily Intake Limits</h4>
-            <div class="row g-3">
-              <% [
-                { name: :calories, label: "Daily Calorie Limit (kcal)", min: 1000, max: 4000, step: 50 },
-                { name: :protein, label: "Protein (g)", min: 10, max: 300, step: 5 },
-                { name: :carbohydrates, label: "Carbohydrates (g)", min: 50, max: 500, step: 10 },
-                { name: :fat, label: "Fat (g)", min: 10, max: 150, step: 5 },
-                { name: :sodium, label: "Sodium (mg)", min: 500, max: 5000, step: 100 }
-              ].each do |item| %>
-                <div class="col-12">
-                  <%= f.label item[:name], item[:label], class: "form-label fw-bold" %>
-                  <div class="d-flex justify-content-between text-muted">
-                    <small><%= item[:min] %></small>
-                    <small><%= item[:max] %></small>
-                  </div>
-                  <input type="range" id="<%= item[:name] %>" name="user[<%= item[:name] %>]" min="<%= item[:min] %>" max="<%= item[:max] %>" step="<%= item[:step] %>" class="form-range" value="<%= @user[item[:name]] || item[:min] %>" oninput="document.getElementById('<%= item[:name] %>-value').innerText = this.value">
-                  <p class="text-center mt-1 fw-bold" id="<%= item[:name] %>-value"><%= @user[item[:name]] ? "#{@user[item[:name]]} kg" : '-' %></p>
+          <div class="row g-3">
+            <% [
+              { name: :calories, label: "Daily Calorie Limit (kcal)", min: 1000, max: 4000, step: 50 },
+              { name: :protein, label: "Protein (g)", min: 10, max: 300, step: 5 },
+              { name: :carbohydrates, label: "Carbohydrates (g)", min: 50, max: 500, step: 10 },
+              { name: :fat, label: "Fat (g)", min: 10, max: 150, step: 5 },
+              { name: :sodium, label: "Sodium (mg)", min: 500, max: 5000, step: 100 }
+            ].each do |item| %>
+              <div class="col-12">
+                <%= f.label item[:name], item[:label], class: "form-label fw-bold" %>
+                <div class="d-flex justify-content-between text-muted">
+                  <small><%= item[:min] %></small>
+                  <small><%= item[:max] %></small>
                 </div>
-              <% end %>
-            </div>
+
+                <div class="progress-container">
+                  <input type="range"
+                        id="<%= item[:name] %>"
+                        name="user[<%= item[:name] %>]"
+                        min="<%= item[:min] %>"
+                        max="<%= item[:max] %>"
+                        step="<%= item[:step] %>"
+                        class="form-range slider"
+                        value="<%= @user[item[:name]] || item[:min] %>"
+                        oninput="updateSliderValue('<%= item[:name] %>', this.value, <%= item[:min] %>, <%= item[:max] %>)">
+                  <div class="progress">
+                    <div class="progress-bar" id="<%= item[:name] %>-progress" style="width: 0%;"></div>
+                  </div>
+
+                </div>
+
+                <p class="text-center mt-1 fw-bold" id="<%= item[:name] %>-value"><%= @user[item[:name]] || '-' %></p>
+              </div>
+            <% end %>
           </div>
-        </div>
+
+          <script>
+            function updateSliderValue(id, value, min, max) {
+              document.getElementById(id + "-value").innerText = value;
+              let percentage = ((value - min) / (max - min)) * 100;
+              document.getElementById(id + "-progress").style.width = percentage + "%";
+            }
+
+            // Initialize progress bars based on current values
+            document.addEventListener("DOMContentLoaded", function() {
+              document.querySelectorAll(".slider").forEach(slider => {
+                updateSliderValue(slider.id, slider.value, slider.min, slider.max);
+              });
+            });
+          </script>
+
+          <style>
+            .progress-container {
+              position: relative;
+              width: 100%;
+              margin-top: 5px;
+            }
+
+            .progress {
+              height: 8px;
+              border-radius: 5px;
+              background-color: #e0e0e0;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              width: 100%;
+              transform: translateY(-50%);
+            }
+
+            .progress-bar {
+              height: 100%;
+              background-color: #16a34a;
+              border-radius: 5px;
+            }
+
+            .form-range {
+              position: relative;
+              z-index: 2;
+              width: 100%;
+              background: transparent;
+            }
+          </style>
       </div>
+    </div>
+  </div>
+
+
 
       <!-- Allergens & Restrictions -->
       <div class="accordion-item">
@@ -61,15 +123,15 @@
         <div id="allergensSelection" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
             <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %>
-            <%= f.select :common_allergens, ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], {}, { multiple: true, class: "form-select", name: "user[common_allergens][]" } %>
+            <%= f.select :common_allergens, ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], {}, { multiple: true, class: "form-select", name: "user[common_allergens][]", id: "common-allergens-select" } %>
 
-            <%= f.label :other_allergens, "Other Allergens", class: "form-label fw-bold mt-3" %>
+            <%= f.label :other_ingredients, "Other Allergens", class: "form-label fw-bold mt-3" %>
             <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
           </div>
         </div>
       </div>
 
-      <!-- Personal Information (Now Last Section) -->
+      <!-- Personal Information -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfo">
@@ -111,3 +173,14 @@
     <% end %>
   </div>
 </div>
+
+<!-- Tom Select Initialization -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    new TomSelect("#common-allergens-select", {
+      plugins: ['remove_button'],
+      persist: false,
+      create: false,
+    });
+  });
+</script>
