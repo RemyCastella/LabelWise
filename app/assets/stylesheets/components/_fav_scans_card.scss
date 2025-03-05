@@ -1,8 +1,8 @@
 .cards-container {
   display: grid;
-  gap: 1rem;
+  gap: 4rem;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  padding: 1rem;
+  padding: 4rem;
 }
 
 .card-category {
