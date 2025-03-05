@@ -74,7 +74,10 @@
         <div id="allergensSelection" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
             <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %>
-            <%= f.select :common_allergens, ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"], {}, { multiple: true, class: "form-select", name: "user[common_allergens][]", id: "common-allergens-select" } %>
+            <%= f.select :common_allergens,
+                ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
+                { prompt: "Select allergens to avoid" },
+                { multiple: true, class: "form-select", name: "user[common_allergens][]", id: "common-allergens-select" } %>
 
             <%= f.label :other_ingredients, "Other Allergens", class: "form-label fw-bold mt-3" %>
             <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
@@ -123,3 +126,16 @@
     <% end %>
   </div>
 </div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    new TomSelect("#common-allergens-select", {
+      plugins: ['remove_button'],
+      persist: false,
+      create: false,
+      placeholder: "Select allergens to avoid",
+    });
+  });
+</script>
+
