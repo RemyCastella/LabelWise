@@ -39,8 +39,12 @@ class Scan < ApplicationRecord
   end
 
   def set_location
+    return unless lat.nil? && lng.nil?
+
     file_path = URI.open(photo.url)
     exif = Exiftool.new(file_path.path)
+    return if exif[:gps_latitude].nil? && exif[:gps_longitude].nil?
+
     lat = exif[:gps_latitude]
     lng = exif[:gps_longitude]
     self.lat = lat
