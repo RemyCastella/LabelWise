@@ -1,11 +1,27 @@
-<div class="container d-flex flex-column align-items-center p-3">
-  <div class="w-100 d-flex justify-content-start mb-3">
-    <%= link_to root_path, class: "text-dark d-flex align-items-center justify-content-center border border-secondary rounded-circle p-2", style: "text-decoration: none; width: 40px; height: 40px;" do %>
-      <i class="fa-solid fa-arrow-left" style="font-size: 1.2rem;"></i>
-    <% end %>
-  </div>
-  <div class="card shadow-lg p-3"style="border-radius: 20px; display: inline-block; min-width: 300px; min-height: 300px; max-width: 100%; text-align: center;">
-    <div class="w-100 h-100 d-flex align-items-center justify-content-center">
+<div class="container d-flex flex-column align-items-center pt-2 pb-0 px-3 " style="margin-top: -25px";>
+<%if @scan.food.present?
+
+  user_allergens = @scan.user.present? ? (@scan.user.common_allergens + @scan.user.other_ingredients).map(&:downcase) : []
+  food_ingredients = @scan.food.other_ingredients.map(&:downcase) if @scan.food.present?
+  matching_allergens = user_allergens.any? && food_ingredients ? user_allergens.select { |allergen| food_ingredients.any? { |ingredient| ingredient.include?(allergen) } } : []
+  diet_requirements_met = true
+    diet_requirements_met &&= @scan.food.vegetarian if @scan.user.vegetarian && @scan.food.present?
+    diet_requirements_met &&= @scan.food.vegan if @scan.user.vegan && @scan.food.present?
+    diet_requirements_met &&= @scan.food.keto if @scan.user.keto && @scan.food.present?
+    diet_requirements_met &&= @scan.food.gluten if @scan.user.gluten && @scan.food.present?
+    diet_requirements_met &&= !@scan.food.pork if @scan.user.pork && @scan.food.present?
+    diet_requirements_met &&= !@scan.food.beef if @scan.user.beef && @scan.food.present?
+    diet_requirements_met &&= !@scan.food.lactose if @scan.user.lactose && @scan.food.present?
+    food_safe = matching_allergens.empty? && diet_requirements_met
+    food_unsafe = !food_safe
+  else
+    food_safe = false
+    food_unsafe = false
+  end
+%>
+  <div class="card shadow-lg p-2  <%= food_safe ? 'shadow-green' : food_unsafe ? 'shadow-red' : '' %>"
+     style="border-radius: 20px; display: inline-block; min-width: 300px; min-height: 300px; max-width: 100%; text-align: center;">
+    <div class="w-100 h-100 d-flex align-items-center justify-content-center ">
       <%= cl_image_tag @scan.photo.key, class: "w-100 h-100 rounded", style: "object-fit: contain;"  %>
     </div>
   </div>

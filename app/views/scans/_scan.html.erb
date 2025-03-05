@@ -1,8 +1,10 @@
-<div class="position-relative mt-4 food-details w-100 p-3">
+<div class="position-relative mt-2 food-details w-100 p-3">
   <!-- Info Icon -->
+
   <!-- Food Name and Info Icon in One Line -->
 <div class="d-flex align-items-center justify-content-between">
-  <h2 class="fw-bold mb-0"><%= food.name %></h2>
+ <h3 class="fw-bold mb-0"><%= food.name %></h3>
+
   <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" },
         class: "btn btn-dark d-flex align-items-center justify-content-center rounded-circle",
         style: "width: 36px; height: 36px;" do %>
@@ -22,67 +24,78 @@
 
 
   <!-- Energy & Dietary Labels -->
-  <div class="mt-2">
+  <div class="mt-3">
     <!-- Dietary Badges -->
-    <div class="d-flex flex-wrap gap-2">
+    <div class="d-flex flex-wrap gap-3">
       <% if user.vegetarian %>
-        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-          <i class="fa-solid fa-seedling me-2 text-success"></i> Vegetarian
-          <i class="fa-regular <%= food.vegetarian ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
-        </span>
-      <% end %>
-      <% if user.vegan %>
-        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-          <i class="fa-solid fa-leaf me-2 text-success"></i> Vegan
-          <i class="fa-regular <%= food.vegan ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
-        </span>
-      <% end %>
-      <% if user.keto %>
-        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-          <i class="fa-solid fa-bacon me-2 text-purple"></i> Keto
-          <i class="fa-regular <%= food.keto ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
-        </span>
-      <% end %>
-      <% if user.gluten %>
-        <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-          <i class="fa-solid fa-bread-slice me-2 text-warning"></i> Gluten-Free
-          <i class="fa-regular <%= food.gluten ? 'fa-thumbs-up text-success' : 'fa-thumbs-down text-danger' %> ms-2"></i>
-        </span>
-      <% end %>
+      <span class="badge <%= food.vegetarian ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.vegetarian %>
+          <i class="fa-solid fa-circle-check me-2"></i> Vegetarian
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Vegetarian
+        <% end %>
+      </span>
+    <% end %>
 
-      <% if user.pork %>
-    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-      <i class="fa-solid fa-piggy-bank me-2" style="color: pink;"></i>
-      Pork
-      <% if food.pork %>
-        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-      <% else %>
-        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-      <% end %>
-    </span>
-  <% end %>
-  <% if user.beef %>
-    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-      <i class="fa-solid fa-steak me-2" style="color: brown;"></i>
-      Beef
-      <% if food.beef %>
-        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-      <% else %>
-        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-      <% end %>
-    </span>
-  <% end %>
-  <% if user.lactose %>
-    <span class="badge bg-light text-dark border rounded-pill p-2 d-flex align-items-center">
-      <i class="fa-duotone fa-solid fa-cheese-swiss me-2" style="color: yellow;"></i>
-      Lactose-Free
-      <% if food.lactose %>
-        <i class="fa-regular fa-thumbs-down ms-2" style="color: red;"></i>
-      <% else %>
-        <i class="fa-regular fa-thumbs-up ms-2" style="color: green;"></i>
-      <% end %>
-    </span>
-  <% end %>
+    <% if user.vegan %>
+      <span class="badge <%= food.vegan ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.vegan %>
+          <i class="fa-solid fa-circle-check me-2"></i> Vegan
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Vegan
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.keto %>
+      <span class="badge <%= food.keto ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.keto %>
+          <i class="fa-solid fa-circle-check me-2"></i> Keto
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Keto
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.gluten %>
+      <span class="badge <%= food.gluten ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.gluten %>
+          <i class="fa-solid fa-circle-check me-2"></i> Gluten-Free
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Gluten-Free
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.pork %>
+      <span class="badge <%= food.pork ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.pork %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Pork
+        <% else %>
+          <i class="fa-solid fa-circle-check me-2"></i> Pork-Free
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.beef %>
+      <span class="badge <%= food.beef ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.beef %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Beef
+        <% else %>
+          <i class="fa-solid fa-circle-check me-2"></i> Beef-Free
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.lactose %>
+      <span class="badge <%= food.lactose ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.lactose %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Lactose
+        <% else %>
+          <i class="fa-solid fa-circle-check me-2"></i> Lactose-Free
+        <% end %>
+      </span>
+    <% end %>
   <% if user.common_allergens.present? || user.other_ingredients.present? %>
   <% user_allergens = (user.common_allergens + user.other_ingredients).map(&:downcase) %>
   <% food_ingredients = food.other_ingredients.map(&:downcase) %>

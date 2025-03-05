@@ -1,10 +1,20 @@
-<div class="map-container">Map goes here</div>
 <div class="cards-container">
   <% if @favorited_scans.any? %>
     <% @favorited_scans.each do |scan| %>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path(scan.photo.key) %>)">
-        <%= scan.food.name %>
-        <%= link_to "", scan_path(scan)%>
+      <div class="card">
+        <%= image_tag cl_image_path(scan.photo.key), alt: scan.food.name, class: "card-image" %>
+
+        <div class="card-content">
+          <h3 class="food-name"><%= scan.food.name %></h3>
+          <p class="food-calories"><%= scan.food.calories %> Kcal</p>
+        </div>
+
+        <!-- Star Partial (Favorite Icon) -->
+        <div class="favorite-icon">
+          <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
+        </div>
+
+        <%= link_to "", scan_path(scan), class: "card-link" %>
       </div>
     <% end %>
   <% end %>
