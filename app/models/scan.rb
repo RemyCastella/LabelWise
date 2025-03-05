@@ -43,8 +43,10 @@ class Scan < ApplicationRecord
 
     file_path = URI.open(photo.url)
     exif = Exiftool.new(file_path.path)
-    return if exif[:gps_latitude].nil? && exif[:gps_longitude].nil?
-
+    if exif[:gps_latitude].nil? && exif[:gps_longitude].nil?
+      lat = 0
+      lng = 0
+    end
     lat = exif[:gps_latitude]
     lng = exif[:gps_longitude]
     self.lat = lat
