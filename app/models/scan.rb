@@ -34,7 +34,7 @@ class Scan < ApplicationRecord
     data = JSON.parse(content)
     food = Food.create(data)
     self.food = food
-    self.save
+    save
     broadcast_info
   end
 
@@ -43,15 +43,9 @@ class Scan < ApplicationRecord
 
     file_path = URI.open(photo.url)
     exif = Exiftool.new(file_path.path)
-    if exif[:gps_latitude].nil? && exif[:gps_longitude].nil?
-      lat = 0
-      lng = 0
-    end
-    lat = exif[:gps_latitude]
-    lng = exif[:gps_longitude]
-    self.lat = lat
-    self.lng = lng
-    self.save
+    latitude = exif[:gps_latitude] || 0
+    longitude = exif[:gps_longitude] || 0
+    update_columns(lat: latitude, lng: longitude)
   end
 
   def broadcast_info
