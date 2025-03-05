@@ -97,7 +97,7 @@
       </span>
     <% end %>
   <% if user.common_allergens.present? || user.other_ingredients.present? %>
-  <% user_allergens = (user.common_allergens + user.other_ingredients).map(&:downcase) %>
+  <% user_allergens = (user.food_restrictions).map(&:downcase) %>
   <% food_ingredients = food.other_ingredients.map(&:downcase) %>
 
   <% matching_allergens = user_allergens.select { |allergen| food_ingredients.any? { |ingredient| ingredient.include?(allergen) } } %>
