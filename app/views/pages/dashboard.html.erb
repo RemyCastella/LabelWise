@@ -107,7 +107,7 @@
     <% else %>
       <%= pie_chart (@total_nutrition),
               donut: true,
-              colors: ['#17a2b8', '#5055aa', '#c46210', '#d3d3d3'],
+              colors: ['#16a34a', '#E80619', '#fd7e14', '#cbd5e1'],
               library: {
                 cutout: '85%',
                 segmentShowStroke: false,
@@ -136,7 +136,7 @@
         <p class="fs-6"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein %>g</p>
       </div>
       <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                   role="progressbar"
                   style="width: <%= @total_nutrition[:protein] / (@user.protein * 4) * 100 %>%"
                   aria-valuenow="<%= @total_nutrition[:protein] %>"
