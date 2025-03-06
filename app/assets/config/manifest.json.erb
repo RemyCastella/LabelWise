@@ -1,8 +1,10 @@
 {
   "background_color": "white",
   "description": "Wise Label helps you track your food by scanning labels and identifying ingredients that matter to you. Whether you want to avoid allergens, additives, or specific ingredients, this smart app keeps you informed and helps you make healthier choices. Stay in control of what you eat effortlessly!",
-  "display": "fullscreen",
+  "display": "standalone",
   "name": "LabelWise",
+  "start_url": "/dashboard",
+  "scope": "/",
   "icons": [
     <% files = Dir.entries(Rails.root.join("app/assets/images/icons/")).select {|f| !File.directory? f} %>
     <% files.each_with_index do |file, index| %>
