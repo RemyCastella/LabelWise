@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   get "/dashboard", to: "pages#dashboard", as: :dashboard
   resources :scans, only: [:index, :show, :create] do
-    resources :portions, only: [:new, :create]
+    resources :portions, only: [:create]
     member do
       post :favorite
       delete :unfavorite
