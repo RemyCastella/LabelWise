@@ -26,7 +26,7 @@
     </div>
   </div>
   <% if @scan.food.present? %>
-    <%= render partial: "scans/scan", locals: { scan: @scan, food: @scan.food, user: @scan.user } %>
+    <%= render partial: "scans/scan", locals: { scan: @scan, food: @scan.food, user: @scan.user, portion: @portion } %>
   <% else %>
     <div class="mt-4" id="scan_<%= @scan.id %>_food">
       <%= turbo_stream_from "info_#{@scan.id}" %>

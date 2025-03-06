@@ -7,6 +7,7 @@ class ScansController < ApplicationController
 
   def show
     @scan = Scan.find(params[:id])
+    @portion = Portion.new
   end
 
   def create
