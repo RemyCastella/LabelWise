@@ -15,7 +15,7 @@
               ],
               labels: @week_days.map { |day| day.strftime("%b %d") },
               stacked: true,
-              colors: ['#fd7e14', '#5055aa', '#17a2b8'],
+              colors: ['#fd7e14', '#17a2b8', '#16a34a'],
               chart_type: "column",
               title: "Calories",
               legend: {
@@ -68,7 +68,7 @@
           <p class="fs-6 text-secondary"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein * 7 %>g</p>
         </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                 role="progressbar"
                 style="width: <%= @total_nutrition[:protein] / (@user.protein  * 4 * 7) * 100 %>%"
                 aria-valuenow=""
@@ -83,7 +83,7 @@
           <p class="fs-6 text-secondary"><%= @total_nutrition[:fat] / 9 %>g / <%= @user.fat * 7 %>g</p>
         </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
                 role="progressbar"
                 style="width: <%= @total_nutrition[:fat] / (@user.fat * 9 * 7) * 100 %>%"
                 aria-valuenow="<%= @total_nutrition[:fat] %>"
@@ -107,7 +107,7 @@
     <% else %>
       <%= pie_chart (@total_nutrition),
               donut: true,
-              colors: ['#17a2b8', '#5055aa', '#c46210', '#d3d3d3'],
+              colors: ['#16a34a', '#17a2b8', '#fd7e14', '#cbd5e1'],
               library: {
                 cutout: '85%',
                 segmentShowStroke: false,
@@ -136,7 +136,7 @@
         <p class="fs-6"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein %>g</p>
       </div>
       <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                   role="progressbar"
                   style="width: <%= @total_nutrition[:protein] / (@user.protein * 4) * 100 %>%"
                   aria-valuenow="<%= @total_nutrition[:protein] %>"
@@ -151,7 +151,7 @@
         <p class="fs-6"><%= @total_nutrition[:fat] / 9 %>g / <%= @user.fat %>g</p>
       </div>
       <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
                   role="progressbar"
                   style="width: <%= @total_nutrition[:fat] / (@user.fat * 9) * 100 %>%">
         </div>
