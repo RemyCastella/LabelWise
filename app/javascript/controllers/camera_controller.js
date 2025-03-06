@@ -16,7 +16,7 @@ export default class extends Controller {
       backdrop: `
       rgba(22, 163, 74, 0.5)
         url("${this.nyanPathValue}")
-        center top
+        center 200px
         no-repeat
       `,
       showConfirmButton: false,
