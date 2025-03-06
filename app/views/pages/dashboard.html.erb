@@ -15,7 +15,7 @@
               ],
               labels: @week_days.map { |day| day.strftime("%b %d") },
               stacked: true,
-              colors: ['#fd7e14', '#E80619', '#17a2b8'],
+              colors: ['#fd7e14', '#E80619', '#16a34a'],
               chart_type: "column",
               title: "Calories",
               legend: {
@@ -68,7 +68,7 @@
           <p class="fs-6 text-secondary"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein * 7 %>g</p>
         </div>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
                 role="progressbar"
                 style="width: <%= @total_nutrition[:protein] / (@user.protein  * 4 * 7) * 100 %>%"
                 aria-valuenow=""
