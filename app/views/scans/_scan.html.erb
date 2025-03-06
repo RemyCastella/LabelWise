@@ -1,113 +1,113 @@
 <div class="position-relative mt-2 food-details w-100 p-3">
-  <div class="d-flex align-items-center justify-content-between">
-    <h3 class="fw-bold mb-0"><%= food.name %></h3>
-    <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" },
+<div class="d-flex align-items-center justify-content-between">
+ <h3 class="fw-bold mb-0"><%= food.name %></h3>
+
+  <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#food-details-modal" },
         class: "btn btn-dark d-flex align-items-center justify-content-center rounded-circle",
         style: "width: 36px; height: 36px;" do %>
       <i class="fa-solid fa-info fa-fw fa-xl text-white"></i>
     <% end %>
   </div>
-  <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-    <div class="d-flex flex-column">
-      <p class="fw-bold mb-0">Energy: <span class="text-muted"><%= food.calories %> Kcal</span></p>
+  <div class="ms-3">
+    <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
+  </div>
+</div>
+  <!-- Energy & Dietary Labels -->
+  <div class="mt-3">
+    <!-- Dietary Badges -->
+    <div class="d-flex flex-wrap gap-3">
+      <% if user.vegetarian %>
+      <span class="badge <%= food.vegetarian ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.vegetarian %>
+          <i class="fa-solid fa-circle-check me-2"></i> Vegetarian
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> not-Vegetarian
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.vegan %>
+      <span class="badge <%= food.vegan ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.vegan %>
+          <i class="fa-solid fa-circle-check me-2"></i> Vegan
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> not-Vegan
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.keto %>
+      <span class="badge <%= food.keto ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.keto %>
+          <i class="fa-solid fa-circle-check me-2"></i> Keto
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Keto
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.gluten %>
+      <span class="badge <%= food.gluten ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.gluten %>
+          <i class="fa-solid fa-circle-check me-2"></i> Gluten-Free
+        <% else %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Gluten-Free
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.pork %>
+      <span class="badge <%= food.pork ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.pork %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Pork
+        <% else %>
+          <i class="fa-solid fa-circle-check me-2"></i> Pork-Free
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.beef %>
+      <span class="badge <%= food.beef ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.beef %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Beef
+        <% else %>
+          <i class="fa-solid fa-circle-check me-2"></i> Beef-Free
+        <% end %>
+      </span>
+    <% end %>
+
+    <% if user.lactose %>
+      <span class="badge <%= food.lactose ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
+        <% if food.lactose %>
+          <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Lactose
+        <% else %>
+          <i class="fa-solid fa-circle-check me-2"></i> Lactose-Free
+        <% end %>
+      </span>
+    <% end %>
+  <% if user.common_allergens.present? || user.other_ingredients.present? %>
+  <% user_allergens = (user.food_restrictions).map(&:downcase) %>
+  <% food_ingredients = food.other_ingredients.map(&:downcase) %>
+
+  <% matching_allergens = user_allergens.select { |allergen| food_ingredients.any? { |ingredient| ingredient.include?(allergen) } } %>
+
+  <% if matching_allergens.any? %>
+    <span class="badge bg-danger text-white border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-solid fa-triangle-exclamation me-2" style="color: white;"></i>
+      Contains Allergens: <strong class="ms-1"><%= matching_allergens.map(&:capitalize).join(", ") %></strong>
+    </span>
+  <% else %>
+    <span class="badge bg-success text-white border rounded-pill p-2 d-flex align-items-center">
+      <i class="fa-solid fa-circle-check me-2" style="color: white;"></i>
+      No Allergens Detected
+    </span>
+  <% end %>
+  <% end %>
     </div>
-    <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-      <div class="d-flex flex-column">
-        <p class="fw-bold mb-0">Energy: <span class="text-muted"><%= food.calories %> Kcal</span></p>
-      </div>
-      <div class="ms-3">
-        <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
-      </div>
-    </div>
-    <!-- Energy & Dietary Labels -->
-    <div class="mt-3">
-      <!-- Dietary Badges -->
-      <div class="d-flex flex-wrap gap-3">
-        <% if user.vegetarian %>
-          <span class="badge <%= food.vegetarian ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
-            <% if food.vegetarian %>
-              <i class="fa-solid fa-circle-check me-2"></i> Vegetarian
-            <% else %>
-              <i class="fa-solid fa-triangle-exclamation me-2"></i> Not vegetarian
-            <% end %>
-          </span>
-        <% end %>
-        <% if user.vegan %>
-          <span class="badge <%= food.vegan ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
-            <% if food.vegan %>
-              <i class="fa-solid fa-circle-check me-2"></i> Vegan
-            <% else %>
-              <i class="fa-solid fa-triangle-exclamation me-2"></i> Not vegan
-            <% end %>
-          </span>
-        <% end %>
-        <% if user.keto %>
-          <span class="badge <%= food.keto ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
-            <% if food.keto %>
-              <i class="fa-solid fa-circle-check me-2"></i> Keto
-            <% else %>
-              <i class="fa-solid fa-triangle-exclamation me-2"></i> Keto
-            <% end %>
-          </span>
-        <% end %>
-        <% if user.gluten %>
-          <span class="badge <%= food.gluten ? 'bg-success text-white' : 'bg-danger text-white' %> border rounded-pill p-2 d-flex align-items-center">
-            <% if food.gluten %>
-              <i class="fa-solid fa-circle-check me-2"></i> Gluten-Free
-            <% else %>
-              <i class="fa-solid fa-triangle-exclamation me-2"></i> Gluten-Free
-            <% end %>
-          </span>
-        <% end %>
-        <% if user.pork %>
-          <span class="badge <%= food.pork ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
-            <% if food.pork %>
-              <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Pork
-            <% else %>
-              <i class="fa-solid fa-circle-check me-2"></i> Pork-Free
-            <% end %>
-          </span>
-        <% end %>
-        <% if user.beef %>
-          <span class="badge <%= food.beef ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
-            <% if food.beef %>
-              <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Beef
-            <% else %>
-              <i class="fa-solid fa-circle-check me-2"></i> Beef-Free
-            <% end %>
-          </span>
-        <% end %>
-        <% if user.lactose %>
-          <span class="badge <%= food.lactose ? 'bg-danger text-white' : 'bg-success text-white' %> border rounded-pill p-2 d-flex align-items-center">
-            <% if food.lactose %>
-              <i class="fa-solid fa-triangle-exclamation me-2"></i> Contains Lactose
-            <% else %>
-              <i class="fa-solid fa-circle-check me-2"></i> Lactose-Free
-            <% end %>
-          </span>
-        <% end %>
-        <% if user.common_allergens.present? || user.other_ingredients.present? %>
-          <% user_allergens = (user.food_restrictions).map(&:downcase) %>
-          <% food_ingredients = food.other_ingredients.map(&:downcase) %>
-          <% matching_allergens = user_allergens.select { |allergen| food_ingredients.any? { |ingredient| ingredient.include?(allergen) } } %>
-          <% if matching_allergens.any? %>
-            <span class="badge bg-danger text-white border rounded-pill p-2 d-flex align-items-center">
-              <i class="fa-solid fa-triangle-exclamation me-2" style="color: white;"></i>
-              Contains Allergens: <strong class="ms-1"><%= matching_allergens.map(&:capitalize).join(", ") %></strong>
-            </span>
-          <% else %>
-            <span class="badge bg-success text-white border rounded-pill p-2 d-flex align-items-center">
-              <i class="fa-solid fa-circle-check me-2" style="color: white;"></i>
-              No Allergens Detected
-            </span>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-    <!-- Macronutrients -->
-    <div class="mt-3 w-100">
-      <div class="d-flex align-items-center mb-2 p-2 border rounded" style="background-color: #F8F8F8;">
-        <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2"
+  </div>
+  <div class="mt-3 w-100">
+    <div class="d-flex align-items-center mb-2 p-2 border rounded" style="background-color: #F8F8F8;">
+      <div class="d-flex align-items-center justify-content-center rounded-circle p-2 me-2"
            style="width: 36px; height: 36px; background-color: white; border: 1px solid #ddd;">
           <i class="fa-solid fa-dumbbell text-success"></i>
         </div>
