@@ -6,6 +6,7 @@ class ScansController < ApplicationController
   end
 
   def show
+    @portion = Portion.new
     @scan = Scan.find(params[:id])
     return unless @scan.lat && @scan.lng
     @markers = [{

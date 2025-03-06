@@ -1,8 +1,4 @@
 class PortionsController < ApplicationController
-  def new
-    @portion = Portion.new
-    @scan = Scan.find(params[:scan_id])
-  end
 
   def create
     @portion = Portion.new(portion_params)
