@@ -25,7 +25,7 @@ class ScansController < ApplicationController
   end
 
   def favorites
-    p @current_user.all_favorites.map(&:favoritable)
+    p current_user.all_favorites.map(&:favoritable)
 
     @favorited_scans = current_user.all_favorites.map(&:favoritable)
   end
