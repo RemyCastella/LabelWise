@@ -31,10 +31,10 @@ class PagesController < ApplicationController
 
     @week_days.each do |day|
       daily_data = @portions.where(created_at: day.beginning_of_day..day.end_of_day)
-      protein_total = daily_data.sum { |portion| portion.food.protein * portion.portion_size }
-      fat_total = daily_data.sum { |portion| portion.food.fat * portion.portion_size }
-      carbs_total = daily_data.sum { |portion| portion.food.carbohydrates * portion.portion_size }
-      calories_total = daily_data.sum { |portion| portion.food.calories * portion.portion_size }
+      protein_total = daily_data.sum { |portion| portion.food.protein * portion.portion_size * 4 }
+      fat_total = daily_data.sum { |portion| portion.food.fat * portion.portion_size * 9}
+      carbs_total = daily_data.sum { |portion| portion.food.carbohydrates * portion.portion_size * 4 }
+      calories_total = daily_data.sum { |portion| portion.food.calories * portion.portion_size}
 
       @daily_nutrition[:protein] << [day.strftime("%b %d"), protein_total]
       @daily_nutrition[:fat] << [day.strftime("%b %d"), fat_total]
