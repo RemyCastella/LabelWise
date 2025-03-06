@@ -1,3 +1,10 @@
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
 .card-product {
   overflow: hidden;
   height: 120px;
@@ -10,9 +17,9 @@
 }
 
 .card-product img {
+  margin-left: 0;
   height: 100%;
-  width: 120px;
-  object-fit: cover;
+  width: 100px;
 }
 
 .card-product h2 {

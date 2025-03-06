@@ -12,10 +12,10 @@ class PagesController < ApplicationController
     @total_cal = 0
     @portions.each do |portion|
       @food = Food.find(portion.food_id)
-      @total_nutrition[:protein] += @food.protein * portion.portion_size * 4
-      @total_nutrition[:fat] += @food.fat * portion.portion_size * 9
-      @total_nutrition[:carbohydrates] += @food.carbohydrates * portion.portion_size * 4
-      @total_cal += @food.calories * portion.portion_size
+      @total_nutrition[:protein] += (@food.protein * portion.portion_size * 4).round(1)
+      @total_nutrition[:fat] += (@food.fat * portion.portion_size * 9).round(1)
+      @total_nutrition[:carbohydrates] += (@food.carbohydrates * portion.portion_size * 4).round(1)
+      @total_cal += (@food.calories * portion.portion_size).round(1)
       @total_nutrition[:calories] -= @total_cal
       @total_nutrition[:calories] = 0 if (@total_nutrition[:calories]).negative?
     end
@@ -36,10 +36,10 @@ class PagesController < ApplicationController
       carbs_total = daily_data.sum { |portion| portion.food.carbohydrates * portion.portion_size * 4 }
       calories_total = daily_data.sum { |portion| portion.food.calories * portion.portion_size}
 
-      @daily_nutrition[:protein] << [day.strftime("%b %d"), protein_total]
-      @daily_nutrition[:fat] << [day.strftime("%b %d"), fat_total]
-      @daily_nutrition[:carbohydrates] << [day.strftime("%b %d"), carbs_total]
-      @daily_nutrition[:calories] << [day.strftime("%b %d"), calories_total]
+      @daily_nutrition[:protein] << [day.strftime("%b %d"), protein_total.round(1)]
+      @daily_nutrition[:fat] << [day.strftime("%b %d"), fat_total.round(1)]
+      @daily_nutrition[:carbohydrates] << [day.strftime("%b %d"), carbs_total.round(1)]
+      @daily_nutrition[:calories] << [day.strftime("%b %d"), calories_total.round(1)]
     end
   end
 end

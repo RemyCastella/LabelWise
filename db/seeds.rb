@@ -25,3 +25,38 @@ User.create!({
 })
 
 puts "...created #{User.first.first_name}'s profile"
+
+puts "Creating 10 food items"
+
+10.times do
+  Food.create!(
+    name: Faker::Food.dish,
+    calories: rand(100..600),
+    protein: rand(5..50),
+    carbohydrates: rand(10..100),
+    fat: rand(5..50),
+    sodium: rand(50..1000)
+  )
+end
+
+puts "Created #{Food.count} foods"
+
+puts "Creating portions for each day of the week"
+
+foods = Food.all
+
+6.times do |i|
+  date = (i + 1).days.ago.to_date
+
+  foods.sample(2).each do |food|
+    Portion.create!(
+      user: User.first,
+      food: food,
+      portion_size: rand(0.1..5.0).round(0),
+      created_at: date,
+      updated_at: date
+    )
+  end
+end
+
+puts "...created #{Portion.count} portions"

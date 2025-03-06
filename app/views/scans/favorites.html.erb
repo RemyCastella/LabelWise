@@ -1,22 +1,26 @@
-<div class="cards-container">
-  <h1 class="text-center fw-bold my-4">Favorites</h1>
-  <% if @favorited_scans.any? %>
-    <% @favorited_scans.each do |scan| %>
-      <div class="card">
-        <%= image_tag cl_image_path(scan.photo.key), alt: scan.food.name, class: "card-image" %>
-
-        <div class="card-content">
-          <h3 class="food-name"><%= scan.food.name %></h3>
-          <p class="food-calories"><%= scan.food.calories %> Kcal</p>
+<div class="cards-container mt-4">
+  <h2>Favorites</h2>
+  <div class="row g-4">
+    <% if @favorited_scans.any? %>
+      <% @favorited_scans.each do |scan| %>
+        <div class="card-product d-flex align-item-center">
+          <%= link_to "", scan_path(scan) %>
+          <div class="img">
+            <%= cl_image_tag scan.photo.key,
+                  alt: "Scan Image" %>
+          </div>
+          <% if scan.food %>
+            <div class="card-product-infos">
+              <h6 class="fw-bold mb-1 text-truncate"><%= scan.food.name %></h6>
+              <p class="text-muted small mb-1">🔥 <strong><%= scan.food.calories %></strong> kcal</p>
+              <p class="text-muted small">🥩 <%= scan.food.protein %>g | 🍞 <%= scan.food.carbohydrates %>g | 🥑 <%= scan.food.fat %>g</p>
+            </div>
+          <% end %>
+          <div class="favorite-icon">
+            <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
+          </div>
         </div>
-
-        <!-- Star Partial (Favorite Icon) -->
-        <div class="favorite-icon">
-          <%= render partial: "scans/star", locals: { scan: scan, favorite: scan.user.favorited?(scan) } %>
-        </div>
-
-        <%= link_to "", scan_path(scan), class: "card-link" %>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>

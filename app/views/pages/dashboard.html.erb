@@ -65,7 +65,7 @@
       <div class="macro-group">
         <div class='d-flex justify-content-between'>
           <p class="fs-6 fw-semibold">Protein</p>
-          <p class="fs-6 text-secondary"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein * 7 %>g</p>
+          <p class="fs-6 text-secondary"><%= @total_nutrition[:protein] / 4 %> / <%= @user.protein * 7 %>g</p>
         </div>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
@@ -80,7 +80,7 @@
       <div class="macro-group">
         <div class='d-flex justify-content-between'>
           <p class="fs-6 fw-semibold">Fat</p>
-          <p class="fs-6 text-secondary"><%= @total_nutrition[:fat] / 9 %>g / <%= @user.fat * 7 %>g</p>
+          <p class="fs-6 text-secondary"><%= @total_nutrition[:fat] / 9 %> / <%= @user.fat * 7 %>g</p>
         </div>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
@@ -95,7 +95,7 @@
       <div class="macro-group">
         <div class='d-flex justify-content-between'>
           <p class="fs-6 fw-semibold">Carbs</p>
-          <p class="fs-6 text-secondary"><%= @total_nutrition[:carbohydrates] / 4 %>g / <%= @user.carbohydrates * 7 %>g</p>
+          <p class="fs-6 text-secondary"><%= @total_nutrition[:carbohydrates] / 4 %> / <%= @user.carbohydrates * 7 %>g</p>
         </div>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
@@ -126,14 +126,14 @@
               }
             %>
       <div class="chart-text fw-semibold d-flex flex-column" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
-        <div class="fs-1"><%= @total_cal %> kcal</div>
+        <div class="fs-1"><%= @total_cal %></div>
         <div class="text-secondary align-self-center">/<%= @user.calories || 0 %> kcal</div>
       </div>
     </div>
     <div class="macro-group">
       <div class='d-flex justify-content-between'>
         <p class="fs-6 fw-semibold">Protein</p>
-        <p class="fs-6"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein %>g</p>
+        <p class="fs-6 text-secondary"><%= @total_nutrition[:protein] / 4 %> / <%= @user.protein %>g</p>
       </div>
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
@@ -148,7 +148,7 @@
     <div class="macro-group">
       <div class='d-flex justify-content-between'>
         <p class="fs-6 fw-semibold">Fat</p>
-        <p class="fs-6"><%= @total_nutrition[:fat] / 9 %>g / <%= @user.fat %>g</p>
+        <p class="fs-6 text-secondary"><%= @total_nutrition[:fat] / 9 %> / <%= @user.fat %>g</p>
       </div>
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
@@ -160,7 +160,7 @@
     <div class="macro-group">
       <div class='d-flex justify-content-between'>
         <p class="fs-6 fw-semibold">Carbs</p>
-        <p class="fs-6"><%= @total_nutrition[:carbohydrates] / 4 %>g / <%= @user.carbohydrates %>g</p>
+        <p class="fs-6 text-secondary"><%= @total_nutrition[:carbohydrates] / 4 %> / <%= @user.carbohydrates %>g</p>
       </div>
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
@@ -171,17 +171,15 @@
     </div>
   <% end %>
 </div>
-<div class="cards-container mt-3">
-  <H2>Recent Scans</H2>
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+<div class="cards-container mt-4">
+  <h2>Recent Scans</h2>
+  <div class="row g-4">
     <% @user.scans.order(created_at: :desc).limit(3).each do |scan| %>
-      <div class="col card-product d-flex align-item-center p-3">
+      <div class="card-product d-flex align-item-center">
         <%= link_to "", scan_path(scan) %>
         <div class="img">
           <%= cl_image_tag scan.photo.key,
-                  alt: "Scan Image",
-                  class: "rounded-4",
-                  style: "object-fit: scale-down;" %>
+                  alt: "Scan Image" %>
         </div>
         <% if scan.food %>
           <div class="card-product-infos">
