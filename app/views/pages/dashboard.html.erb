@@ -6,7 +6,7 @@
     <%= link_to "This week", root_path(tab: "this_week"), class: "#{"active" if @tab == "this_week"} btn btn-outline-primary", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
   </div>
   <div data-tab-switcher-target="section">
-    <div class="chart-container mt-3 position-relative">
+    <div class="chart-container mt-5 position-relative">
       <% if @tab == "this_week" %>
         <%= column_chart [
                 { name: 'Carbohydrates', data: @daily_nutrition[:carbohydrates] },
@@ -130,7 +130,7 @@
         <div class="text-secondary align-self-center">/<%= @user.calories || 0 %> kcal</div>
       </div>
     </div>
-    <div class="macro-group">
+    <div class="macro-group mt-4">
       <div class='d-flex justify-content-between'>
         <p class="fs-6 fw-semibold">Protein</p>
         <p class="fs-6 text-secondary"><%= @total_nutrition[:protein] / 4 %> / <%= @user.protein %>g</p>
@@ -171,7 +171,7 @@
     </div>
   <% end %>
 </div>
-<div class="cards-container mt-4">
+<div class="cards-container mt-5">
   <h2>Recent Scans</h2>
   <div class="row g-4">
     <% @user.scans.order(created_at: :desc).limit(3).each do |scan| %>
