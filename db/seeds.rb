@@ -36,7 +36,7 @@ puts "Creating 10 food items"
 10.times do
   Food.create!(
     name: Faker::Food.dish,
-    calories: rand(100..600),
+    calories: rand(300..700),
     protein: rand(5..30),
     carbohydrates: rand(10..100),
     fat: rand(5..30),
