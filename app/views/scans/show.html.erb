@@ -1,5 +1,5 @@
 <div class="container d-flex flex-column align-items-center pt-2 pb-0 px-3 " style="margin-top: -25px";>
-<%if @scan.food.present?
+  <%if @scan.food.present?
 
   user_allergens = @scan.user.present? ? (@scan.user.food_restrictions).map(&:downcase) : []
   food_ingredients = @scan.food.other_ingredients.map(&:downcase) if @scan.food.present?
