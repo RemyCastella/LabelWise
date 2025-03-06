@@ -23,6 +23,9 @@ User.create!({
   last_name: "Dijkhuizen",
   vegetarian: true,
   calories: 3000,
+  protein: 120,
+  carbohydrates: 450,
+  fat: 100,
   common_allergens: ["Nut"]
 })
 
@@ -34,9 +37,9 @@ puts "Creating 10 food items"
   Food.create!(
     name: Faker::Food.dish,
     calories: rand(100..600),
-    protein: rand(5..50),
+    protein: rand(5..30),
     carbohydrates: rand(10..100),
-    fat: rand(5..50),
+    fat: rand(5..30),
     sodium: rand(50..1000)
   )
 end
