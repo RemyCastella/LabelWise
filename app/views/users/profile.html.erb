@@ -4,14 +4,14 @@
   <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
     <div class="accordion" id="profileSettingsAccordion">
 
-      <!-- Dietary Preferences -->
+      <!-- Dietary Preferences & Allergens -->
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dietaryPreferences">
-            <strong>Dietary Preferences</strong>
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#dietaryPreferences">
+            <strong>Dietary Preferences & Allergens</strong>
           </button>
         </h2>
-        <div id="dietaryPreferences" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
+        <div id="dietaryPreferences" class="accordion-collapse collapse show" data-bs-parent="#profileSettingsAccordion">
           <div class="accordion-body">
             <h4 class="fw-bold">Dietary Restrictions</h4>
             <div class="d-flex flex-wrap mb-4">
@@ -24,7 +24,27 @@
               <% end %>
             </div>
 
-            <h4 class="fw-bold">Daily Intake Limits</h4>
+            <h4 class="fw-bold">Common Allergens to Avoid</h4>
+            <%= f.select :common_allergens,
+                ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
+                {},
+                { multiple: true, class: "form-select", name: "user[common_allergens][]", id: "common-allergens-select" } %>
+
+            <%= f.label :other_ingredients, "Other Allergens", class: "form-label fw-bold mt-3" %>
+            <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Intake Limits -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dailyIntakeLimits">
+            <strong>Daily Intake Limits</strong>
+          </button>
+        </h2>
+        <div id="dailyIntakeLimits" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
+          <div class="accordion-body">
             <div class="row g-3" data-controller="profile-settings">
               <% [
                 { name: :calories, label: "Daily Calorie Limit", min: 1000, max: 4000, step: 50 },
@@ -35,7 +55,6 @@
               ].each do |item| %>
                 <div class="col-12">
                   <%= f.label item[:name], item[:label], class: "form-label fw-bold" %>
-
                   <input type="range"
                         id="<%= item[:name] %>"
                         name="user[<%= item[:name] %>]"
@@ -45,14 +64,12 @@
                         class="form-range styled-slider"
                         data-profile-settings-target="slider"
                         data-action="input->profile-settings#update">
-
                   <% unit = case item[:name]
                        when :protein, :carbohydrates, :fat then " g"
                        when :sodium then " mg"
                        when :calories then " kcal"
                        else " kg"
                   end %>
-
                   <p class="text-center mt-1 fw-bold"
                      data-profile-settings-target="value">
                     <%= @user[item[:name]] ? "#{@user[item[:name]]}#{unit}" : '-' %>
@@ -60,27 +77,6 @@
                 </div>
               <% end %>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Allergens & Restrictions -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergensSelection">
-            <strong>Allergens & Restrictions</strong>
-          </button>
-        </h2>
-        <div id="allergensSelection" class="accordion-collapse collapse" data-bs-parent="#profileSettingsAccordion">
-          <div class="accordion-body">
-            <%= f.label :common_allergens, "Common Allergens to Avoid", class: "form-label fw-bold" %>
-            <%= f.select :common_allergens,
-                ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
-                { prompt: "Select allergens to avoid" },
-                { multiple: true, class: "form-select", name: "user[common_allergens][]", id: "common-allergens-select" } %>
-
-            <%= f.label :other_ingredients, "Other Allergens", class: "form-label fw-bold mt-3" %>
-            <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
           </div>
         </div>
       </div>
@@ -127,15 +123,31 @@
   </div>
 </div>
 
-
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    new TomSelect("#common-allergens-select", {
-      plugins: ['remove_button'],
-      persist: false,
-      create: false,
-      placeholder: "Select allergens to avoid",
-    });
+document.addEventListener("DOMContentLoaded", function() {
+  let select = new TomSelect("#common-allergens-select", {
+    plugins: ['remove_button'],
+    persist: false,
+    create: false,
+    placeholder: "Select allergens to avoid",
+    onInitialize: function() {
+      if (this.getValue().length > 0) {
+        this.settings.placeholder = '';
+        this.control_input.placeholder = '';
+      }
+    }
   });
-</script>
 
+  // Listen for changes and update placeholder dynamically
+  select.on('change', function() {
+    if (select.getValue().length > 0) {
+      select.settings.placeholder = '';
+      select.control_input.placeholder = '';
+    } else {
+      select.settings.placeholder = "Select allergens to avoid";
+      select.control_input.placeholder = "Select allergens to avoid";
+    }
+  });
+});
+
+</script>

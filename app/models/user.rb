@@ -11,8 +11,8 @@ class User < ApplicationRecord
 
   def food_restrictions
     restrictions = []
-    restrictions + common_allergens if common_allergens.present?
-    restrictions + other_ingredients if other_ingredients.present?
+    restrictions += common_allergens if common_allergens.any?
+    restrictions += other_ingredients if other_ingredients.any?
     restrictions
   end
 end
