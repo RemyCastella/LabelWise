@@ -21,7 +21,9 @@ User.create!({
   password: "123123",
   first_name: "Arnold",
   last_name: "Dijkhuizen",
-  vegan: true
+  vegetarian: true,
+  calories: 3000,
+  common_allergens: ["Nut"]
 })
 
 puts "...created #{User.first.first_name}'s profile"
