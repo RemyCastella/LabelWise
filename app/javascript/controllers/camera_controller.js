@@ -10,19 +10,21 @@ export default class extends Controller {
 
   send() {
     Swal.fire({
-      title: "Processing your image!",
-      width: 600,
-      padding: "3em",
+      title: "Processing your scan!",
       color: "#16a34a",
       background: "#fff url(/images/trees.png)",
       backdrop: `
       rgba(22, 163, 74, 0.5)
         url("${this.nyanPathValue}")
-        left top
+        center top
         no-repeat
       `,
       showConfirmButton: false,
-      allowOutsideClick: false
+      allowOutsideClick: false,
+      customClass: {
+        title: 'custom-title',
+        popup: 'custom-popup'
+      }
     });
     this.element.submit()
   }

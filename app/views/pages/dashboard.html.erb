@@ -183,11 +183,13 @@
                   class: "rounded-4",
                   style: "object-fit: scale-down;" %>
         </div>
-        <div class="card-product-infos">
-          <h6 class="fw-bold mb-1 text-truncate"><%= scan.food.name %></h6>
-          <p class="text-muted small mb-1">🔥 <strong><%= scan.food.calories %></strong> kcal</p>
-          <p class="text-muted small">🥩 <%= scan.food.protein %>g | 🍞 <%= scan.food.carbohydrates %>g | 🥑 <%= scan.food.fat %>g</p>
-        </div>
+        <% if scan.food %>
+          <div class="card-product-infos">
+            <h6 class="fw-bold mb-1 text-truncate"><%= scan.food.name %></h6>
+            <p class="text-muted small mb-1">🔥 <strong><%= scan.food.calories %></strong> kcal</p>
+            <p class="text-muted small">🥩 <%= scan.food.protein %>g | 🍞 <%= scan.food.carbohydrates %>g | 🥑 <%= scan.food.fat %>g</p>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
