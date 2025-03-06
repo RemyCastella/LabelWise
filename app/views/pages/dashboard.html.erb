@@ -4,9 +4,9 @@
   <div class="mt-2">
     <div class=" px-3" >
       <div class="btn-group d-flex justify-content-center " data-controller="tab-switch" role="group" aria-label="Basic radio toggle button group">
-        <%= link_to "This week", root_path(tab: "this_week"), class: "#{"active" if @tab == "this_week"} btn btn-outline-primary w-100", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
         <%= link_to "Yesterday", root_path(tab: "yesterday"), class: "#{"active" if @tab == "yesterday"} btn btn-outline-primary w-100" , data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
         <%= link_to "Today", root_path(tab: "today"), class: "#{"active" if @tab == "today" || @tab.nil? } btn btn-outline-primary w-100", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+        <%= link_to "This week", root_path(tab: "this_week"), class: "#{"active" if @tab == "this_week"} btn btn-outline-primary w-100", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
       </div>
       <div id="section1" data-tab-switcher-target="section">
         <div class="chart-container pt-3" style="position: relative; overflow:auto;">
@@ -36,14 +36,40 @@
                   },
                   y: {
                     # beginAtZero: true,
-                    max: @user.calories,
+                    max: @user.calories + @user.calories * 0.5,
                     ticks: {
                       stepSize: @user.calories / 100,
                       precision: 0,
                       count: 6
                     }
                   }
+                },
+
+
+                plugins: {
+                  annotation: {
+                    annotations: {
+                      line1: {
+                        type: 'line',
+                        yMin: 2500,
+                        yMax: 2500,
+                        borderColor: 'red',
+                        borderWidth: 2,
+                        label: {
+                          content: 'Calorie Goal',
+                          enabled: true,
+                          position: 'start',
+                          backgroundColor: 'red',
+                          color: 'white',
+                          padding: 4
+                        }
+                      }
+                    }
+                  }
                 }
+
+
+
               }
             %>
             <div class="macro-group">
@@ -110,51 +136,51 @@
                 }
               }
             %>
-            <div class="chart-text fw-semibold d-flex flex-column" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
-              <div class="fs-1"><%= @total_cal %> kcal</div>
-              <div class="text-secondary align-self-center">/<%= @user.calories || 0 %> kcal</div>
-            </div>
-          <% end %>
-        </div>
-        <div class="macro-group">
-          <div class='d-flex justify-content-between'>
-            <p class="fs-6 fw-semibold">Protein</p>
-            <p class="fs-6"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein %>g</p>
-          </div>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                role="progressbar"
-                style="width: <%= @total_nutrition[:protein] / (@user.protein * 4) * 100 %>%"
-                aria-valuenow="<%= @total_nutrition[:protein] %>"
-                aria-valuemin="0"
-                aria-valuemax="<%= @user.protein %>">
-            </div>
+          <div class="chart-text fw-semibold d-flex flex-column" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 18px; color: black;">
+            <div class="fs-1"><%= @total_cal %> kcal</div>
+            <div class="text-secondary align-self-center">/<%= @user.calories || 0 %> kcal</div>
           </div>
         </div>
-        <div class="macro-group">
-          <div class='d-flex justify-content-between'>
-            <p class="fs-6 fw-semibold">Fat</p>
-            <p class="fs-6"><%= @total_nutrition[:fat] / 9 %>g / <%= @user.fat %>g</p>
-          </div>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                role="progressbar"
-                style="width: <%= @total_nutrition[:fat] / (@user.fat * 9) * 100 %>%">
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Protein</p>
+              <p class="fs-6"><%= @total_nutrition[:protein] / 4 %>g / <%= @user.protein %>g</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                  role="progressbar"
+                  style="width: <%= @total_nutrition[:protein] / (@user.protein * 4) * 100 %>%"
+                  aria-valuenow="<%= @total_nutrition[:protein] %>"
+                  aria-valuemin="0"
+                  aria-valuemax="<%= @user.protein %>">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="macro-group">
-          <div class='d-flex justify-content-between'>
-            <p class="fs-6 fw-semibold">Carbs</p>
-            <p class="fs-6"><%= @total_nutrition[:carbohydrates] / 4 %>g / <%= @user.carbohydrates %>g</p>
-          </div>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                role="progressbar"
-                style="width: <%= @total_nutrition[:carbohydrates] / (@user.carbohydrates * 4) * 100 %>%">
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Fat</p>
+              <p class="fs-6"><%= @total_nutrition[:fat] / 9 %>g / <%= @user.fat %>g</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                  role="progressbar"
+                  style="width: <%= @total_nutrition[:fat] / (@user.fat * 9) * 100 %>%">
+              </div>
             </div>
           </div>
-        </div>
+          <div class="macro-group">
+            <div class='d-flex justify-content-between'>
+              <p class="fs-6 fw-semibold">Carbs</p>
+              <p class="fs-6"><%= @total_nutrition[:carbohydrates] / 4 %>g / <%= @user.carbohydrates %>g</p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                  role="progressbar"
+                  style="width: <%= @total_nutrition[:carbohydrates] / (@user.carbohydrates * 4) * 100 %>%">
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
       <div class="cards-container mt-3">
         <H2>Recent Scans</H2>
@@ -163,9 +189,7 @@
 
             <div class="col card-product d-flex align-item-center p-3">
               <%= link_to "", scan_path(scan) %>
-              <%# <div class="card shadow-lg border-0 rounded-4 d-flex flex-row align-items-center p-2 mb-3"> %>
 
-                  <%# <div class="position-relative" style="flex: 0 0 120px;"> %>
               <div class="img">
                 <%= cl_image_tag scan.photo.key,
                   alt: "Scan Image",
@@ -173,16 +197,12 @@
                   style: "width: 100px; height: 100px; object-fit: scale-down;" %>
               </div>
 
-              <%# <div class="card-body d-flex flex-column justify-content-center ms-3"> %>
               <div class="card-product-infos">
                 <h6 class="fw-bold mb-1 text-truncate"><%= scan.food.name %></h6>
                 <p class="text-muted small mb-1">🔥 <strong><%= scan.food.calories %></strong> kcal</p>
                 <p class="text-muted small">🥩 <%= scan.food.protein %>g | 🍞 <%= scan.food.carbohydrates %>g | 🥑 <%= scan.food.fat %>g</p>
-
               </div>
-
             </div>
-
           <% end %>
         </div>
       </div>
