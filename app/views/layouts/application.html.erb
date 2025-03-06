@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LabelWise</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= meta_title %></title>
+    <meta name="description" content="<%= meta_description %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
@@ -13,7 +13,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
     <%= render 'shared/ios_pwa_links' %>
-
     <style>
       .profile-avatar {
         position: absolute;
@@ -37,17 +36,14 @@
       <%= link_to root_path do %>
         <%= image_tag "logo.png", alt: "LabelWise Logo", class: "logo" %>
       <% end %>
-
       <div class="profile-avatar">
         <%= link_to profile_path do %>
           <%= image_tag "Foto_Self_Disney.jpg", alt: "User Avatar", class: "avatar" %>
         <% end %>
       </div>
     </header>
-
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-
     <div class="p-2">
       <%= yield %>
     </div>
