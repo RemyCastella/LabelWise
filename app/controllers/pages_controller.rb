@@ -1,4 +1,8 @@
 class PagesController < ApplicationController
+
+  def landing
+  end
+
   def dashboard
     @tab = params[:tab]
     @user = current_user
