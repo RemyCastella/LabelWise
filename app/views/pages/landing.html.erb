@@ -1,1 +1,23 @@
-<h1>Landing page</h1>
+<div class="hero container">
+  <nav>
+    <%= link_to "About",  "#about" %>
+    <%= link_to "Scan",  "#scan" %>
+    <%= link_to "See",  "#see" %>
+    <%= link_to "Eat",  "#eat" %>
+  </nav>
+  <h1 class="text-center fs-1">Know what you eat<br>
+    quickly, in any language</h1>
+  <%= link_to "Get started", new_user_session_path, class: "btn btn-primary text-white"%>
+</div>
+<section id="about">
+  <h2>About</h2>
+</section>
+<section id="scan">
+  <h2>Scan</h2>
+</section>
+<section id="see">
+  <h2>See</h2>
+</section>
+<section id="eat">
+  <h2>Eat</h2>
+</section>

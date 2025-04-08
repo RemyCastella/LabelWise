@@ -15,14 +15,14 @@
 // Mapbox
 @import url("https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .logo {
   width: 72px;
   height: auto;
   display: block;
 }
-
-body {
-  padding-bottom: 80px;
-}
-
-
