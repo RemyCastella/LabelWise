@@ -1,12 +1,43 @@
 .hero {
-  height: 100vh;
+  height: 80vh;
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
   image-url('grocery-scanner.jpg');
+  background-position: center;
+  background-size: cover;
   color: white;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+.hero {
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+  }
+}
+
+.hero {
+  div {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.hero {
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  a:hover,
+  a:active {
+    color: #16a34a;
+  }
 }
