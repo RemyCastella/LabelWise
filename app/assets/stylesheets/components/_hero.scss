@@ -9,13 +9,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .hero {
   h1 {
     text-align: center;
     font-size: 2.5rem;
+  }
+
+  .word-wrapper {
+    border-bottom: 8px solid #16a34a;
+    display: inline-block;
+    text-align: center;
+    transition: all .3s ease-in-out;
   }
 }
 
