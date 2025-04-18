@@ -1,15 +1,14 @@
 <div class="hero">
   <nav class="align-self-end p-2 d-flex gap-2">
-    <%= link_to "About",  "#about" %>
-    <%= link_to "Scan",  "#scan" %>
-    <%= link_to "See",  "#see" %>
-    <%= link_to "Eat",  "#eat" %>
+    <%= link_to "Scan",  "#scan", class: "fs-3"%>
+    <%= link_to "See",  "#see", class: "fs-3"%>
+    <%= link_to "Eat",  "#eat", class: "fs-3"%>
   </nav>
   <div>
     <h1>Know what you eat <br>
- <span class="word-wrapper"
+      <span class="word-wrapper"
     data-controller="shuffle" data-shuffle-target="word"></span></h1>
-    <%= link_to "Get started", new_user_session_path, class: "btn btn-primary text-white"%>
+    <%= link_to "Get started", new_user_session_path, class: "btn btn-primary btn-lg text-white"%>
   </div>
 </div>
 <section id="about">
