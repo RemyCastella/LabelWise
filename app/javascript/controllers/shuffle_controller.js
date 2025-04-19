@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   connect() {
     console.log(this.element);
-    this.words = ["quickly.", "in any language.", "wherever you are."]
+    this.words = ["quickly.", "in any language."]
     this.interval = 3000
     this.index = 0
     this.element.textContent = this.words[this.index]
