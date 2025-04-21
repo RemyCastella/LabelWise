@@ -1,46 +1,17 @@
 <div class="p-2">
   <h2>Sign up</h2>
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { controller: "form-steps" } }) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= f.error_notification %>
-    <div data-form-steps-target="step" data-step="1">
-      <%= f.input :email,
+    <%= f.input :email,
                   required: true,
                   autofocus: true,
                   input_html: { autocomplete: "email" }%>
-      <%= f.input :password,
+    <%= f.input :password,
                   required: true,
                   hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                   input_html: { autocomplete: "new-password" } %>
-      <button type="button" data-action="click->form-steps#next" data-next-step="2">Next</button>
-    </div>
-    <div data-form-steps-target="step" data-step="2" class="hidden">
-      <%= f.input :first_name,
-                  required: true %>
-      <%= f.input :last_name,
-                  required: true %>
-      <%= f.input :gender,
-                  required: true %>
-      <%= f.input :age,
-                  required: true %>
-      <button type="button" data-action="click->form-steps#previous" data-prev-step="1">Back</button>
-      <button type="button" data-action="click->form-steps#next" data-next-step="3">Next</button>
-    </div>
-    <div data-form-steps-target="step" data-step="3" class="hidden">
-      <%= f.input :vegetarian %>
-      <%= f.input :vegan %>
-      <%= f.input :keto %>
-      <%= f.input :high_protein %>
-      <%= f.input :pork %>
-      <%= f.input :beef %>
-      <%= f.input :gluten %>
-      <%= f.input :lactose %>
-      <%= f.input :low_sodium %>
-      <%= f.input :low_fat %>
-      <%= f.input :low_carbs %>
-      <button type="botton" data-action="click->form-steps#previous" data-prev-step="2">Back</button>
-    </div>
     <div class="form-actions">
-      <%= f.button :submit, "Sign up" %>
+      <%= f.button :submit, "Sign up", class: "btn btn-primary text-white"%>
     </div>
   <% end %>
   <%= render "devise/shared/links" %>
