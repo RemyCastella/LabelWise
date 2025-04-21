@@ -1,20 +1,22 @@
 <div class="hero">
-  <nav class="align-self-end p-3 d-flex gap-2">
-    <%= link_to "Scan",  "#scan", class: "fs-5"%>
-    <%= link_to "See",  "#see", class: "fs-5"%>
-    <%= link_to "Eat",  "#eat", class: "fs-5"%>
-  </nav>
-  <div>
-    <h1>Know<br>
-      what you<br>
-      eat
-    </h1>
-    <h2 class="word-wrapper"
-    data-controller="shuffle" data-shuffle-target="word"></h2>
-    <%= link_to "Get started", new_user_session_path, class: "d-inline-block btn btn-primary btn-lg text-white mt-4"%>
+  <div class="content">
+    <nav class="align-self-end p-3 d-flex gap-2">
+      <%= link_to "Scan",  "#scan", class: "fs-5"%>
+      <%= link_to "See",  "#see", class: "fs-5"%>
+      <%= link_to "Eat",  "#eat", class: "fs-5"%>
+    </nav>
+    <div>
+      <h1>Know<br>
+        what you<br>
+        eat
+      </h1>
+      <h2 class="word-wrapper"
+      data-controller="shuffle" data-shuffle-target="word"></h2>
+      <%= link_to "Get started", new_user_session_path, class: "d-inline-block btn btn-primary btn-lg text-white mt-4"%>
+    </div>
   </div>
 </div>
-<div class="d-flex flex-column gap-2 p-2">
+<div class="content">
   <section id="scan">
     <h2>📸 Scan</h2>
     <%= image_tag "labelwise_scan.jpg", alt: "scanning", class: "w-100 rounded"%>
