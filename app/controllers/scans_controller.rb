@@ -16,7 +16,7 @@ class ScansController < ApplicationController
     if @scan.save
       redirect_to @scan
     else
-      redirect_to root_path, notice: "scan failed"
+      redirect_to dashboard_path, notice: "scan failed"
     end
   end
 

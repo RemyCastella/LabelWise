@@ -1,9 +1,9 @@
 <!-- Container for Stats Section -->
 <div class="container d-flex flex-column align-items-center px-3">
   <div class="btn-group" data-controller="tab-switch" role="group" aria-label="Basic radio toggle button group">
-    <%= link_to "Yesterday", root_path(tab: "yesterday"), class: "#{"active" if @tab == "yesterday"} btn btn-outline-primary" , data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
-    <%= link_to "Today", root_path(tab: "today"), class: "#{"active" if @tab == "today" || @tab.nil? } btn btn-outline-primary", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
-    <%= link_to "This week", root_path(tab: "this_week"), class: "#{"active" if @tab == "this_week"} btn btn-outline-primary", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+    <%= link_to "Yesterday", dashboard_path(tab: "yesterday"), class: "#{"active" if @tab == "yesterday"} btn btn-outline-primary" , data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+    <%= link_to "Today", dashboard_path(tab: "today"), class: "#{"active" if @tab == "today" || @tab.nil? } btn btn-outline-primary", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
+    <%= link_to "This week", dashboard_path(tab: "this_week"), class: "#{"active" if @tab == "this_week"} btn btn-outline-primary", data: { action: "click->tabSwitch#show", tab_switcher_target: "tab" } %>
   </div>
   <div data-tab-switcher-target="section">
     <div class="chart-container mt-5 position-relative">

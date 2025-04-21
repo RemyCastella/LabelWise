@@ -5,7 +5,7 @@ class PortionsController < ApplicationController
     @portion.user = current_user
     @portion.food = Scan.find(params[:scan_id]).food
     if @portion.save
-      redirect_to root_path
+      redirect_to dashboard_path
     else
       render :new, status: unprocessable_entity
     end
