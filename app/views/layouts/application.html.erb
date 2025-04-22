@@ -29,7 +29,7 @@
       </header>
     <% end %>
     <%= render "shared/flashes" %>
-    <main><%= yield %></main>
+    <%= yield %>
     <% if current_user %>
       <%= render "shared/navbar" %>
     <% end %>

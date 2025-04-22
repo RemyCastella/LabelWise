@@ -1,9 +1,7 @@
-<div class="container mt-4">
+<main class="container mt-4">
   <h2 class="text-center mb-4 fw-bold">Profile Settings</h2>
-
   <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
     <div class="accordion" id="profileSettingsAccordion">
-
       <!-- Dietary Preferences & Allergens -->
       <div class="accordion-item">
         <h2 class="accordion-header">
@@ -23,19 +21,16 @@
                 </div>
               <% end %>
             </div>
-
             <h4 class="fw-bold">Common Allergens to Avoid</h4>
             <%= f.select :common_allergens,
                 ["Peanut", "Nut", "Dairy", "Egg", "Fish", "Shellfish", "Soy", "Wheat", "Sesame"],
                 {},
                 { multiple: true, class: "form-select", name: "user[common_allergens][]", id: "common-allergens-select" } %>
-
             <%= f.label :other_ingredients, "Other Allergens", class: "form-label fw-bold mt-3" %>
             <%= f.text_field :other_ingredients, class: "form-control", placeholder: "Enter other allergens" %>
           </div>
         </div>
       </div>
-
       <!-- Daily Intake Limits -->
       <div class="accordion-item">
         <h2 class="accordion-header">
@@ -80,7 +75,6 @@
           </div>
         </div>
       </div>
-
       <!-- Personal Information -->
       <div class="accordion-item">
         <h2 class="accordion-header">
@@ -108,46 +102,42 @@
         </div>
       </div>
     </div>
-
     <!-- Submit Button -->
     <div class="text-center mt-4">
       <%= f.submit "Update Preferences", class: "btn btn-dark  rounded-2 w-30" %>
     </div>
   <% end %>
-
   <!-- Log Out Button -->
   <div class="d-flex justify-content-center mt-2 mb-5">
     <%= form_with url: destroy_user_session_path, method: :delete do %>
       <button class="btn btn-white w-100 logout-btn">Sign Out</button>
     <% end %>
   </div>
-</div>
-
+</main>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  let select = new TomSelect("#common-allergens-select", {
-    plugins: ['remove_button'],
-    persist: false,
-    create: false,
-    placeholder: "Select allergens to avoid",
-    onInitialize: function() {
-      if (this.getValue().length > 0) {
-        this.settings.placeholder = '';
-        this.control_input.placeholder = '';
+  document.addEventListener("DOMContentLoaded", function() {
+    let select = new TomSelect("#common-allergens-select", {
+      plugins: ['remove_button'],
+      persist: false,
+      create: false,
+      placeholder: "Select allergens to avoid",
+      onInitialize: function() {
+        if (this.getValue().length > 0) {
+          this.settings.placeholder = '';
+          this.control_input.placeholder = '';
+        }
       }
-    }
-  });
+    });
 
-  // Listen for changes and update placeholder dynamically
-  select.on('change', function() {
-    if (select.getValue().length > 0) {
-      select.settings.placeholder = '';
-      select.control_input.placeholder = '';
-    } else {
-      select.settings.placeholder = "Select allergens to avoid";
-      select.control_input.placeholder = "Select allergens to avoid";
-    }
+    // Listen for changes and update placeholder dynamically
+    select.on('change', function() {
+      if (select.getValue().length > 0) {
+        select.settings.placeholder = '';
+        select.control_input.placeholder = '';
+      } else {
+        select.settings.placeholder = "Select allergens to avoid";
+        select.control_input.placeholder = "Select allergens to avoid";
+      }
+    });
   });
-});
-
 </script>
