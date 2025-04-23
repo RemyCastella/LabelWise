@@ -86,6 +86,7 @@ footer {
 }
 
 @media (min-width: 576px) {
+
   .content {
     flex-direction: row;
     gap: 1rem;
@@ -96,4 +97,23 @@ footer {
     min-width: 0;
   }
 
+}
+
+@media (min-width: 768px) {
+  .hero {
+    h1 {
+      font-size: 5rem;
+    }
+
+    .word-wrapper {
+      font-size: 4rem;
+    }
+
+  }
+
+  footer {
+    h2 {
+      font-size: 4rem;
+    }
+  }
 }
