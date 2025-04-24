@@ -7,6 +7,7 @@
 
 .card-product {
   overflow: hidden;
+  width: auto;
   height: 120px;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -38,7 +39,7 @@
 }
 
 .card-product .card-product-infos {
-  padding: 16px;
+  padding: 1rem;
 }
 
 .card-product a {
