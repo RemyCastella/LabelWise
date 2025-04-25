@@ -12,7 +12,11 @@
 }
 
 .hero > * {
-  max-width: 768px;
+  max-width: 996px;
+}
+
+a.btn {
+  align-self: center;
 }
 
 .hero {
@@ -101,14 +105,20 @@ footer {
 
 @media (min-width: 768px) {
   .hero {
+    height: auto;
+
     h1 {
-      font-size: 5rem;
+      font-size: 6rem;
     }
 
     .word-wrapper {
-      font-size: 4rem;
+      font-size: 5rem;
     }
 
+  }
+
+  p {
+    font-size: 2rem;
   }
 
   footer {
