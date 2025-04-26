@@ -11,13 +11,11 @@
   align-items: center;
 }
 
-.hero > * {
-  max-width: 996px;
-}
-
 a.btn {
   align-self: center;
 }
+
+
 
 .hero {
   h1 {
@@ -89,6 +87,11 @@ footer {
   }
 }
 
+.content {
+  max-width: 996px;
+}
+
+
 @media (min-width: 576px) {
 
   .content {
@@ -118,7 +121,7 @@ footer {
   }
 
   p {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   footer {
