@@ -1,4 +1,4 @@
-<main class="container mt-4 flex-column">
+<main class="container flex-column">
   <h2 class="text-center mb-4 fw-bold">Profile Settings</h2>
   <%= form_with model: @user, url: profile_path, html: { multipart: true }, method: :patch do |f| %>
     <div class="accordion" id="profileSettingsAccordion">
