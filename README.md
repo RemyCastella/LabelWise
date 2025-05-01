@@ -6,8 +6,8 @@ LabelWise is a full-stack Ruby on Rails application designed to help users quick
 
 **Live Application:** [**www.labelwise.online**](https://www.labelwise.online/)
 
-![Screenshot of Scan Result](docs/images/labelwise_see.png)
-![Screenshot of User Dashboard](docs/images/labelwise_eat.png)
+<img src="docs/images/labelwise_see.png" alt="Nutrition breakdown" width="600">
+<img src="docs/images/labelwise_eat.png" alt="Dietary breakdown" width="600">
 
 ## Table of Contents
 
