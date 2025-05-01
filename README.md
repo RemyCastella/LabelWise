@@ -17,9 +17,6 @@ LabelWise is a full-stack Ruby on Rails application designed to help users quick
 *   [Technology Stack](#technology-stack)
 *   [Setup Instructions](#setup-instructions)
 *   [Usage](#usage)
-*   [Contributing](#contributing)
-*   [License](#license)
-*   [Acknowledgements](#acknowledgements)
 
 ## The Problem
 
